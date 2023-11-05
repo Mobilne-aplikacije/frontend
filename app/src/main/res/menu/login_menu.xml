@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menuOrder"
+        android:title="Order ride"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menuHistory"
+        android:title="History"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menuAccount"
+        android:title="Account"
+        app:showAsAction="never" />
+
+
+    <item
+        android:id="@+id/menuMain"
+        android:title="Main screen"
+        app:showAsAction="never" />
+
+
+    <item
+        android:id="@+id/menuReservation"
+        android:title="Reservations"
+        app:showAsAction="never" />
+
+
+    <item
+        android:id="@+id/menuNotification"
+        android:title="Notifications"
+        app:showAsAction="never" />
+
+
+    <item
+        android:id="@+id/menuStatistic"
+        android:title="Reports"
+        app:showAsAction="never" />
+
+
+    <item
+        android:id="@+id/menuInbox"
+        android:title="Inbox"
+        app:showAsAction="never" />
+
+
+
+    <item
+        android:id="@+id/menuFav"
+        android:title="Favorites"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menuLogOut"
+        android:title="Log out"
+        app:showAsAction="never" />
+
+</menu>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PassengerMainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <!-- Add this, so AppBarLayout has a bug, which causes ViewPager not to show listview entirely on the screen
+        Adding this view fixes (workaround) the problem -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimary" />
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <!-- The main content view -->
+        <RelativeLayout
+            android:id="@+id/mainContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_marginTop="340dp"
+                android:text="@string/acceptance_ride"
+                android:textColor="#FFFFFF"
+                android:background="@color/teal_200"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="132dp"
+                tools:layout_editor_absoluteY="547dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            <Button
+                    android:id="@+id/button2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="390dp"
+                    android:text="@string/current_ride"
+                    android:textColor="#805D84"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="131dp"
+                    tools:layout_editor_absoluteY="611dp" />
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_marginTop="440dp"
+                android:text="Report"
+                android:textColor="#805D84"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="132dp"
+                tools:layout_editor_absoluteY="547dp" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_marginTop="490dp"
+                android:text="Statistics"
+                android:textColor="#805D84"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="132dp"
+                tools:layout_editor_absoluteY="547dp" />
+                <ToggleButton
+                    android:id="@+id/toggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="63dp"
+                    android:layout_marginTop="550dp"
+                    android:background="@color/teal_200"
+                    android:checked="true"
+                    android:text="ToggleButton"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginLeft="120dp"
+                    android:textOff="Offline"
+                    android:textOn="Online"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="18dp"
+                    tools:layout_editor_absoluteY="470dp" />
+
+            </RelativeLayout>
+
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</LinearLayout>
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    tools:context=".DriverMainActivity">-->
+
+
+<!--    <include-->
+<!--        android:id="@+id/toolbar"-->
+<!--        layout="@layout/toolbar" />-->
+
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/login_image"-->
+<!--            android:layout_width="600dp"-->
+<!--            android:layout_height="400dp"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:scaleType="fitXY"-->
+<!--            app:srcCompat="@drawable/login_image"-->
+<!--            tools:ignore="MissingConstraints"-->
+<!--            tools:layout_editor_absoluteX="-95dp"-->
+<!--            tools:layout_editor_absoluteY="56dp" />-->
+
+
+<!--        <Button-->
+<!--            android:id="@+id/button"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignWithParentIfMissing="false"-->
+<!--            android:layout_marginTop="440dp"-->
+<!--            android:text="@string/acceptance_ride"-->
+<!--            android:textColor="#805D84"-->
+<!--            tools:ignore="MissingConstraints"-->
+<!--            tools:layout_editor_absoluteX="132dp"-->
+<!--            tools:layout_editor_absoluteY="547dp" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/button2"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="500dp"-->
+<!--            android:text="@string/current_ride"-->
+<!--            android:textColor="#805D84"-->
+<!--            tools:ignore="MissingConstraints"-->
+<!--            tools:layout_editor_absoluteX="131dp"-->
+<!--            tools:layout_editor_absoluteY="611dp" />-->
+
+
+<!--        <ToggleButton-->
+<!--            android:id="@+id/toggleButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="63dp"-->
+<!--            android:layout_marginTop="600dp"-->
+<!--            android:background="#805D84"-->
+<!--            android:checked="true"-->
+<!--            android:text="ToggleButton"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:layout_marginLeft="120dp"-->
+<!--            android:textOff="Offline"-->
+<!--            android:textOn="Online"-->
+<!--            tools:ignore="MissingConstraints"-->
+<!--            tools:layout_editor_absoluteX="18dp"-->
+<!--            tools:layout_editor_absoluteY="470dp" />-->
+
+<!--    </RelativeLayout>-->
+
+<!--</RelativeLayout>-->

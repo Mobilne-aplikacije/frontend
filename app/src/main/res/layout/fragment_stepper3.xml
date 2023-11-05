@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".DTO.fragments.Stepper1Fragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="15dp">
+        <include
+            android:id="@+id/stepper"
+            layout="@layout/stepper3_layout"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="62dp"
+            android:layout_marginEnd="62dp"
+            android:layout_below="@id/stepper"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/fragmentStepper3VehicleTypeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="18dp"
+                android:hint="Select vehicle type">
+            </TextView>
+
+            <RadioGroup
+                android:id="@+id/fragmentStepper3VehicleTypeRG"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/fragmentStepper3StandardTypeRB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Standard"
+                    android:textSize="15sp" />
+
+                <RadioButton
+                    android:id="@+id/fragmentStepper3LuxuryTypeRB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Luxury"
+                    android:textSize="15sp" />
+
+                <RadioButton
+                    android:id="@+id/fragmentStepper3VanTypeRB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Van"
+                    android:textSize="15sp" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/fragmentStepper3PetTransportTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textSize="18dp"
+                android:hint="Select pet transport">
+            </TextView>
+
+            <RadioGroup
+                android:id="@+id/fragmentStepper3PetTransportRG"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/fragmentStepper3PetTransportYesRB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Yes"
+                    android:textSize="15sp" />
+
+                <RadioButton
+                    android:id="@+id/fragmentStepper3PetTransportNoRB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="No"
+                    android:textSize="15sp" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/fragmentStepper3BabyTransportTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textSize="18dp"
+                android:hint="Select baby transport">
+            </TextView>
+
+            <RadioGroup
+                android:id="@+id/fragmentStepper3BabyTransportRG"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/fragmentStepper3BabyTransportYesRB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Yes"
+                    android:textSize="15sp" />
+
+                <RadioButton
+                    android:id="@+id/fragmentStepper3BabyTransportNoRB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="No"
+                    android:textSize="15sp" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/fragmentStepper3NextBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="62dp"
+            android:layout_marginEnd="62dp"
+            android:layout_above="@+id/fragmentStepper3BackBtn"
+            android:text="Next" />
+
+        <Button
+            android:id="@+id/fragmentStepper3BackBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="62dp"
+            android:layout_marginEnd="62dp"
+            android:layout_alignParentBottom="true"
+            android:text="Back" />
+
+    </RelativeLayout>
+
+</FrameLayout>

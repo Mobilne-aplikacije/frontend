@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/stepper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/circle_one"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/stepper_green_circle" />
+
+        <View
+            android:id="@+id/line_one"
+            android:layout_width="76dp"
+            android:layout_height="3dp"
+            android:layout_marginTop="14dp"
+            android:layout_toEndOf="@+id/circle_one"
+            android:background="@android:color/holo_green_dark"
+            />
+
+        <ImageView
+            android:id="@+id/circle_two"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/stepper_gray_circle"
+            android:layout_toEndOf="@+id/line_one" />
+
+        <View
+            android:id="@+id/line_two"
+            android:layout_width="80dp"
+            android:layout_height="3dp"
+            android:layout_toEndOf="@+id/circle_two"
+            android:layout_marginTop="14dp"
+            android:background="@android:color/darker_gray"/>
+
+        <ImageView
+            android:id="@+id/circle_three"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_toEndOf="@+id/line_two"
+            android:src="@drawable/stepper_gray_circle" />
+
+        <View
+            android:id="@+id/line_three"
+            android:layout_width="76dp"
+            android:layout_height="3dp"
+            android:layout_toEndOf="@+id/circle_three"
+            android:layout_marginTop="14dp"
+            android:background="@android:color/darker_gray" />
+
+        <ImageView
+            android:id="@+id/circle_four"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/stepper_gray_circle"
+            android:layout_toEndOf="@+id/line_three" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/circle_one"
+            android:text="Path"
+            android:textColor="@android:color/holo_green_dark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/circle_two"
+            android:layout_toEndOf="@id/line_one"
+            android:text="Select"
+            android:textColor="@android:color/darker_gray" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/circle_three"
+            android:layout_toEndOf="@id/line_two"
+            android:text="Add"
+            android:textColor="@android:color/darker_gray" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/circle_four"
+            android:layout_toEndOf="@id/line_three"
+            android:text="Pay"
+            android:textColor="@android:color/darker_gray" />
+
+    </RelativeLayout>
