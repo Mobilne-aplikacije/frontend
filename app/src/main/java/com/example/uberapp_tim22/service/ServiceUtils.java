@@ -13,7 +13,7 @@ public class ServiceUtils {
    // public static final String SERVICE_API_PATH = "http://192.168.1.17:8084/api/";
 
     //Andrea 192.168.0.30
-    public static final String SERVICE_API_PATH = "http://192.168.0.30:8084/api/";
+    public static final String SERVICE_API_PATH = "http://192.168.0.31:8084/api/";
 
     //public static final String SERVICE_API_PATH = "http://192.168.55.189:8084/api/";
     //public static final String SERVICE_API_PATH = "http://192.168.1.12:8084/api/";
