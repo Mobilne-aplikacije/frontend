@@ -40,11 +40,11 @@ public class HostReservationScreen extends AppCompatActivity {
         int id = item.getItemId();
 
         if(id == R.id.item1){
-            Intent intent = new Intent(this, DriverAccountActivity.class);
+            Intent intent = new Intent(this, HostAccountActivity.class);
             startActivity(intent);
         }
         if(id == R.id.item6){
-            Intent intent = new Intent(this, AccomodationScreen.class);
+            Intent intent = new Intent(this, AccomodationHostActivity.class);
             startActivity(intent);
         }
         if(id == R.id.item7){
@@ -52,19 +52,11 @@ public class HostReservationScreen extends AppCompatActivity {
             startActivity(intent);
         }
         if(id == R.id.item8){
-            Intent intent = new Intent(this, NotificationDriverScreen.class);
-            startActivity(intent);
-        }
-        if(id == R.id.item2){
-            Intent intent = new Intent(this, DriverInboxActivity.class);
-            startActivity(intent);
-        }
-        if(id == R.id.item3){
-            Intent intent = new Intent(this, DriverRideHistory.class);
+            Intent intent = new Intent(this, NotificationHostScreen.class);
             startActivity(intent);
         }
         if(id == R.id.item4){
-            Intent intent = new Intent(this, DriverMainActivity.class);
+            Intent intent = new Intent(this, HostMainActivity.class);
             startActivity(intent);
         }
         if(id == R.id.item5){

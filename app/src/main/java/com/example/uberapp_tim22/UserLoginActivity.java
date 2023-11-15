@@ -20,21 +20,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.auth0.android.jwt.JWT;
-import com.example.uberapp_tim22.DTO.HopInMessageDTO;
-import com.example.uberapp_tim22.DTO.HopInMessageReturnedDTO;
 import com.example.uberapp_tim22.DTO.RequestLoginDTO;
-import com.example.uberapp_tim22.DTO.ResponseChatDTO;
 import com.example.uberapp_tim22.DTO.ResponseLoginDTO;
 import com.example.uberapp_tim22.DTO.TokenDTO;
 import com.example.uberapp_tim22.DTO.UserDTO;
 import com.example.uberapp_tim22.service.ServiceUtils;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -65,7 +55,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("FAB Car");
+        getSupportActionBar().setTitle("Booking");
 
         email = findViewById(R.id.emailLogIn);
         password = findViewById(R.id.passwordLogIn);
@@ -96,7 +86,7 @@ public class UserLoginActivity extends AppCompatActivity {
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserLoginActivity.this, PassengerRegisterActivity.class);
+                Intent intent = new Intent(UserLoginActivity.this, UserRegisterActivity.class);
                 startActivity(intent);
             }
         });
@@ -137,13 +127,13 @@ public class UserLoginActivity extends AppCompatActivity {
                     setPreferences(id, email, role, loginResponse);
                     setTokenPreference(loginResponse.getAccessToken(), loginResponse.getRefreshToken());
 //                    getMessages(2L, 5L);
-                    startActivity(new Intent(UserLoginActivity.this, PassengerMainActivity.class));
+                    startActivity(new Intent(UserLoginActivity.this, GuestMainActivity.class));
 
                 }
                 else if(role.equalsIgnoreCase("DRIVER")) {
                     setPreferences(id, email, role, loginResponse);
                     setTokenPreference(loginResponse.getAccessToken(), loginResponse.getRefreshToken());
-                    startActivity(new Intent(UserLoginActivity.this, DriverMainActivity.class));
+                    startActivity(new Intent(UserLoginActivity.this, HostMainActivity.class));
 
 //                    startActivity(new Intent(UserLoginActivity.this, DriverMainActivity.class));
 //                    startActivity(new Intent(UserLoginActivity.this, WebSocketActivity.class));
@@ -246,83 +236,7 @@ public class UserLoginActivity extends AppCompatActivity {
         });
     }
 
-    private void getMessages(Long myId, Long otherId) {
-        Call<List<ResponseChatDTO>> call = ServiceUtils.chatService.getChatsOfUser(myId);
-        call.enqueue(new Callback<List<ResponseChatDTO>>() {
 
-            @Override
-            public void onResponse(Call<List<ResponseChatDTO>> call, Response<List<ResponseChatDTO>> response){
-                if (response.body() != null) {
-                    List<ResponseChatDTO> responseChats = response.body();
-                    Log.i("List size", String.valueOf(responseChats.size()));
-
-                    ResponseChatDTO chat = new ResponseChatDTO();
-                    for(ResponseChatDTO responseChat: responseChats){
-                        if(otherId == responseChat.getOtherId()){
-                            chat = responseChat;
-                            Log.i("TRUE", "TRUE");
-                        }
-                    }
-
-                    Log.i("CHAT", chat.getOtherName());
-
-                    intent = new Intent(getApplicationContext(), PassengerMapActivity.class);
-                    intent.putExtra("responseChat", chat);
-                    intent.putExtra("myIdd", myId);
-                    intent.putExtra("otherIdd", otherId);
-                    intent.putExtra("rideIdd", 5L);
-                    startActivity(intent);
-                }
-                else {
-                    Log.d("MESS", "SENDING ERROR");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<ResponseChatDTO>> call, Throwable t) {
-                Log.d("EMAIL_REZ", t.getMessage() != null ? t.getMessage() : "error");
-            }
-        });
-    }
-
-    private void getMessagess(Long myId, Long otherId) {
-        Call<List<ResponseChatDTO>> call = ServiceUtils.chatService.getChatsOfUser(myId);
-        call.enqueue(new Callback<List<ResponseChatDTO>>() {
-
-            @Override
-            public void onResponse(Call<List<ResponseChatDTO>> call, Response<List<ResponseChatDTO>> response){
-                if (response.body() != null) {
-                    List<ResponseChatDTO> responseChats = response.body();
-                    Log.i("List size", String.valueOf(responseChats.size()));
-
-                    ResponseChatDTO chat = new ResponseChatDTO();
-                    for(ResponseChatDTO responseChat: responseChats){
-                        if(otherId == responseChat.getOtherId()){
-                            chat = responseChat;
-                            Log.i("TRUE", "TRUE");
-                        }
-                    }
-
-                    Log.i("CHAT", chat.getOtherName());
-
-                    intent = new Intent(getApplicationContext(), ChatActivity.class);
-                    intent.putExtra("responseChat", chat);
-                    intent.putExtra("myIdd", myId);
-                    intent.putExtra("otherIdd", otherId);
-                    intent.putExtra("rideIdd", 5L);
-                    startActivity(intent);
-                }
-                else {
-                    Log.d("MESS", "SENDING ERROR");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<ResponseChatDTO>> call, Throwable t) {
-                Log.d("EMAIL_REZ", t.getMessage() != null ? t.getMessage() : "error");
-            }
-        });
-    }
 
     @Override
     protected void onStart() {

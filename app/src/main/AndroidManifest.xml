@@ -35,32 +35,15 @@
             android:name=".AccomodationHostActivity"
             android:exported="false" />
         <activity
-            android:name=".AccomodationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".NotificationDriverScreen"
+            android:name=".AccomodationGuestActivity"
             android:exported="false" />
         <activity
             android:name=".HostReservationScreen"
             android:exported="false" />
         <activity
-            android:name=".AccomodationScreen"
-            android:exported="false" />
-        <activity
-            android:name=".AccomodationDetailScreen"
-            android:exported="false" />
-        <activity
-            android:name=".NotificationScreen"
-            android:exported="false" />
-        <activity
             android:name=".GuestReservationScreen"
             android:exported="false" />
-        <activity
-            android:name=".DriverStatisticsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DriverReportsActivity"
-            android:exported="false" /> <!-- ako je verzija starija od 8.3 -->
+
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
@@ -78,107 +61,28 @@
         <!-- android:value="" -->
         <!-- </meta-data> -->
         <activity
-            android:name=".PassengerReportsActivity"
+            android:name=".HostAccountActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:exported="false"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".PassengerFavoriteRides"
+            android:name=".UserRegisterActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".CurrentRideDriver"
+            android:name=".GuestAccountActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".CurrentRidePassenger"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".ChatActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".AcceptanceRide"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".PassangerRideHistory"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".DriverAccountActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".DriverInboxActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".DriverRideHistory"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".PassengerInboxActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".PassengerRegisterActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".PassengerAccountActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".DriverMainActivity"
+            android:name=".HostMainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -192,21 +96,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".PassengerMapActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".BroadcastActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".PassengerMainActivity"
+            android:name=".GuestMainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

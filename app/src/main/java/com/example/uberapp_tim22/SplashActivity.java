@@ -33,7 +33,7 @@ public class SplashActivity extends AppCompatActivity {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this, AccomodationActivity.class));
+                startActivity(new Intent(SplashActivity.this, UserLoginActivity.class));
                 finish();
             }
         }, SPLASH_TIME_OUT);

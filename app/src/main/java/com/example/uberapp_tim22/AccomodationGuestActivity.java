@@ -12,13 +12,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class GuestReservationScreen extends AppCompatActivity {
+public class AccomodationGuestActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guest_reservation_screen);
+        setContentView(R.layout.activity_accomodation_guest);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -81,11 +81,6 @@ public class GuestReservationScreen extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
-        if (itemId == R.id.menuNotification) {
-            Intent intent = new Intent(this, NotificationGuestScreen.class);
-            startActivity(intent);
-            return true;
-        }
 
         if (itemId == R.id.menuReservation) {
             Intent intent = new Intent(this, GuestReservationScreen.class);
@@ -94,6 +89,11 @@ public class GuestReservationScreen extends AppCompatActivity {
         }
 
 
+        if (itemId == R.id.menuNotification) {
+            Intent intent = new Intent(this, NotificationHostScreen.class);
+            startActivity(intent);
+            return true;
+        }
 
         if (itemId == R.id.menuLogOut) {
             deletePreferences();
@@ -111,4 +111,5 @@ public class GuestReservationScreen extends AppCompatActivity {
         SharedPreferences.Editor spEditor = sharedPreferences.edit();
         spEditor.clear().commit();
     }
+
 }

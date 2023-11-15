@@ -11,13 +11,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class AccomodationHostActivity extends AppCompatActivity {
+public class NotificationHostScreen extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_accomodation_host);
+        setContentView(R.layout.activity_notification_host_screen);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -25,9 +25,8 @@ public class AccomodationHostActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
         Long myId = sharedPreferences.getLong("pref_id", 0);
-
-
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -36,7 +35,7 @@ public class AccomodationHostActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if(id == R.id.item1){
@@ -75,24 +74,26 @@ public class AccomodationHostActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(this, "onResume()",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "onResume()", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Toast.makeText(this, "onPause()",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "onPause()", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Toast.makeText(this, "onStop()",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "onStop()", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Toast.makeText(this, "onDestroy()",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "onDestroy()", Toast.LENGTH_SHORT).show();
     }
+
+
 }

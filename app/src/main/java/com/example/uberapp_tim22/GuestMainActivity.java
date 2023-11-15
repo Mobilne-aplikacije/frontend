@@ -3,6 +3,8 @@ package com.example.uberapp_tim22;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,51 +14,48 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class GuestReservationScreen extends AppCompatActivity {
-    private SharedPreferences sharedPreferences;
+import com.example.uberapp_tim22.DTO.NewLocationDTO;
+import com.example.uberapp_tim22.DTO.NewLocationWithAddressDTO;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class GuestMainActivity extends AppCompatActivity {
+
+    private List<String> teamList = new ArrayList<>();
+    private List<NewLocationDTO> locations = new ArrayList<>();
+    private NewLocationWithAddressDTO departure = new NewLocationWithAddressDTO();
+    private NewLocationWithAddressDTO destination = new NewLocationWithAddressDTO();
+    private NewLocationDTO location = new NewLocationDTO();
+    private Long myId;
+    private FragmentManager fm = getSupportFragmentManager();
+    private FragmentTransaction fragmentTransition = fm.beginTransaction();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guest_reservation_screen);
+        setContentView(R.layout.activity_guest_main);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Booking");
 
-        sharedPreferences = getSharedPreferences("preferences", MODE_PRIVATE);
-        Long myId = sharedPreferences.getLong("pref_id", 0);
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        String myEmail = sharedPreferences.getString("pref_email", "");
+        myId = sharedPreferences.getLong("pref_id", 0L);
 
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Toast.makeText(this, "onStart()", Toast.LENGTH_SHORT).show();
+        teamList.add("Team");
+        teamList.add("India");
+        teamList.add("Australia");
+        teamList.add("England");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         Toast.makeText(this, "onResume()",Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Toast.makeText(this, "onPause()",Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Toast.makeText(this, "onStop()",Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Toast.makeText(this, "onDestroy()",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -93,8 +92,6 @@ public class GuestReservationScreen extends AppCompatActivity {
             return true;
         }
 
-
-
         if (itemId == R.id.menuLogOut) {
             deletePreferences();
             Intent intent = new Intent(this, UserLoginActivity.class);
@@ -111,4 +108,5 @@ public class GuestReservationScreen extends AppCompatActivity {
         SharedPreferences.Editor spEditor = sharedPreferences.edit();
         spEditor.clear().commit();
     }
+
 }
