@@ -32,6 +32,12 @@
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".AccomodationHostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AccomodationActivity"
+            android:exported="false" />
+        <activity
             android:name=".NotificationDriverScreen"
             android:exported="false" />
         <activity

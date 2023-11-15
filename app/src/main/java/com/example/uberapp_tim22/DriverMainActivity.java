@@ -46,85 +46,12 @@ public class DriverMainActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("FAB Car");
+        getSupportActionBar().setTitle("Booking");
 
         FragmentTransition.to(MapFragment.newInstance(), this, false);
 
-        acceptanceRide = findViewById(R.id.button);
-        currentRide = findViewById(R.id.button2);
-        online = findViewById(R.id.toggleButton);
-        report = findViewById(R.id.button3);
-        statistics = findViewById(R.id.button4);
 
-        acceptanceRide.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DriverMainActivity.this, AcceptanceRide.class);
-                startActivity(intent);
-            }
-        });
-
-        report.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DriverMainActivity.this, DriverReportsActivity.class);
-                startActivity(intent);
-            }
-        });
-        statistics.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DriverMainActivity.this, DriverStatisticsActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        online.setOnClickListener(new View.OnClickListener() {
-
-
-            @Override
-            public void onClick(View view) {
-                DriverActivityDTO driverActivityDTO = new DriverActivityDTO();
-                if (online.getText()=="Online"){
-                    Toast.makeText(DriverMainActivity.this, "You are offline now", Toast.LENGTH_SHORT).show();
-
-                    driverActivityDTO.setActive(false);}
-                else{
-                    Toast.makeText(DriverMainActivity.this, "You are offline now", Toast.LENGTH_SHORT).show();
-                    driverActivityDTO.setActive(true);
-                }
-                Call<String> call = ServiceUtils.driverService.changeActivity("5",driverActivityDTO);
-
-                call.enqueue(new Callback<String>() {
-                    @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
-                        if (response.isSuccessful()) {
-                            String active = response.body();
-                            Log.i("aktivan", active);
-                        } else {
-                            onFailure(call, new Throwable("API call failed with status code: " + response.code()));
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-                        Log.e("DriverMainActivityy", "API call failed: " + t.getMessage());
-                          }
-
-
-                });
-            }
-        });
-
-        currentRide.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DriverMainActivity.this, CurrentRideDriver.class);
-                startActivity(intent);
-            }
-        });
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
