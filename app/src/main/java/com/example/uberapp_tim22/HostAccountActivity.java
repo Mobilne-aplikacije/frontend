@@ -53,7 +53,6 @@ public class HostAccountActivity extends AppCompatActivity {
         editNumber = findViewById(R.id.editTextTextPersonName5);
         editAddress = findViewById(R.id.editTextTextPersonName6);
         editEmail = findViewById(R.id.editTextTextPersonName77);
-        editCarType = findViewById(R.id.editTextTextPersonName7);
         saveBtn = findViewById(R.id.button9);
         changeBtn = findViewById(R.id.button10);
 
