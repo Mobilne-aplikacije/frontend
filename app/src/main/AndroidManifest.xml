@@ -41,6 +41,12 @@
             android:name=".HostReservationScreen"
             android:exported="false" />
         <activity
+            android:name=".NotificationGuestScreen"
+            android:exported="false" />
+        <activity
+            android:name=".NotificationHostScreen"
+            android:exported="false" />
+        <activity
             android:name=".GuestReservationScreen"
             android:exported="false" />
 
