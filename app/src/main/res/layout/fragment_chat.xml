@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="62dp"
+            android:layout_marginEnd="62dp"
+            android:orientation="vertical">
+
+
+            <!--            <com.google.android.material.textfield.TextInputLayout-->
+            <!--                android:id="@+id/departureAddressTextField"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="10dp"-->
+            <!--                android:hint="Departure address">-->
+
+            <!--                <com.google.android.material.textfield.TextInputEditText-->
+            <!--                    android:id="@+id/departureAddressEditText"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content" />-->
+
+            <!--            </com.google.android.material.textfield.TextInputLayout>-->
+
+            <!--            <com.google.android.material.textfield.TextInputLayout-->
+            <!--                android:id="@+id/destinationAddressTextField"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="10dp"-->
+            <!--                android:hint="Destination address">-->
+
+            <!--                <com.google.android.material.textfield.TextInputEditText-->
+            <!--                    android:id="@+id/destinationAddressEditText"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content" />-->
+            <!--            </com.google.android.material.textfield.TextInputLayout>-->
+
+            <!--            <RelativeLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="10dp">-->
+
+            <!--                <Button-->
+            <!--                    android:id="@+id/fragmentStepper1TimeBtn"-->
+            <!--                    android:layout_width="100dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:enabled="false"-->
+            <!--                    android:onClick="popTimePicker"-->
+            <!--                    android:text="SELECT TIME"-->
+            <!--                    android:textSize="10dp"/>-->
+
+            <!--                <TextView-->
+            <!--                    android:id="@+id/fragmentStepper1TextView"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_centerVertical="true"-->
+            <!--                    android:layout_marginStart="0dp"-->
+            <!--                    android:layout_marginTop="0dp"-->
+            <!--                    android:layout_marginEnd="0dp"-->
+            <!--                    android:layout_marginBottom="0dp"-->
+            <!--                    android:layout_toEndOf="@id/fragmentStepper1TimeBtn"-->
+            <!--                    android:layout_toRightOf="@id/fragmentStepper1TimeBtn"-->
+            <!--                    android:layout_marginLeft="10dp"-->
+            <!--                    android:textColor="@android:color/holo_red_dark"/>-->
+            <!--            </RelativeLayout>-->
+
+            <!--            <RadioGroup-->
+            <!--                android:id="@+id/fragmentStepper1RG"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+
+            <!--                android:orientation="horizontal">-->
+
+            <!--                <RadioButton-->
+            <!--                    android:id="@+id/fragmentStepper1NowRB"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:checked="true"-->
+            <!--                    android:text="Now"-->
+            <!--                    android:textSize="15sp" />-->
+
+            <!--                <RadioButton-->
+            <!--                    android:id="@+id/fragmentStepper1ScheduleRB"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:checked="false"-->
+            <!--                    android:text="Schedule"-->
+            <!--                    android:textSize="15sp" />-->
+
+            <!--            </RadioGroup>-->
+
+            <Button
+                android:id="@+id/chatGetCoridnatesBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="buttonGetCoordinatesMap"
+                android:text="View ride"
+                android:textSize="10dp" />
+
+        </LinearLayout>
+
+        <!--        <Button-->
+<!--            android:id="@+id/fragmentStepper1NextBtn"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="62dp"-->
+<!--            android:layout_marginEnd="62dp"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:text="Next" />-->
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
