@@ -10,12 +10,16 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import project.roomeo.R;
+import project.roomeo.components.admin.AdminMainActivity;
+import project.roomeo.components.guest.GuestMainActivity;
+import project.roomeo.components.host.HostMainActivity;
+import project.roomeo.components.host.StepperFragment;
 import project.roomeo.tools.ReviewerTools;
 
 public class SplashActivity extends AppCompatActivity {
 
     public Timer timer = new Timer();
-    int SPLASH_TIME_OUT = 5000;
+    int SPLASH_TIME_OUT = 500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -27,8 +27,6 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
-
         TextView registerNowText = findViewById(R.id.registerNowText);
         SpannableString spannableString = new SpannableString("Don't have an account? Register now");
 
