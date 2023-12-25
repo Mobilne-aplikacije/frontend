@@ -1,7 +1,10 @@
 package project.roomeo.components.guest;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -24,12 +27,18 @@ public class GuestMainActivity extends AppCompatActivity implements BottomNaviga
     Fragment currentFragment;
 
     Integer id = 1;
+    private Long myId;
     BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest_main);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        String myEmail = sharedPreferences.getString("pref_email", "");
+        myId = sharedPreferences.getLong("pref_id", 0L);
+
         bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.bottom_navbar_home);
@@ -47,6 +56,7 @@ public class GuestMainActivity extends AppCompatActivity implements BottomNaviga
             public void onClick(View v) {
                 // Handle logout click here
                 // For example, navigate to the login activity
+                deletePreferences();
                 Intent intent = new Intent(GuestMainActivity.this, Login.class);
                 startActivity(intent);
                 finish(); // This finishes the current activity, preventing the user from coming back to it using the back button
@@ -80,5 +90,10 @@ public class GuestMainActivity extends AppCompatActivity implements BottomNaviga
 
     void loadFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.guest_content, fragment).commit();
+    }
+    private void deletePreferences(){
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor spEditor = sharedPreferences.edit();
+        spEditor.clear().commit();
     }
 }

@@ -34,9 +34,13 @@ public class HostAccommodationFragment extends Fragment {
     //    private AccommodationRequestStatus status;
     public TextView hostName;
     public TextView hostLastname;
+    private boolean pending;
 
     public HostAccommodationFragment() {
-        // Required empty public constructor
+        this.pending = false;
+    }
+    public HostAccommodationFragment(boolean pending) {
+        this.pending = pending;
     }
 
     @Override
@@ -47,8 +51,11 @@ public class HostAccommodationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        return inflater.inflate(R.layout.fragment_host_accommodation, container, false);
+        if (pending){
+            return inflater.inflate(R.layout.fragment_host_pending_accommodation, container, false);
+        }else{
+            return inflater.inflate(R.layout.fragment_host_accommodation, container, false);
+        }
     }
 
     public void setAccommodationRequest(Accommodation request) {

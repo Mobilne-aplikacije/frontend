@@ -67,15 +67,17 @@ public class AccommodationViewHolder extends RecyclerView.ViewHolder {
         acceptButton = itemView.findViewById(R.id.accept);
         declineButton = itemView.findViewById(R.id.decline);
 
-        Call<Host> call = ServiceUtils.hostService.getHost("8");
+        Call<Host> call = ServiceUtils.hostService.getHost("4");
 
         call.enqueue(new Callback<Host>() {
             @Override
             public void onResponse(Call<Host> call, Response<Host> response) {
                 if (response.isSuccessful()) {
                     host = response.body();
-                    Log.e("Host", host.toString());
-                } else {
+                    hostName.setText(host.getFirstName());
+                    hostLastname.setText(host.getLastName());
+
+                    } else {
                     onFailure(call, new Throwable("API call failed with status code: " + response.code()));
                 }
             }
@@ -92,13 +94,6 @@ public class AccommodationViewHolder extends RecyclerView.ViewHolder {
 
     public void bindData(Accommodation item) {
         name.setText(item.getName());
-        if (host != null) {
-            hostName.setText(host.getFirstName());
-            hostLastname.setText(host.getLastName());
-        } else {
-            hostName.setText("N/A");
-            hostLastname.setText("N/A");
-        }
 
         description.setText(item.getDescription());
         location.setText(item.getLocation());

@@ -1,14 +1,21 @@
 package project.roomeo.components;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import project.roomeo.DTO.GuestDTO;
@@ -23,8 +30,7 @@ import retrofit2.Response;
 
 public class UserRegisterActivity extends AppCompatActivity {
 
-    Button loginBtn;
-    Button registerBtn;
+    TextView registerBtn;
     EditText firstNameTxt;
     EditText lastNameTxt;
     EditText emailTxt;
@@ -45,6 +51,26 @@ public class UserRegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_register);
+
+        TextView logInText = findViewById(R.id.logInText);
+        SpannableString spannableString = new SpannableString("Already have an account? Log in now");
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+                startActivity(new Intent(UserRegisterActivity.this, UserLoginActivity.class));
+            }
+
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setUnderlineText(true);
+                ds.setFakeBoldText(true);
+            }
+        };
+        spannableString.setSpan(clickableSpan, spannableString.length() - 11, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        logInText.setText(spannableString);
+        logInText.setMovementMethod(LinkMovementMethod.getInstance());
+
 
         registerBtn = findViewById(R.id.registerBtn);
 
@@ -79,7 +105,7 @@ public class UserRegisterActivity extends AppCompatActivity {
             RequestGuestDTO request = new RequestGuestDTO(firstName, lastName, profilePicture, phone, email, address, password);
             putPassenger(request);
         } else if (checkedId == R.id.host) {
-            RequestHostDTO request = new RequestHostDTO(firstName, lastName, profilePicture, email, phone, address, password);
+            RequestHostDTO request = new RequestHostDTO(firstName, lastName, profilePicture, phone, email, address, password);
             putDriver(request);
         }
     }

@@ -1,5 +1,7 @@
 package project.roomeo.components.host;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -27,6 +29,7 @@ public class HostPendingAccommodationsFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private AccommodationAdapter accommodationAdapter;
+    private Long myId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,9 +37,13 @@ public class HostPendingAccommodationsFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerView);
 
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        myId = sharedPreferences.getLong("pref_id", 0L);
 
         getAccommodationList();
+
 
         Button addAccommodation = view.findViewById(R.id.add_accommodation);
 
@@ -69,7 +76,7 @@ public class HostPendingAccommodationsFragment extends Fragment {
     }
 
     private void getAccommodationList() {
-        Call<List<Accommodation>> call = ServiceUtils.hostService.getHostAccommodations("8");
+        Call<List<Accommodation>> call = ServiceUtils.hostService.getHostAccommodations(myId.toString());
 
         call.enqueue(new Callback<List<Accommodation>>() {
             @Override
@@ -83,8 +90,12 @@ public class HostPendingAccommodationsFragment extends Fragment {
                                 listAccepted.add(list.get(i));
                             }
                         }
-                        accommodationAdapter = new AccommodationAdapter(listAccepted);
+//                        Bundle args = new Bundle();
+//                        args.putBoolean("showAlternateLayout", true);
+                        boolean pending = true;
+                        accommodationAdapter = new AccommodationAdapter(listAccepted, pending);
                         recyclerView.setAdapter(accommodationAdapter);
+//                        accommodationAdapter.setArguments(args);
                     }
                 } else {
                     onFailure(call, new Throwable("API call failed with status code: " + response.code()));

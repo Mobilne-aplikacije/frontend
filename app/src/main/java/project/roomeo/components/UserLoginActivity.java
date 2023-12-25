@@ -5,7 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.auth0.android.jwt.JWT;
@@ -37,7 +42,8 @@ public class UserLoginActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
     private EditText email, password;
-    private Button loginBtn, signupBtn, forgotBtn;
+    private Button forgotBtn;
+    private TextView signupBtn, loginBtn;
 
 
     @Override
@@ -50,6 +56,25 @@ public class UserLoginActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.login_button);
         signupBtn = findViewById(R.id.signup_btn);
         forgotBtn = findViewById(R.id.forgot_button);
+
+        SpannableString spannableString = new SpannableString("Don't have an account? Register now");
+
+        // Make "Register now" bold and underlined
+        spannableString.setSpan(new android.text.style.StyleSpan(Typeface.BOLD), spannableString.length() - 12, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new android.text.style.UnderlineSpan(), spannableString.length() - 12, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+                startActivity(new Intent(UserLoginActivity.this, UserRegisterActivity.class));
+            }
+        };
+        spannableString.setSpan(clickableSpan, spannableString.length() - 12, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        signupBtn.setText(spannableString);
+
+        // Enable the TextView to handle link clicks
+        signupBtn.setMovementMethod(LinkMovementMethod.getInstance());
+
 //
 //        forgotBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -70,6 +95,8 @@ public class UserLoginActivity extends AppCompatActivity {
                 login(getEmail, getPassword);
             }
         });
+
+
 
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override

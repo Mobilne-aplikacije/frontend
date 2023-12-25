@@ -19,7 +19,7 @@ public class Accommodation {
     private boolean kitchen;
     private boolean airConditioner;
     private boolean parking;
-    private List<Date> availability;
+    private List<String> availability;
     private Payment payment;
     private int price;
     private BookingMethod bookingMethod;
@@ -30,7 +30,7 @@ public class Accommodation {
     private AccommodationRequestStatus status;
     private int hostId;
 
-    public Accommodation(Long id, String name, String description, String location, AccommodationType type, boolean wifi, boolean kitchen, boolean airConditioner, boolean parking, List<Date> availability, Payment payment, int price, BookingMethod bookingMethod, List<Rating> ratings, List<String> photos, int minGuest, int maxGuest, AccommodationRequestStatus status, int hostId) {
+    public Accommodation(Long id, String name, String description, String location, AccommodationType type, boolean wifi, boolean kitchen, boolean airConditioner, boolean parking, List<String> availability, Payment payment, int price, BookingMethod bookingMethod, List<Rating> ratings, List<String> photos, int minGuest, int maxGuest, AccommodationRequestStatus status, int hostId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -127,11 +127,11 @@ public class Accommodation {
         this.parking = parking;
     }
 
-    public List<Date> getAvailability() {
+    public List<String> getAvailability() {
         return availability;
     }
 
-    public void setAvailability(List<Date> availability) {
+    public void setAvailability(List<String> availability) {
         this.availability = availability;
     }
 

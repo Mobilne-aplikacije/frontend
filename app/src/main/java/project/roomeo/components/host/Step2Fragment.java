@@ -1,7 +1,10 @@
 package project.roomeo.components.host;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +27,7 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import project.roomeo.R;
@@ -43,6 +47,8 @@ public class Step2Fragment extends Fragment {
     private CheckBox checkBoxAutomaticReservation;
     private Spinner dropdownButton, dropdownButton2;
     private Accommodation accommodation;
+    private Long myId;
+    List<String> dateStrings;
 
     public void setAccommodation(Accommodation accommodation) {
         this.accommodation = accommodation;
@@ -52,6 +58,10 @@ public class Step2Fragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_step2, container, false);
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        String myEmail = sharedPreferences.getString("pref_email", "");
+        myId = sharedPreferences.getLong("pref_id", 0L);
 
         // Inicijalizacija elemenata
         checkBoxWifi = view.findViewById(R.id.checkBoxWifi);
@@ -92,8 +102,26 @@ public class Step2Fragment extends Fragment {
                 String endDate = dateFormat.format(selection.second);
                 String dateRange = startDate + " - " + endDate;
                 dateRangeTextView.setText(dateRange);
+
+                Calendar startCalendar = Calendar.getInstance();
+                startCalendar.setTimeInMillis(selection.first);
+
+                Calendar endCalendar = Calendar.getInstance();
+                endCalendar.setTimeInMillis(selection.second);
+
+                dateStrings = new ArrayList<>();
+                while (startCalendar.before(endCalendar) || startCalendar.equals(endCalendar)) {
+                    String currentDate = dateFormat.format(startCalendar.getTime());
+                    dateStrings.add(currentDate);
+                    startCalendar.add(Calendar.DAY_OF_MONTH, 1);
+                }
+
+                Log.i("DATUMI", dateStrings.toString());
+
             }
         });
+
+
 
         dateRangeTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +129,8 @@ public class Step2Fragment extends Fragment {
                 picker.show(getParentFragmentManager(), picker.toString());
             }
         });
+
+
 
         Button next = view.findViewById(R.id.nextButton);
         next.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +169,7 @@ public class Step2Fragment extends Fragment {
         String dropdownValue1 = dropdownButton.getSelectedItem().toString();
         String dropdownValue2 = dropdownButton2.getSelectedItem().toString();
 
-        accommodation.setHostId(8);
+        accommodation.setHostId(myId.intValue());
         accommodation.setStatus(AccommodationRequestStatus.PENDING);
 
         accommodation.setWifi(wifiChecked);
@@ -147,10 +177,27 @@ public class Step2Fragment extends Fragment {
         accommodation.setAirConditioner(airConditionerChecked);
         accommodation.setParking(parkingChecked);
         accommodation.setPrice(Integer.parseInt(price));
-        accommodation.setPayment(Payment.PerAccommodation);
-        accommodation.setBookingMethod(BookingMethod.AUTOMATIC);
-        accommodation.setType(AccommodationType.ROOM);
 
+
+        if (dropdownValue2.equals("Price per person")) {
+            accommodation.setPayment(Payment.PerPerson);
+        } else {
+            accommodation.setPayment(Payment.PerAccommodation);
+        }
+
+        if(automaticReservationChecked){
+            accommodation.setBookingMethod(BookingMethod.AUTOMATIC);}
+        else{
+            accommodation.setBookingMethod(BookingMethod.NON_AUTOMATIC);
+        }
+
+        if (dropdownValue1.equals("ROOM")) {
+            accommodation.setType(AccommodationType.ROOM);
+        } else {
+            accommodation.setType(AccommodationType.STUDIO);
+        }
+
+        accommodation.setAvailability(dateStrings);
         return accommodation;
     }
 }

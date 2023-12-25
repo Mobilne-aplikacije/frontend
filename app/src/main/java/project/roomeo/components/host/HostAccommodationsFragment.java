@@ -1,7 +1,10 @@
 package project.roomeo.components.host;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +18,8 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import project.roomeo.R;
 import project.roomeo.models.Accommodation;
@@ -28,7 +33,7 @@ public class HostAccommodationsFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private AccommodationAdapter accommodationAdapter;
-    FragmentActivity activity = getActivity();
+    private Long myId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,10 +43,15 @@ public class HostAccommodationsFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        getAccommodationList();
 
         Button addAccommodation = view.findViewById(R.id.add_accommodation);
 
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        String myEmail = sharedPreferences.getString("pref_email", "");
+        myId = sharedPreferences.getLong("pref_id", 0L);
+        Log.e("PROVERA ID", "provera id: " + myId);
+
+        getAccommodationList();
         addAccommodation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +82,7 @@ public class HostAccommodationsFragment extends Fragment {
     }
 
     private void getAccommodationList() {
-        Call<List<Accommodation>> call = ServiceUtils.hostService.getHostAccommodations("8");
+        Call<List<Accommodation>> call = ServiceUtils.hostService.getHostAccommodations(myId.toString());
 
         call.enqueue(new Callback<List<Accommodation>>() {
             @Override
