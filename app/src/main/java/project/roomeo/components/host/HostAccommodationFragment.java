@@ -35,6 +35,8 @@ public class HostAccommodationFragment extends Fragment {
     public TextView hostName;
     public TextView hostLastname;
     private boolean pending;
+    public TextView deadline;
+    public TextView priceIncrease;
 
     public HostAccommodationFragment() {
         this.pending = false;
@@ -79,6 +81,8 @@ public class HostAccommodationFragment extends Fragment {
         pricee = getView().findViewById(R.id.price);
         minGuest = getView().findViewById(R.id.minGuest);
         maxGuest = getView().findViewById(R.id.maxGuest);
+        priceIncrease = getView().findViewById(R.id.priceIncrease);
+        deadline = getView().findViewById(R.id.deadline);
 
         name.setText(accommodation.getName());
         description.setText(accommodation.getDescription());
@@ -109,5 +113,7 @@ public class HostAccommodationFragment extends Fragment {
         bookingMethod.setText(accommodation.getBookingMethod().toString());
         minGuest.setText(String.valueOf(accommodation.getMinGuest()));
         maxGuest.setText(String.valueOf(accommodation.getMaxGuest()));
+        deadline.setText(String.valueOf(accommodation.getCancellationDeadline()));
+        priceIncrease.setText(String.valueOf(accommodation.getPercentage_of_price_increase())+"%");
     }
 }

@@ -29,8 +29,11 @@ public class Accommodation {
     private int maxGuest;
     private AccommodationRequestStatus status;
     private int hostId;
+    private int percentage_of_price_increase;
+    private int cancellationDeadline;
 
-    public Accommodation(Long id, String name, String description, String location, AccommodationType type, boolean wifi, boolean kitchen, boolean airConditioner, boolean parking, List<String> availability, Payment payment, int price, BookingMethod bookingMethod, List<Rating> ratings, List<String> photos, int minGuest, int maxGuest, AccommodationRequestStatus status, int hostId) {
+
+    public Accommodation(Long id, String name, String description, String location, AccommodationType type, boolean wifi, boolean kitchen, boolean airConditioner, boolean parking, List<String> availability, Payment payment, int price, BookingMethod bookingMethod, List<Rating> ratings, List<String> photos, int minGuest, int maxGuest, AccommodationRequestStatus status, int hostId, int percentage_of_price_increase, int cancellationDeadline) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -50,6 +53,8 @@ public class Accommodation {
         this.maxGuest = maxGuest;
         this.status = status;
         this.hostId = hostId;
+        this.percentage_of_price_increase = percentage_of_price_increase;
+        this.cancellationDeadline = cancellationDeadline;
     }
 
     public Accommodation() {
@@ -205,5 +210,21 @@ public class Accommodation {
 
     public void setHostId(int hostId) {
         this.hostId = hostId;
+    }
+
+    public int getPercentage_of_price_increase() {
+        return percentage_of_price_increase;
+    }
+
+    public void setPercentage_of_price_increase(int percentage_of_price_increase) {
+        this.percentage_of_price_increase = percentage_of_price_increase;
+    }
+
+    public int getCancellationDeadline() {
+        return cancellationDeadline;
+    }
+
+    public void setCancellationDeadline(int cancellationDeadline) {
+        this.cancellationDeadline = cancellationDeadline;
     }
 }

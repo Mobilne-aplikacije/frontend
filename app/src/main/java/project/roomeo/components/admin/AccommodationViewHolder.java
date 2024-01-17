@@ -1,5 +1,6 @@
 package project.roomeo.components.admin;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -47,6 +48,8 @@ public class AccommodationViewHolder extends RecyclerView.ViewHolder {
     public Button acceptButton;
     public Button declineButton;
     public Host host;
+    public TextView deadline;
+    public TextView priceIncrease;
 
     public AccommodationViewHolder(View itemView) {
         super(itemView);
@@ -66,6 +69,8 @@ public class AccommodationViewHolder extends RecyclerView.ViewHolder {
         maxGuest = itemView.findViewById(R.id.maxGuest);
         acceptButton = itemView.findViewById(R.id.accept);
         declineButton = itemView.findViewById(R.id.decline);
+        priceIncrease = itemView.findViewById(R.id.priceIncrease);
+        deadline = itemView.findViewById(R.id.deadline);
 
         Call<Host> call = ServiceUtils.hostService.getHost("4");
 
@@ -92,6 +97,7 @@ public class AccommodationViewHolder extends RecyclerView.ViewHolder {
         hostLastname = itemView.findViewById(R.id.hostLastname);
     }
 
+    @SuppressLint("SetTextI18n")
     public void bindData(Accommodation item) {
         name.setText(item.getName());
 
@@ -123,5 +129,7 @@ public class AccommodationViewHolder extends RecyclerView.ViewHolder {
         bookingMethod.setText(item.getBookingMethod().getDisplayName());
         minGuest.setText(String.valueOf(item.getMinGuest()));
         maxGuest.setText(String.valueOf(item.getMaxGuest()));
+        deadline.setText(String.valueOf(item.getCancellationDeadline()));
+        priceIncrease.setText(String.valueOf(item.getPercentage_of_price_increase())+"%");
     }
 }

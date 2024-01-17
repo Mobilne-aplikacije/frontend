@@ -1,5 +1,6 @@
 package project.roomeo.components.host;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -30,6 +31,8 @@ public class AccommodationViewHolder extends RecyclerView.ViewHolder {
 //    private AccommodationRequestStatus status;
     public TextView hostId;
     public Button details;
+    public TextView deadline;
+    public TextView priceIncrease;
 
     public AccommodationViewHolder(View itemView) {
         super(itemView);
@@ -44,6 +47,8 @@ public class AccommodationViewHolder extends RecyclerView.ViewHolder {
         minGuest = itemView.findViewById(R.id.minGuest);
         maxGuest = itemView.findViewById(R.id.maxGuest);
         details = itemView.findViewById(R.id.details);
+        priceIncrease = itemView.findViewById(R.id.priceIncrease);
+        deadline = itemView.findViewById(R.id.deadline);
     }
 
     public void bindData(Accommodation item) {
@@ -55,5 +60,13 @@ public class AccommodationViewHolder extends RecyclerView.ViewHolder {
         price.setText(item.getPrice()+"$");
         minGuest.setText("Min guests: "+ item.getMinGuest());
         maxGuest.setText("Max guests: "+ item.getMaxGuest());
+        Log.i("DEADLINE:", String.valueOf(item.getCancellationDeadline()));
+
+        if (deadline != null) {
+            deadline.setText(item.getCancellationDeadline());
+        }
+
+        //deadline.setText(item.getCancellationDeadline());
+        //priceIncrease.setText(item.getPercentage_of_price_increase()+"%");
     }
 }

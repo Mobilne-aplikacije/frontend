@@ -49,8 +49,42 @@
         android:id="@+id/editTextMaxGuest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Maximum Guests"
         android:layout_below="@id/editTextMinGuest"
-        android:layout_margin="16dp"/>
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:hint="Maximum Guests" />
+    <EditText
+        android:id="@+id/editTextDeadline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextMaxGuest"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="1dp"
+        android:hint="Enter cancellation deadline" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextDeadline"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30px"
+            android:text="Price increase on weekends"/>
+
+        <Spinner
+            android:id="@+id/dropdownButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@id/editTextDeadline"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
 
 </RelativeLayout>
