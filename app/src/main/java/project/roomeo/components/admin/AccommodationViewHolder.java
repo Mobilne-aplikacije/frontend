@@ -71,28 +71,6 @@ public class AccommodationViewHolder extends RecyclerView.ViewHolder {
         declineButton = itemView.findViewById(R.id.decline);
         priceIncrease = itemView.findViewById(R.id.priceIncrease);
         deadline = itemView.findViewById(R.id.deadline);
-
-        Call<Host> call = ServiceUtils.hostService.getHost("4");
-
-        call.enqueue(new Callback<Host>() {
-            @Override
-            public void onResponse(Call<Host> call, Response<Host> response) {
-                if (response.isSuccessful()) {
-                    host = response.body();
-                    hostName.setText(host.getFirstName());
-                    hostLastname.setText(host.getLastName());
-
-                    } else {
-                    onFailure(call, new Throwable("API call failed with status code: " + response.code()));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Host> call, Throwable t) {
-                Log.e("Host", "API call failed: " + t.getMessage());
-            }
-        });
-
         hostName = itemView.findViewById(R.id.hostName);
         hostLastname = itemView.findViewById(R.id.hostLastname);
     }
@@ -131,5 +109,28 @@ public class AccommodationViewHolder extends RecyclerView.ViewHolder {
         maxGuest.setText(String.valueOf(item.getMaxGuest()));
         deadline.setText(String.valueOf(item.getCancellationDeadline()));
         priceIncrease.setText(String.valueOf(item.getPercentage_of_price_increase())+"%");
+
+        Call<Host> call = ServiceUtils.hostService.getHost(String.valueOf(item.getHostId()));
+
+        call.enqueue(new Callback<Host>() {
+            @Override
+            public void onResponse(Call<Host> call, Response<Host> response) {
+                if (response.isSuccessful()) {
+                    host = response.body();
+                    Log.i("host",host.toString());
+                    hostName.setText(host.getFirstName());
+                    hostLastname.setText(host.getLastName());
+
+                } else {
+                    onFailure(call, new Throwable("API call failed with status code: " + response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Host> call, Throwable t) {
+                Log.e("Host", "API call failed: " + t.getMessage());
+            }
+        });
+
     }
 }
