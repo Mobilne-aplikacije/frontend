@@ -1,4 +1,4 @@
-Mobilne Aplikacije - Booking
+Mobilne Aplikacije - Booking - Frontend
 
 Student 1	Andrea Katzenberger	SV69/2020
 
