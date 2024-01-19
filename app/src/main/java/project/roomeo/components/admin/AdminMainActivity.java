@@ -30,6 +30,7 @@ public class AdminMainActivity extends AppCompatActivity  implements BottomNavig
     GuestReservationsFragment reservationsFragment;
     AccommodationRequestsFragment accommodationRequestsFragment;
     AccommodationEditFragment accommodationEditFragment;
+    RatingRequestsFragment ratingRequestsFragment;
     Fragment currentFragment;
 
     Integer id = 1;
@@ -61,6 +62,7 @@ public class AdminMainActivity extends AppCompatActivity  implements BottomNavig
         reservationsFragment = new GuestReservationsFragment();
         accommodationRequestsFragment = new AccommodationRequestsFragment();
         accommodationEditFragment = new AccommodationEditFragment();
+        ratingRequestsFragment = new RatingRequestsFragment();
         currentFragment = homeFragment;
         loadFragment(currentFragment);
 
@@ -130,6 +132,9 @@ public class AdminMainActivity extends AppCompatActivity  implements BottomNavig
         }
         if (itemId == R.id.acc_edit) {
             getSupportFragmentManager().beginTransaction().replace(R.id.guest_content, accommodationEditFragment).commit();
+        }
+        if (itemId == R.id.rating_requests) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.guest_content, ratingRequestsFragment).commit();
         }
         return super.onOptionsItemSelected(item);
     }

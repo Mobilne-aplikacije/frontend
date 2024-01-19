@@ -12,6 +12,11 @@
         android:title="Edit requests"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/rating_requests"
+        android:title="Rating requests"
+        app:showAsAction="never"/>
+
 
 
 </menu>

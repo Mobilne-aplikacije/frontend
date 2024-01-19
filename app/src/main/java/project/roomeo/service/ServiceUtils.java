@@ -18,6 +18,7 @@ public class ServiceUtils {
     public static final String guest = "guest";
     public static final String accommodation = "accommodation";
     public static final String user = "user";
+    public static final String rating = "rating";
 
 
     public static OkHttpClient test(){
@@ -43,6 +44,7 @@ public class ServiceUtils {
     public static IGuestService guestService = retrofit.create(IGuestService.class);
     public static IHostService hostService = retrofit.create(IHostService.class);
     public static IAdminService adminService = retrofit.create(IAdminService.class);
+    public static IRatingService ratingService = retrofit.create(IRatingService.class);
 
 
 

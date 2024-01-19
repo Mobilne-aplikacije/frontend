@@ -91,14 +91,6 @@ public class AccommodationAdapter extends RecyclerView.Adapter<AccommodationView
         });
     }
 
-    private void startNewActivityOrFragment() {
-        FragmentManager fragmentManager = this.fragmentManager;
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.accommodation_requests_fragment, new AccommodationRequestsFragment());
-        transaction.commit();
-    }
-
-
     @Override
     public int getItemCount() {
         return accommodationList != null ? accommodationList.size() : 0;
