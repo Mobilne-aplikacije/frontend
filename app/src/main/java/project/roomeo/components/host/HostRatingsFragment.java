@@ -1,5 +1,7 @@
-package project.roomeo.components.admin;
+package project.roomeo.components.host;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import project.roomeo.R;
+import project.roomeo.components.admin.RatingRequestAdapter;
 import project.roomeo.models.Rating;
 import project.roomeo.models.enums.RatingStatus;
 import project.roomeo.service.ServiceUtils;
@@ -22,28 +25,31 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RatingRequestsFragment extends Fragment {
+public class HostRatingsFragment extends Fragment {
     private RecyclerView recyclerView;
-    private RatingRequestAdapter ratingAdapter;
+    private HostRatingAdapter ratingAdapter;
+    private Long myId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_rating_requests, container, false);
+        View view = inflater.inflate(R.layout.fragment_host_ratings, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerView);
 
-        // Postavljanje layout manager-a (npr. LinearLayoutManager)
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        // Kreiranje adapter-a i povezivanje sa RecyclerView-om
-        getRatingRequestsList(); // Inicijalizacija liste
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        myId = sharedPreferences.getLong("pref_id", 0L);
+        Log.e("PROVERA ID", "provera id: " + myId);
+
+        getHostRatingsList();
 
         return view;
     }
 
-    private void getRatingRequestsList() {
+    private void getHostRatingsList() {
 
-        Call<List<Rating>> call = ServiceUtils.ratingService.getAllRatings();
+        Call<List<Rating>> call = ServiceUtils.ratingService.getAllHostRatings(myId.toString());
 
         call.enqueue(new Callback<List<Rating>>() {
             @Override
@@ -51,13 +57,13 @@ public class RatingRequestsFragment extends Fragment {
                 if (response.isSuccessful()) {
                     List<Rating> list = response.body();
                     if (list != null) {
-                        List<Rating> pendingRatings = new ArrayList<>();
+                        List<Rating> acceptedRatings = new ArrayList<>();
                         for (Rating r : list) {
-                            if (r.getStatus() == RatingStatus.PENDING) {
-                                pendingRatings.add(r);
+                            if (r.getStatus() == RatingStatus.ACCEPTED) {
+                                acceptedRatings.add(r);
                             }
                         }
-                        ratingAdapter = new RatingRequestAdapter(pendingRatings);
+                        ratingAdapter = new HostRatingAdapter(acceptedRatings);
                         recyclerView.setAdapter(ratingAdapter);
 
                     }
@@ -68,8 +74,16 @@ public class RatingRequestsFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Rating>> call, Throwable t) {
-                Log.e("RatingRequestsFragment", "API call failed: " + t.getMessage());
+                Log.e("HostRatingsFragment", "API call failed: " + t.getMessage());
             }
         });
+    }
+
+    public static HostRatingsFragment newInstance(Long accommodationId) {
+        HostRatingsFragment fragment = new HostRatingsFragment();
+        Bundle args = new Bundle();
+        args.putLong("accommodationId", accommodationId);
+        fragment.setArguments(args);
+        return fragment;
     }
 }

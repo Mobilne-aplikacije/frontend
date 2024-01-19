@@ -7,30 +7,28 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import project.roomeo.R;
-import project.roomeo.models.Accommodation;
 import project.roomeo.models.Rating;
 import project.roomeo.service.ServiceUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RatingAdapter extends RecyclerView.Adapter<RatingViewHolder> {
+public class RatingRequestAdapter extends RecyclerView.Adapter<RatingViewHolder> {
 
     private List<Rating> ratingList;
     private FragmentManager fragmentManager;
 
-    public RatingAdapter(List<Rating> ratingList, FragmentManager fragmentManager) {
+    public RatingRequestAdapter(List<Rating> ratingList, FragmentManager fragmentManager) {
         this.ratingList = ratingList;
         this.fragmentManager = fragmentManager;
     }
 
-    public RatingAdapter(List<Rating> ratingList) {
+    public RatingRequestAdapter(List<Rating> ratingList) {
         this.ratingList = ratingList;
     }
 

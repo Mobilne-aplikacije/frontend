@@ -17,12 +17,18 @@ public interface IRatingService {
     )
 
     @GET(ServiceUtils.rating)
-    Call<List<Rating>> getAll();
+    Call<List<Rating>> getAllRatings();
 
     @PUT(ServiceUtils.rating + "/accept/{rating-id}")
     Call<Rating> acceptRatingRequest(@Path("rating-id") String id);
 
     @PUT(ServiceUtils.rating + "/reject/{rating-id}")
     Call<Rating> rejectRatingRequest(@Path("rating-id") String id);
+
+    @GET(ServiceUtils.rating + "/get-host-ratings/{host-id}")
+    Call<List<Rating>> getAllHostRatings(@Path("host-id") String id);
+    @GET(ServiceUtils.rating + "/get-accommodation-ratings/{accommodation-id}")
+    Call<List<Rating>> getAllAccommodationRatings(@Path("accommodation-id") String id);
+
 
 }

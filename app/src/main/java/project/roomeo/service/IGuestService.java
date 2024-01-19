@@ -2,6 +2,7 @@ package project.roomeo.service;
 
 import project.roomeo.DTO.GuestDTO;
 import project.roomeo.DTO.RequestGuestDTO;
+import project.roomeo.models.Guest;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -16,7 +17,7 @@ public interface IGuestService {
                     "Content-Type:application/json"}
     )
     @GET(ServiceUtils.guest + "/{id}")
-    Call<GuestDTO> getGuest(@Path("id") String id);
+    Call<Guest> getGuest(@Path("id") String id);
 
     @POST(ServiceUtils.guest)
     Call<GuestDTO> createGuest(@Body RequestGuestDTO request);

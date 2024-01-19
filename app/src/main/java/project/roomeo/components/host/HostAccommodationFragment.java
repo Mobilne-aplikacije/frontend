@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import project.roomeo.R;
@@ -56,7 +57,25 @@ public class HostAccommodationFragment extends Fragment {
         if (pending){
             return inflater.inflate(R.layout.fragment_host_pending_accommodation, container, false);
         }else{
-            return inflater.inflate(R.layout.fragment_host_accommodation, container, false);
+            View view = inflater.inflate(R.layout.fragment_host_accommodation, container, false);
+            Button hostRatings = view.findViewById(R.id.hostRatings);
+            hostRatings.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    HostRatingsFragment fragment = new HostRatingsFragment();
+                    ((HostMainActivity) v.getContext()).loadFragment(fragment);
+                }
+            });
+            Button accommodationRatings = view.findViewById(R.id.accommodationRatings);
+            accommodationRatings.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Long accommodationId = accommodation.getId();
+                    AccommodationRatingsFragment fragment = new AccommodationRatingsFragment(accommodationId);
+                    ((HostMainActivity) v.getContext()).loadFragment(fragment);
+                }
+            });
+            return view;
         }
     }
 

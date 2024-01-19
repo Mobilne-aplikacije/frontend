@@ -90,10 +90,10 @@ public class UserLoginActivity extends AppCompatActivity {
 //                String getPassword = password.getText().toString();
 //                String getEmail = "marko.markovic@gmail.com";
 //                String getPassword = "marko123";
-//                String getEmail = "andrea.katzenberger@gmail.com";
-//                String getPassword = "andrea123";
-                String getEmail = "admin@gmail.com";
-                String getPassword = "admin123";
+                String getEmail = "andrea.katzenberger@gmail.com";
+                String getPassword = "andrea123";
+//                String getEmail = "admin@gmail.com";
+//                String getPassword = "admin123";
                 login(getEmail, getPassword);
             }
         });

@@ -1,10 +1,15 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:scrollbars="vertical">
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:scrollbars="vertical">
 
 
     <!-- Naslov -->
@@ -292,13 +297,42 @@
             android:text="Edit" />
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="195dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingStart="8dp"
-        android:text="OCENE I KOMENTARI"
-        android:textSize="16sp" />
+           <TextView
+            android:id="@+id/averageRate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="average"
+            android:paddingStart="8dp"
+            android:textSize="16sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/hostRatings"
+            android:layout_width="178dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="20px"
+            android:text="Host reviews" />
+
+        <Button
+            android:id="@+id/accommodationRatings"
+            android:layout_width="195dp"
+            android:layout_height="wrap_content"
+            android:text="Accommodation reviews" />
+
+    </LinearLayout>
 </LinearLayout>
 
+</ScrollView>
