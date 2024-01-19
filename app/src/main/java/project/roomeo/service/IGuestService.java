@@ -1,7 +1,10 @@
 package project.roomeo.service;
 
+import java.util.List;
+
 import project.roomeo.DTO.GuestDTO;
 import project.roomeo.DTO.RequestGuestDTO;
+import project.roomeo.models.Accommodation;
 import project.roomeo.models.Guest;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -22,5 +25,7 @@ public interface IGuestService {
     @POST(ServiceUtils.guest)
     Call<GuestDTO> createGuest(@Body RequestGuestDTO request);
 
+    @GET(ServiceUtils.accommodation)
+    Call<List<Accommodation>> getAllAccommodations();
 
 }
