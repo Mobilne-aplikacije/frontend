@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingStart="8dp"
-            android:text="Add Accommodation"
+            android:text="Add"
             android:textSize="10sp" />
 
 

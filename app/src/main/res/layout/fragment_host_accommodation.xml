@@ -322,9 +322,9 @@
         <Button
             android:id="@+id/hostRatings"
             android:layout_width="178dp"
-            android:layout_height="match_parent"
+            android:layout_height="55dp"
             android:layout_marginRight="20px"
-            android:text="Host reviews" />
+            android:text="Reviews for host" />
 
         <Button
             android:id="@+id/accommodationRatings"

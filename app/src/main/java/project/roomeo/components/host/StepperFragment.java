@@ -29,28 +29,28 @@ public class StepperFragment extends Fragment {
         stepperAdapter = new StepperAdapter(getChildFragmentManager(), getLifecycle());
         viewPager.setAdapter(stepperAdapter);
 
-        Button nextButton = view.findViewById(R.id.nextButton);
-        Button prevButton = view.findViewById(R.id.prevButton);
-
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigacija na sledeći korak
-                if (viewPager.getCurrentItem() < stepperAdapter.getItemCount() - 1) {
-                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
-                }
-            }
-        });
-
-        prevButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigacija na prethodni korak
-                if (viewPager.getCurrentItem() > 0) {
-                    viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
-                }
-            }
-        });
+//        Button nextButton = view.findViewById(R.id.nextButton);
+//        Button prevButton = view.findViewById(R.id.prevButton);
+//
+//        nextButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Navigacija na sledeći korak
+//                if (viewPager.getCurrentItem() < stepperAdapter.getItemCount() - 1) {
+//                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+//                }
+//            }
+//        });
+//
+//        prevButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Navigacija na prethodni korak
+//                if (viewPager.getCurrentItem() > 0) {
+//                    viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+//                }
+//            }
+//        });
 
         return view;
     }
