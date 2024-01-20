@@ -17,6 +17,16 @@
         android:title="Rating requests"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/user_report_requests"
+        android:title="User report requests"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/rating_report_requests"
+        android:title="Rating report requests"
+        app:showAsAction="never"/>
+
 
 
 </menu>

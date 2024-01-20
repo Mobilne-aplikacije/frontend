@@ -16,6 +16,7 @@ import project.roomeo.components.admin.AdminMainActivity;
 import project.roomeo.components.admin.RatingRequestsFragment;
 import project.roomeo.components.admin.RatingViewHolder;
 import project.roomeo.models.Rating;
+import project.roomeo.models.Report;
 import project.roomeo.service.ServiceUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,28 +72,30 @@ public class AccommodationRatingAdapter extends RecyclerView.Adapter<RatingViewH
 //            });
 //        });
 //
-//        holder.declineButton.setOnClickListener(view -> {
-//            String ratingId = request.getId().toString();
-//
-//            Call<Rating> call = ServiceUtils.ratingService.rejectRatingRequest(ratingId);
-//            call.enqueue(new Callback<Rating>() {
-//                @Override
-//                public void onResponse(@NonNull Call<Rating> call, @NonNull Response<Rating> response) {
-//                    if (response.isSuccessful()) {
+        holder.declineButton.setOnClickListener(view -> {
+            int guestId = request.getGuestId();
+            Report report = new Report(null,null,guestId);
+
+            Call<Report> call = ServiceUtils.reportService.addReport(report);
+            call.enqueue(new Callback<Report>() {
+                @Override
+                public void onResponse(@NonNull Call<Report> call, @NonNull Response<Report> response) {
+                    if (response.isSuccessful()) {
 //                        AccommodationRatingsFragment fragment = new AccommodationRatingsFragment();
 //                        ((HostMainActivity) view.getContext()).loadFragment(fragment);
-//                    } else {
-//                        onFailure(call, new Throwable("API call failed with status code: " + response.code()));
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(@NonNull Call<Rating> call, @NonNull Throwable t) {
-//                    Log.e("RatingAdapter", "API call failed: " + t.getMessage());
-//
-//                }
-//            });
-//        });
+
+                    } else {
+                        onFailure(call, new Throwable("API call failed with status code: " + response.code()));
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<Report> call, @NonNull Throwable t) {
+                    Log.e("AccommodationRatingsFragment", "API call failed: " + t.getMessage());
+
+                }
+            });
+        });
     }
 
 

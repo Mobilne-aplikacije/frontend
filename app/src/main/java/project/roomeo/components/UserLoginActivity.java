@@ -24,6 +24,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.IOException;
+
 import project.roomeo.DTO.RequestLoginDTO;
 import project.roomeo.DTO.ResponseLoginDTO;
 import project.roomeo.DTO.TokenDTO;
@@ -90,10 +92,10 @@ public class UserLoginActivity extends AppCompatActivity {
 //                String getPassword = password.getText().toString();
 //                String getEmail = "marko.markovic@gmail.com";
 //                String getPassword = "marko123";
-                String getEmail = "andrea.katzenberger@gmail.com";
-                String getPassword = "andrea123";
-//                String getEmail = "admin@gmail.com";
-//                String getPassword = "admin123";
+//                String getEmail = "andrea.katzenberger@gmail.com";
+//                String getPassword = "andrea123";
+                String getEmail = "admin@gmail.com";
+                String getPassword = "admin123";
                 login(getEmail, getPassword);
             }
         });
@@ -126,7 +128,7 @@ public class UserLoginActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<ResponseLoginDTO> call, @NonNull Response<ResponseLoginDTO> response) {
 
                 if(!response.isSuccessful()) return;
-                if(response.code() == 204){
+                if(response.code() == 204) {
                     Toast.makeText(UserLoginActivity.this, "Email not confirmed!", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -149,7 +151,7 @@ public class UserLoginActivity extends AppCompatActivity {
                     setPreferences(id, email, role, loginResponse);
                     setTokenPreference(loginResponse.getAccessToken(), loginResponse.getRefreshToken());
                     startActivity(new Intent(UserLoginActivity.this, HostMainActivity.class));
-                }
+                    }
                 else if(role.equalsIgnoreCase("ADMIN")) {
                     setPreferences(id, email, role, loginResponse);
                     setTokenPreference(loginResponse.getAccessToken(), loginResponse.getRefreshToken());
@@ -160,6 +162,7 @@ public class UserLoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseLoginDTO> call, Throwable t) {
                 Log.d("Login Failed", t.getMessage());
+
             }
         });
     }
