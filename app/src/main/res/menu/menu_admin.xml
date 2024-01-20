@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/acc_requests"
+        android:title="Accommodation requests"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/acc_edit"
+        android:title="Edit requests"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/rating_requests"
+        android:title="Rating requests"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/user_report_requests"
+        android:title="User report requests"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/rating_report_requests"
+        android:title="Rating report requests"
+        app:showAsAction="never"/>
+
+
+
+</menu>

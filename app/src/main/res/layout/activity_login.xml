@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".components.Login">
+
+    <!-- Wavy Mask -->
+    <ImageView
+        android:id="@+id/headerImage"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:src="@drawable/login_header"
+        android:scaleType="fitXY"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- Application Name -->
+    <TextView
+        android:id="@+id/appNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/glass_antiqua"
+        android:text="@string/app_name"
+        android:textColor="#FFFFFF"
+        android:textSize="46sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" /> <!-- Adjust the margin as needed -->
+
+    <!-- Login Text with White Border -->
+    <TextView
+        android:id="@+id/loginText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/white_border"
+        android:fontFamily="@font/poppins_regular"
+        android:paddingHorizontal="20dp"
+        android:text="@string/Login_header"
+        android:textColor="#FFFFFF"
+        android:textSize="68sp"
+        app:layout_constraintBottom_toBottomOf="@id/headerImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/headerImage"
+        app:layout_constraintVertical_bias="0.45" />
+
+    <!-- Login Components (Placeholders, replace with your actual components) -->
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="@string/Email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerImage"
+
+        style="@style/InputField.Login"/>
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="@string/Password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextEmail"
+        app:layout_constraintVertical_bias="0.2"
+        android:inputType="textPassword"
+        style="@style/InputField.Login"/>
+
+    <TextView
+        android:id="@+id/buttonSubmit"
+        style="@style/Button"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="86dp"
+        android:text="Submit"
+        android:textSize="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextPassword" />
+
+    <TextView
+        android:id="@+id/registerNowText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Don't have an account? Register now"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonSubmit"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

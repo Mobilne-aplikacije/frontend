@@ -1,3 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-      <dimen name="fab_margin">16dp</dimen>
-   </resources>
+    <dimen name="logo_splash_screen">80sp</dimen>
+    <dimen name="small_text">18sp</dimen>
+    <dimen name="fab_margin">48dp</dimen>
+    <dimen name="login_input">18dp</dimen>
+    <dimen name="registration_input">20dp</dimen>
+    <dimen name="input_width">300dp</dimen>
+    <dimen name="profile_icon">35dp</dimen>
+</resources>

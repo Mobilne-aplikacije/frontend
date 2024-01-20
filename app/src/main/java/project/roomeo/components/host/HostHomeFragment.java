@@ -1,0 +1,62 @@
+package project.roomeo.components.host;
+
+import android.os.Bundle;
+
+import androidx.core.util.Pair;
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+
+import java.text.SimpleDateFormat;
+
+import project.roomeo.R;
+
+public class HostHomeFragment extends Fragment {
+
+
+    public HostHomeFragment() {
+        // Required empty public constructor
+    }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_host_home, container, false);
+
+        TextView dateRangeTextView = view.findViewById(R.id.datePickerEditText);
+
+        MaterialDatePicker<Pair<Long, Long>> picker = MaterialDatePicker.Builder.dateRangePicker().build();
+        picker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>() {
+            @Override
+            public void onPositiveButtonClick(Pair<Long, Long> selection) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                String startDate = dateFormat.format(selection.first);
+                String endDate = dateFormat.format(selection.second);
+                String dateRange = startDate + " - " + endDate;
+                dateRangeTextView.setText(dateRange);
+            }
+        });
+
+        dateRangeTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picker.show(getParentFragmentManager(), picker.toString());
+            }
+        });
+
+        return view;
+    }
+}

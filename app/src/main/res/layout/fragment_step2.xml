@@ -1,0 +1,109 @@
+<!-- fragment_step2.xml -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Checkboxi -->
+    <CheckBox
+        android:id="@+id/checkBoxWifi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wifi"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+    <CheckBox
+        android:id="@+id/checkBoxKitchen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkBoxWifi"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:text="Kitchen" />
+
+    <CheckBox
+        android:id="@+id/checkBoxAirConditioner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkBoxKitchen"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="1dp"
+        android:text="Air Conditioner" />
+
+    <!-- Radio button za Payment -->
+    <CheckBox
+        android:id="@+id/checkBoxParking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkBoxAirConditioner"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="1dp"
+        android:text="Parking" />
+
+
+    <EditText
+        android:id="@+id/editTextPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkBoxParking"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="1dp"
+        android:hint="Enter price" />
+
+    <Spinner
+        android:id="@+id/dropdownButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextPrice"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="1dp" />
+
+
+    <!-- Checkbox za Automatic Reservation -->
+
+    <!-- Dropdown button za izbor -->
+    <CheckBox
+        android:id="@+id/checkBoxAutomaticReservation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dropdownButton2"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Automatic Reservation" />
+
+    <Spinner
+        android:id="@+id/dropdownButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkBoxAutomaticReservation"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/datePickerEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Select available dates"
+        style="@style/SearchBarText"
+        android:layout_below="@id/dropdownButton"
+        android:background="@android:color/transparent"
+        android:focusable="false"
+        android:clickable="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:alpha="0.8"/>
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"/>
+
+</RelativeLayout>
