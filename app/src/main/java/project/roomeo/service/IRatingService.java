@@ -6,6 +6,7 @@ import project.roomeo.models.Accommodation;
 import project.roomeo.models.Rating;
 import project.roomeo.models.Report;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.PUT;
@@ -33,5 +34,8 @@ public interface IRatingService {
 
     @GET(ServiceUtils.rating + "/{id}")
     Call<Rating> getRating(@Path("id") String id);
+
+    @DELETE(ServiceUtils.rating + "/delete-rating/{id}")
+    Call<Void> deleteRating(@Path("id") Long id);
 
 }

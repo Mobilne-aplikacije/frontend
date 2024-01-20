@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import project.roomeo.R;
+import project.roomeo.models.Guest;
+import project.roomeo.models.Rating;
 import project.roomeo.models.Report;
 import project.roomeo.service.ServiceUtils;
 import retrofit2.Call;
@@ -22,6 +24,7 @@ public class RatingReportRequestAdapter extends RecyclerView.Adapter<RatingRepor
 
     private List<Report> reportList;
     private FragmentManager fragmentManager;
+    private Rating rating;
 
     public RatingReportRequestAdapter(List<Report> reportList, FragmentManager fragmentManager) {
         this.reportList = reportList;
@@ -45,50 +48,68 @@ public class RatingReportRequestAdapter extends RecyclerView.Adapter<RatingRepor
 
         holder.bindData(request);
 
-//        holder.acceptButton.setOnClickListener(view -> {
-//            int userId;
-//            if (request.getHostId()!=null){
-//                userId = request.getHostId();
-//            }else{
-//                userId = request.getGuestId();
-//            }
-//
-//            Call<Void> call = ServiceUtils.reportService.blockUser(String.valueOf(userId));
-//            call.enqueue(new Callback<Void>() {
-//                @Override
-//                public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-//                    if (response.isSuccessful()) {
-//                        Long reportId = request.getId();
-//
-//                        Call<Void> call2 = ServiceUtils.reportService.deleteReport(reportId);
-//                        call2.enqueue(new Callback<Void>() {
-//                            @Override
-//                            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-//                                if (response.isSuccessful()) {
-//                                    UserReportRequestsFragment fragment = new UserReportRequestsFragment();
-//                                    ((AdminMainActivity) view.getContext()).loadFragment(fragment);
-//                                } else {
-//                                    onFailure(call2, new Throwable("API call failed with status code: " + response.code()));
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-//                                Log.e("RatingAdapter", "API call failed: " + t.getMessage());
-//
-//                            }
-//                        });} else {
-//                        onFailure(call, new Throwable("API call failed with status code: " + response.code()));
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-//                    Log.e("RatingAdapter", "API call failed: " + t.getMessage());
-//
-//                }
-//            });
-//        });
+        holder.acceptButton.setOnClickListener(view -> {
+            Long reportId = request.getId();
+
+            Call<Void> call = ServiceUtils.reportService.deleteReport(reportId);
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                    if (response.isSuccessful()) {
+
+                        Call<Rating> callR = ServiceUtils.ratingService.getRating(String.valueOf(request.getRatingId()));
+
+                        callR.enqueue(new Callback<Rating>() {
+                            @Override
+                            public void onResponse(Call<Rating> call, Response<Rating> response) {
+                                if (response.isSuccessful()) {
+                                    rating = response.body();
+                                    Log.e("RATING del", rating.toString());
+
+                                    Call<Void> callD = ServiceUtils.ratingService.deleteRating(rating.getId());
+                                    callD.enqueue(new Callback<Void>() {
+                                        @Override
+                                        public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                                            if (response.isSuccessful()) {
+                                                RatingReportRequestsFragment fragment = new RatingReportRequestsFragment();
+                                                ((AdminMainActivity) view.getContext()).loadFragment(fragment);
+                                            } else {
+                                                onFailure(callD, new Throwable("API call failed with status code: " + response.code()));
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                                            Log.e("RatingAdapter", "API call failed: " + t.getMessage());
+
+                                        }
+                                    });
+                                } else {
+                                    onFailure(callR, new Throwable("API call failed with status code: " + response.code()));
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Rating> call, Throwable t) {
+                                Log.e("Host", "API call failed: " + t.getMessage());
+                            }
+                        });
+                        RatingReportRequestsFragment fragment = new RatingReportRequestsFragment();
+                        ((AdminMainActivity) view.getContext()).loadFragment(fragment);
+
+
+                    } else {
+                        onFailure(call, new Throwable("API call failed with status code: " + response.code()));
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                    Log.e("RatingReportRequestsFragment", "API call failed: " + t.getMessage());
+
+                }
+            });
+        });
 
         holder.declineButton.setOnClickListener(view -> {
             Long reportId = request.getId();
