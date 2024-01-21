@@ -14,6 +14,8 @@ import java.util.List;
 import project.roomeo.R;
 import project.roomeo.models.Rating;
 import project.roomeo.models.Report;
+import project.roomeo.models.Reservation;
+import project.roomeo.models.enums.ReservationRequestStatus;
 import project.roomeo.service.ServiceUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -91,6 +93,48 @@ public class UserReportRequestAdapter extends RecyclerView.Adapter<ReportViewHol
 
                 }
             });
+
+            if(request.getGuestId()!=null) {
+                Call<List<Reservation>> call3 = ServiceUtils.reservationService.getGuestReservations(String.valueOf(userId));
+                call3.enqueue(new Callback<List<Reservation>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<Reservation>> call3, @NonNull Response<List<Reservation>> response) {
+                        if (response.isSuccessful()) {
+                            List<Reservation> list = response.body();
+                            if (list != null) {
+                                for (int i = 0; i < list.size(); i++) {
+                                    Call<Void> call2 = ServiceUtils.reservationService.deleteReservation(list.get(i).getId());
+                                    call2.enqueue(new Callback<Void>() {
+                                        @Override
+                                        public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                                            if (response.isSuccessful()) {
+//                                                UserReportRequestsFragment fragment = new UserReportRequestsFragment();
+//                                                ((AdminMainActivity) view.getContext()).loadFragment(fragment);
+                                            } else {
+                                                onFailure(call2, new Throwable("API call failed with status code: " + response.code()));
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                                            Log.e("RatingAdapter", "API call failed: " + t.getMessage());
+
+                                        }
+                                    });
+                                }
+
+                            } else {
+                                onFailure(call3, new Throwable("API call failed with status code: " + response.code()));
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<List<Reservation>> call, @NonNull Throwable t) {
+                        Log.e("Report", "API call failed: " + t.getMessage());
+                    }
+                });
+            }
         });
 
         holder.declineButton.setOnClickListener(view -> {

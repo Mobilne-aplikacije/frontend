@@ -15,14 +15,12 @@ import project.roomeo.models.Accommodation;
 public class AccommodationAdapter  extends RecyclerView.Adapter<AccommodationViewHolder> {
     private List<Accommodation> accommodationList;
     private boolean pending;
+    private Long myId;
 
-    public AccommodationAdapter(List<Accommodation> accommodationList) {
-        this(accommodationList, false);
-    }
-
-    public AccommodationAdapter(List<Accommodation> accommodationList, boolean pending) {
+    public AccommodationAdapter(List<Accommodation> accommodationList, boolean pending, Long myId) {
         this.accommodationList = accommodationList;
         this.pending = pending;
+        this.myId = myId;
     }
 
     @NonNull
@@ -41,7 +39,7 @@ public class AccommodationAdapter  extends RecyclerView.Adapter<AccommodationVie
         holder.details.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GuestAccommodationFragment fragment = new GuestAccommodationFragment(pending);
+                GuestAccommodationFragment fragment = new GuestAccommodationFragment(pending,myId);
                 fragment.setAccommodationRequest(request);
                 ((GuestMainActivity) v.getContext()).loadFragment(fragment);
             }

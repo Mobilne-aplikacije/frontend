@@ -2,6 +2,7 @@ package project.roomeo.components.guest;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -54,12 +55,15 @@ public class GuestAccommodationFragment extends Fragment {
     public TextView averageRate;
     public double average;
     public double accommodationRates;
+    public boolean alreadyInFav;
+    public Long myId;
 
     public GuestAccommodationFragment() {
         this.pending = false;
     }
-    public GuestAccommodationFragment(boolean pending) {
+    public GuestAccommodationFragment(boolean pending,Long myId) {
         this.pending = pending;
+        this.myId = myId;
     }
 
     @Override
@@ -90,6 +94,42 @@ public class GuestAccommodationFragment extends Fragment {
                     Long accommodationId = accommodation.getId();
                     GAccommodationRatingsFragment fragment = new GAccommodationRatingsFragment(accommodationId, Long.valueOf(accommodation.getHostId()));
                     ((GuestMainActivity) v.getContext()).loadFragment(fragment);
+                }
+            });
+            alreadyInFav = false;
+
+
+            Button addToFav = view.findViewById(R.id.favorites);
+            if (!alreadyInFav) {
+                addToFav.setVisibility(View.VISIBLE);
+            } else {
+                addToFav.setVisibility(View.GONE);
+            }
+            addToFav.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Call<Void> call = ServiceUtils.guestService.addFavorite(myId,(long) accommodation.getId());
+                    call.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+
+                            if (response.isSuccessful()) {
+
+                                GuestAccommodationFragment fragment = new GuestAccommodationFragment(pending,myId);
+                                fragment.setAccommodationRequest(accommodation);
+                                ((GuestMainActivity) v.getContext()).loadFragment(fragment);
+
+                            } else {
+                                onFailure(call, new Throwable("API call failed with status code: " + response.code()));
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                            Log.e("RatingAdapter", "API call failed: " + t.getMessage());
+
+                        }
+                    });
                 }
             });
             return view;

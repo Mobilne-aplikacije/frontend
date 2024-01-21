@@ -1,14 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/guest_reservations_fragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".components.guest.GuestReservationsFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    android:layout_height="match_parent">
     <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="All reservations"
+        android:gravity="center"
+        android:layout_marginBottom="30px"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="22sp"
+        android:textColor="#000000"
+        android:paddingTop="8dp"
+        android:alpha="0.7"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_centerInParent="true"
+        android:layout_marginTop="270px"
+        android:padding="8dp"
+        android:scrollbars="vertical" />
 
-</FrameLayout>
+
+</RelativeLayout>

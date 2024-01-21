@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Locale;
 
 import project.roomeo.R;
-import project.roomeo.components.admin.AccommodationAdapter;
+import project.roomeo.components.host.AccommodationAdapter;
 import project.roomeo.components.host.HostMainActivity;
 import project.roomeo.components.host.HostRatingAdapter;
 import project.roomeo.components.host.HostRatingsFragment;
@@ -36,6 +36,8 @@ import project.roomeo.components.host.StepperFragment;
 import project.roomeo.models.Accommodation;
 import project.roomeo.models.Rating;
 import project.roomeo.models.Report;
+import project.roomeo.models.Reservation;
+import project.roomeo.models.enums.AccommodationRequestStatus;
 import project.roomeo.models.enums.RatingStatus;
 import project.roomeo.models.enums.RatingType;
 import project.roomeo.service.ServiceUtils;
@@ -62,6 +64,7 @@ public class GHostRatingsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        hadRes = false;
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         myId = sharedPreferences.getLong("pref_id", 0L);
@@ -95,13 +98,38 @@ public class GHostRatingsFragment extends Fragment {
 
         addRating = view.findViewById(R.id.add);
 
-        
+        Call<List<Reservation>> call = ServiceUtils.reservationService.getGuestReservations(myId.toString());
+        call.enqueue(new Callback<List<Reservation>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Reservation>> call, @NonNull Response<List<Reservation>> response) {
+                if (response.isSuccessful()) {
+                    List<Reservation> list = response.body();
+                    if (list != null) {
+                        for (int i = 0; i < list.size(); i++) {
+                            if (list.get(i).getGuestId() == myId.intValue()) {
+                                hadRes = true;
+                                break;
+                            }
+                        }
+                        if (hadRes) {
+                            addRating.setVisibility(View.VISIBLE);
+                        } else {
+                            addRating.setVisibility(View.GONE);
+                        }
 
-        if (hadRes) {
-            addRating.setVisibility(View.VISIBLE);
-        } else {
-            addRating.setVisibility(View.GONE);
-        }
+
+                        Log.i("true", String.valueOf(hadRes));
+                    } else {
+                        onFailure(call, new Throwable("API call failed with status code: " + response.code()));
+                    }
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<List<Reservation>> call, @NonNull Throwable t) {
+                Log.e("Report", "API call failed: " + t.getMessage());
+            }
+        });
+
         addRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
