@@ -1,5 +1,6 @@
 package project.roomeo.components.guest;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,21 +14,28 @@ import java.util.List;
 import project.roomeo.R;
 import project.roomeo.components.admin.RatingViewHolder;
 import project.roomeo.models.Rating;
+import project.roomeo.service.ServiceUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class GAccommodationRatingAdapter extends RecyclerView.Adapter<RatingViewHolder> {
 
     public List<Rating> ratingList;
     private FragmentManager fragmentManager;
+    private Long hostId;
+    private Long guestId;
 
     public GAccommodationRatingAdapter(List<Rating> ratingList, FragmentManager fragmentManager) {
         this.ratingList = ratingList;
         this.fragmentManager = fragmentManager;
     }
 
-    public GAccommodationRatingAdapter(List<Rating> ratingList) {
+    public GAccommodationRatingAdapter(List<Rating> ratingList, Long hostId, Long guestId) {
         this.ratingList = ratingList;
+        this.hostId = hostId;
+        this.guestId = guestId;
     }
-
     @NonNull
     @Override
     public RatingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -40,52 +48,35 @@ public class GAccommodationRatingAdapter extends RecyclerView.Adapter<RatingView
         Rating request = ratingList.get(position);
 
         holder.bindData(request);
+        if (request.getGuestId()==guestId.intValue()) {
+            holder.acceptButton.setVisibility(View.VISIBLE);
+        } else {
+            holder.acceptButton.setVisibility(View.GONE);
+        }
 
-//        holder.acceptButton.setOnClickListener(view -> {
-//            String ratingId = request.getId().toString();
-//            Call<Rating> call = ServiceUtils.ratingService.acceptRatingRequest(ratingId);
-//            call.enqueue(new Callback<Rating>() {
-//                @Override
-//                public void onResponse(@NonNull Call<Rating> call, @NonNull Response<Rating> response) {
-//
-//                    if (response.isSuccessful()) {
-//                        AccommodationRatingsFragment fragment = new AccommodationRatingsFragment();
-//                        ((HostMainActivity) view.getContext()).loadFragment(fragment);
-//                    } else {
-//                        onFailure(call, new Throwable("API call failed with status code: " + response.code()));
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(@NonNull Call<Rating> call, @NonNull Throwable t) {
-//                    Log.e("RatingAdapter", "API call failed: " + t.getMessage());
-//
-//                }
-//            });
-//        });
-//
-//        holder.declineButton.setOnClickListener(view -> {
-//            String ratingId = request.getId().toString();
-//
-//            Call<Rating> call = ServiceUtils.ratingService.rejectRatingRequest(ratingId);
-//            call.enqueue(new Callback<Rating>() {
-//                @Override
-//                public void onResponse(@NonNull Call<Rating> call, @NonNull Response<Rating> response) {
-//                    if (response.isSuccessful()) {
-//                        AccommodationRatingsFragment fragment = new AccommodationRatingsFragment();
-//                        ((HostMainActivity) view.getContext()).loadFragment(fragment);
-//                    } else {
-//                        onFailure(call, new Throwable("API call failed with status code: " + response.code()));
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(@NonNull Call<Rating> call, @NonNull Throwable t) {
-//                    Log.e("RatingAdapter", "API call failed: " + t.getMessage());
-//
-//                }
-//            });
-//        });
+        holder.acceptButton.setOnClickListener(view -> {
+            String ratingId = request.getId().toString();
+
+            Call<Void> call = ServiceUtils.ratingService.deleteRating(Long.valueOf(ratingId));
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+
+                    if (response.isSuccessful()) {
+                        GAccommodationRatingsFragment fragment = new GAccommodationRatingsFragment(hostId, Long.valueOf(request.getAccommodationId()));
+                        ((GuestMainActivity) view.getContext()).loadFragment(fragment);
+                    } else {
+                        onFailure(call, new Throwable("API call failed with status code: " + response.code()));
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                    Log.e("RatingAdapter", "API call failed: " + t.getMessage());
+
+                }
+            });
+        });
     }
 
 

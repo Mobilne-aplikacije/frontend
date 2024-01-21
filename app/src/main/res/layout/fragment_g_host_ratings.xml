@@ -51,6 +51,36 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="270px"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingStart="8dp"
+            android:text="Average rate"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/averageRate"
+            android:layout_width="66dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="8dp"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
@@ -58,6 +88,6 @@
         android:layout_centerInParent="true"
         android:padding="8dp"
         android:scrollbars="vertical"
-        android:layout_marginTop="300px"/>
+        android:layout_marginTop="350px"/>
 
 </FrameLayout>

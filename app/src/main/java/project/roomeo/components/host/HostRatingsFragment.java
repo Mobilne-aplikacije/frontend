@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class HostRatingsFragment extends Fragment {
     private RecyclerView recyclerView;
     private HostRatingAdapter ratingAdapter;
     private Long myId;
+    public TextView averageRate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +48,34 @@ public class HostRatingsFragment extends Fragment {
 
         return view;
     }
+
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        averageRate = getView().findViewById(R.id.averageRate);
+
+        Call<Double> call = ServiceUtils.hostService.getHostAverageRate(myId.toString());
+        call.enqueue(new Callback<Double>() {
+            @Override
+            public void onResponse(Call<Double> call, Response<Double> response) {
+                if (response.isSuccessful()) {
+                    Double average = response.body();
+                    if (average != null) {
+                        averageRate.setText(average.toString());
+                        Log.i("prosekk",  String.valueOf(average));
+
+                    }
+                } else {
+                    onFailure(call, new Throwable("API call failed with status code: " + response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Double> call, Throwable t) {
+                Log.e("Rating", "API call failed: " + t.getMessage());
+            }
+        });
+    }
+
 
     private void getHostRatingsList() {
 

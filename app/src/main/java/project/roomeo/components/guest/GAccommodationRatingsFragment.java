@@ -32,6 +32,7 @@ public class GAccommodationRatingsFragment extends Fragment {
     private GAccommodationRatingAdapter ratingAdapter;
     private Long myId;
     private Long accommodationId;
+    private Long hostId;
 
 
     @Override
@@ -70,7 +71,7 @@ public class GAccommodationRatingsFragment extends Fragment {
                                 acceptedRatings.add(r);
                             }
                         }
-                        ratingAdapter = new GAccommodationRatingAdapter(acceptedRatings);
+                        ratingAdapter = new GAccommodationRatingAdapter(acceptedRatings, hostId, myId);
                         recyclerView.setAdapter(ratingAdapter);
 
                     }
@@ -86,8 +87,9 @@ public class GAccommodationRatingsFragment extends Fragment {
         });
     }
 
-    public GAccommodationRatingsFragment(Long accommodationId) {
+    public GAccommodationRatingsFragment(Long accommodationId, Long hostId) {
         this.accommodationId = accommodationId;
+        this.hostId = hostId;
     }
 
 }

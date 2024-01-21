@@ -1,0 +1,32 @@
+<!-- res/layout/rating_dialog.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Unesite ocenu i komentar"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:gravity="center"/>
+
+    <EditText
+        android:id="@+id/ratingInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ocena"
+        android:inputType="number"
+        android:layout_marginTop="8dp"/>
+
+    <EditText
+        android:id="@+id/commentInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Komentar"
+        android:layout_marginTop="8dp"/>
+
+</LinearLayout>
