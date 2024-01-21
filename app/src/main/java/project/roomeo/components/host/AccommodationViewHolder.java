@@ -7,8 +7,18 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import project.roomeo.R;
 import project.roomeo.models.Accommodation;
+import project.roomeo.models.Rating;
+import project.roomeo.models.enums.AccommodationRequestStatus;
+import project.roomeo.models.enums.RatingType;
+import project.roomeo.service.ServiceUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AccommodationViewHolder extends RecyclerView.ViewHolder {
     public TextView id;
@@ -65,6 +75,8 @@ public class AccommodationViewHolder extends RecyclerView.ViewHolder {
         if (deadline != null) {
             deadline.setText(item.getCancellationDeadline());
         }
+
+
 
         //deadline.setText(item.getCancellationDeadline());
         //priceIncrease.setText(item.getPercentage_of_price_increase()+"%");

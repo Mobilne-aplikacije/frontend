@@ -29,4 +29,6 @@ public interface IHostService {
     Call<HostDTO> createNewHost(@Body RequestHostDTO request);
     @GET(ServiceUtils.host + "/{id}")
     Call<Host> getHost(@Path("id") String id);
+    @GET(ServiceUtils.host + "/averageRate/{id}")
+    Call<Double> getHostAverageRate(@Path("id") String id);
 }

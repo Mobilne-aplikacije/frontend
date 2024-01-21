@@ -47,6 +47,7 @@ public class GuestMainActivity extends AppCompatActivity implements BottomNaviga
         profileFragment = new GuestProfileFragment();
         notificationsFragment = new GuestNotificationsFragment();
         reservationsFragment = new GuestReservationsFragment();
+
         currentFragment = homeFragment;
         loadFragment(currentFragment);
 

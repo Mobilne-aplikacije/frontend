@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_nav">
+        android:layout_above="@+id/bottom_nav_admin">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
@@ -61,7 +61,7 @@
 
     <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav"
+        android:id="@+id/bottom_nav_admin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -72,6 +72,6 @@
         app:itemPaddingBottom="1dp"
         android:paddingBottom="2dp"
         app:labelVisibilityMode="labeled"
-        app:menu="@drawable/bottom_navbar"/>
+        app:menu="@drawable/bottom_nav_admin"/>
 
 </RelativeLayout>

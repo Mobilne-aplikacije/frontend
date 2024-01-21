@@ -90,6 +90,8 @@ public class UserLoginActivity extends AppCompatActivity {
             public void onClick(View v) {
 //                String getEmail= email.getText().toString();
 //                String getPassword = password.getText().toString();
+//                String getEmail = "petar.petrovic@gmail.com";
+//                String getPassword = "petar123";
 //                String getEmail = "marko.markovic@gmail.com";
 //                String getPassword = "marko123";
 //                String getEmail = "andrea.katzenberger@gmail.com";
@@ -111,13 +113,6 @@ public class UserLoginActivity extends AppCompatActivity {
         });
 
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.login_menu, menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
 
     public void login(String email, String password){
         RequestLoginDTO loginDTO = new RequestLoginDTO(email, password);
