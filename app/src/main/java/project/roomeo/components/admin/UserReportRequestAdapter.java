@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
@@ -72,6 +73,8 @@ public class UserReportRequestAdapter extends RecyclerView.Adapter<ReportViewHol
                                 if (response.isSuccessful()) {
                                     UserReportRequestsFragment fragment = new UserReportRequestsFragment();
                                     ((AdminMainActivity) view.getContext()).loadFragment(fragment);
+
+                                    Toast.makeText(view.getContext(), "Report request accepted.", Toast.LENGTH_SHORT).show();
                                 } else {
                                     onFailure(call2, new Throwable("API call failed with status code: " + response.code()));
                                 }
@@ -147,6 +150,8 @@ public class UserReportRequestAdapter extends RecyclerView.Adapter<ReportViewHol
                     if (response.isSuccessful()) {
                         UserReportRequestsFragment fragment = new UserReportRequestsFragment();
                         ((AdminMainActivity) view.getContext()).loadFragment(fragment);
+
+                        Toast.makeText(view.getContext(), "Report request rejected.", Toast.LENGTH_SHORT).show();
                     } else {
                         onFailure(call, new Throwable("API call failed with status code: " + response.code()));
                     }

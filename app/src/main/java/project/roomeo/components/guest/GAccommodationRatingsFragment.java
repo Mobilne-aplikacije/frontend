@@ -140,6 +140,8 @@ public class GAccommodationRatingsFragment extends Fragment {
                                         Log.i("host id acc id", hostId.toString() + " m " + accommodationId.toString());
                                         GHostRatingsFragment fragment = new GHostRatingsFragment(hostId, accommodationId);
                                         ((GuestMainActivity) view.getContext()).loadFragment(fragment);
+
+                                        Toast.makeText(view.getContext(), "Rating added.", Toast.LENGTH_SHORT).show();
                                     } else {
                                         onFailure(call, new Throwable("API call failed with status code: " + response.code()));
                                     }
@@ -151,7 +153,7 @@ public class GAccommodationRatingsFragment extends Fragment {
                                 }
                             });
                         } else {
-                            Toast.makeText(getActivity(), "Unesite ocenu i komentar", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Enter rate and comment", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

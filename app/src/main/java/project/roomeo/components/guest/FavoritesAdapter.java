@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,6 +54,8 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesViewHolder> 
                         if (response.isSuccessful()) {
                             GuestFavoritesFragment fragment = new GuestFavoritesFragment();
                             ((GuestMainActivity) view.getContext()).loadFragment(fragment);
+
+                            Toast.makeText(view.getContext(), "Accommodation removed from favorites.", Toast.LENGTH_SHORT).show();
                         } else {
                             onFailure(call, new Throwable("API call failed with status code: " + response.code()));
                         }

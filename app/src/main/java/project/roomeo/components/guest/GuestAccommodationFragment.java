@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -118,6 +119,7 @@ public class GuestAccommodationFragment extends Fragment {
                                 GuestAccommodationFragment fragment = new GuestAccommodationFragment(pending,myId);
                                 fragment.setAccommodationRequest(accommodation);
                                 ((GuestMainActivity) v.getContext()).loadFragment(fragment);
+                                Toast.makeText(view.getContext(), "Added to favorites.", Toast.LENGTH_SHORT).show();
 
                             } else {
                                 onFailure(call, new Throwable("API call failed with status code: " + response.code()));

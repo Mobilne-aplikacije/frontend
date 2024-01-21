@@ -109,11 +109,4 @@ public class HostRatingsFragment extends Fragment {
         });
     }
 
-    public static HostRatingsFragment newInstance(Long accommodationId) {
-        HostRatingsFragment fragment = new HostRatingsFragment();
-        Bundle args = new Bundle();
-        args.putLong("accommodationId", accommodationId);
-        fragment.setArguments(args);
-        return fragment;
-    }
 }

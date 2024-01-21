@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +61,7 @@ public class HostPendingAccommodationsFragment extends Fragment {
             public void onClick(View v) {
                 HostPendingAccommodationsFragment fragment = new HostPendingAccommodationsFragment();
                 ((HostMainActivity) v.getContext()).loadFragment(fragment);
+                Toast.makeText(view.getContext(), "Pending accommodations", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -69,6 +71,7 @@ public class HostPendingAccommodationsFragment extends Fragment {
             public void onClick(View v) {
                 HostAccommodationsFragment fragment = new HostAccommodationsFragment();
                 ((HostMainActivity) v.getContext()).loadFragment(fragment);
+                Toast.makeText(view.getContext(), "Accepted accommodations", Toast.LENGTH_SHORT).show();
             }
         });
 

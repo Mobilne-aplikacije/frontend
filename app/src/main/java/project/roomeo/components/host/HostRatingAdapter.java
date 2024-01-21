@@ -58,6 +58,7 @@ public class HostRatingAdapter  extends RecyclerView.Adapter<RatingViewHolder> {
                     if (response.isSuccessful()) {
                         HostRatingsFragment fragment = new HostRatingsFragment();
                         ((HostMainActivity) view.getContext()).loadFragment(fragment);
+                        Toast.makeText(view.getContext(), "Report sent", Toast.LENGTH_SHORT).show();
                     } else {
                         onFailure(call, new Throwable("API call failed with status code: " + response.code()));
                     }
@@ -82,6 +83,7 @@ public class HostRatingAdapter  extends RecyclerView.Adapter<RatingViewHolder> {
                     if (response.isSuccessful()) {
                         HostRatingsFragment fragment = new HostRatingsFragment();
                         ((HostMainActivity) view.getContext()).loadFragment(fragment);
+                        Toast.makeText(view.getContext(), "Report sent", Toast.LENGTH_SHORT).show();
                     } else {
                         onFailure(call, new Throwable("API call failed with status code: " + response.code()));
                     }
