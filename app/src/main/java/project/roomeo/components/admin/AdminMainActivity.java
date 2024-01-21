@@ -33,6 +33,7 @@ public class AdminMainActivity extends AppCompatActivity  implements BottomNavig
     RatingRequestsFragment ratingRequestsFragment;
     UserReportRequestsFragment userReportRequestsFragment;
     RatingReportRequestsFragment ratingReportRequestsFragment;
+    AdminRequestsFragment adminRequestsFragment;
     Fragment currentFragment;
 
     Integer id = 1;
@@ -42,25 +43,24 @@ public class AdminMainActivity extends AppCompatActivity  implements BottomNavig
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guest_main);
+        setContentView(R.layout.activity_admin_main);
 
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         String myEmail = sharedPreferences.getString("pref_email", "");
         myId = sharedPreferences.getLong("pref_id", 0L);
 
-        bottomNavigationView = findViewById(R.id.bottom_nav);
+        bottomNavigationView = findViewById(R.id.bottom_nav_admin);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.bottom_navbar_home);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);  // Sakrij prikazivanje naslova
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-//        invalidateOptionsMenu();
 
         homeFragment = new AdminHomeFragment();
         profileFragment = new AdminProfileFragment();
-        requestsFragment = new UpdateRequestsFragment();
+        adminRequestsFragment = new AdminRequestsFragment();
         reservationsFragment = new GuestReservationsFragment();
         accommodationRequestsFragment = new AccommodationRequestsFragment();
         accommodationEditFragment = new AccommodationEditFragment();
@@ -96,8 +96,8 @@ public class AdminMainActivity extends AppCompatActivity  implements BottomNavig
             case R.id.bottom_navbar_home:
                 currentFragment = homeFragment;
                 break;
-            case R.id.bottom_navbar_inbox:
-                currentFragment = requestsFragment;
+            case R.id.bottom_navbar_requests:
+                currentFragment = adminRequestsFragment;
                 break;
             case R.id.bottom_navbar_history:
                 currentFragment = reservationsFragment;
