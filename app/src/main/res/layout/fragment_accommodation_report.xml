@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".components.host.AccommodationReportFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/screenshotLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="179dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="300px"
+                    android:gravity="center"
+                    android:text="Reservations" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Profit"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="190px"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50px"
+                        android:text="Januar" />
+
+                    <TextView
+                        android:id="@+id/janRes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="250px" />
+
+                    <TextView
+                        android:id="@+id/janProfit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="150px"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="190px"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50px"
+                        android:text="Februar" />
+
+                    <TextView
+                        android:id="@+id/febRes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="250px" />
+
+                    <TextView
+                        android:id="@+id/febProfit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="150px"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="190px"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50px"
+                        android:text="March" />
+
+                    <TextView
+                        android:id="@+id/marRes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="250px" />
+
+                    <TextView
+                        android:id="@+id/marProfit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="150px"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="190px"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50px"
+                        android:text="April" />
+
+                    <TextView
+                        android:id="@+id/aprRes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="250px" />
+
+                    <TextView
+                        android:id="@+id/aprProfit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="150px"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="190px"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50px"
+                        android:text="May" />
+
+                    <TextView
+                        android:id="@+id/mayRes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="250px" />
+
+                    <TextView
+                        android:id="@+id/mayProfit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="150px"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="190px"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50px"
+                        android:text="June" />
+
+                    <TextView
+                        android:id="@+id/junRes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="250px" />
+
+                    <TextView
+                        android:id="@+id/junProfit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="150px"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="190px"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50px"
+                        android:text="July" />
+
+                    <TextView
+                        android:id="@+id/julRes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="250px" />
+
+                    <TextView
+                        android:id="@+id/julProfit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="150px"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="190px"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50px"
+                        android:text="August" />
+
+                    <TextView
+                        android:id="@+id/augRes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="250px" />
+
+                    <TextView
+                        android:id="@+id/augProfit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="150px"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="190px"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50px"
+                        android:text="September" />
+
+                    <TextView
+                        android:id="@+id/sepRes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="250px" />
+
+                    <TextView
+                        android:id="@+id/sepProfit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="150px"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="190px"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50px"
+                        android:text="Octobar" />
+
+                    <TextView
+                        android:id="@+id/octRes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="250px" />
+
+                    <TextView
+                        android:id="@+id/octProfit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="150px"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="190px"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50px"
+                        android:text="Novembar" />
+
+                    <TextView
+                        android:id="@+id/novRes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="250px" />
+
+                    <TextView
+                        android:id="@+id/novProfit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="150px"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="190px"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50px"
+                        android:text="Decembar" />
+
+                    <TextView
+                        android:id="@+id/decRes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="250px" />
+
+                    <TextView
+                        android:id="@+id/decProfit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="150px"
+                        android:gravity="center" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/createPdf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="355px"
+        android:layout_marginTop="1600px"
+        android:text="Show report"
+        android:visibility="invisible" />
+
+
+</FrameLayout>

@@ -90,14 +90,15 @@ public class Step3Fragment extends Fragment {
     public Accommodation getData() {
 
         String image1 = imageViewPhoto1.toString();
-        String image2 = imageViewPhoto2.toString();
-        String image3 = imageViewPhoto3.toString();
-
-        List<String> photos = new ArrayList<String>();
-        photos.add(image1);
-        photos.add(image2);
-        photos.add(image3);
-        accommodation.setPhotos(photos);
+        Log.i("photos", image1);
+//        String image2 = imageViewPhoto2.toString();
+//        String image3 = imageViewPhoto3.toString();
+//
+//        List<String> photos = new ArrayList<String>();
+//        photos.add(image1);
+//        photos.add(image2);
+//        photos.add(image3);
+        accommodation.setPhotos(image1);
 
         return accommodation;
     }

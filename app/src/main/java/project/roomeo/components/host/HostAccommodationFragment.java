@@ -9,7 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -51,6 +54,7 @@ public class HostAccommodationFragment extends Fragment {
     public TextView averageRate;
     public double average;
     public double accommodationRates;
+    public ImageView placeImage;
 
     public HostAccommodationFragment() {
         this.pending = false;
@@ -88,6 +92,16 @@ public class HostAccommodationFragment extends Fragment {
                     ((HostMainActivity) v.getContext()).loadFragment(fragment);
                 }
             });
+
+            Button report = view.findViewById(R.id.edit);
+            report.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Long accommodationId = accommodation.getId();
+                    AccommodationReportFragment fragment = new AccommodationReportFragment(accommodationId);
+                    ((HostMainActivity) v.getContext()).loadFragment(fragment);
+                }
+            });
             return view;
         }
     }
@@ -117,6 +131,7 @@ public class HostAccommodationFragment extends Fragment {
         deadline = getView().findViewById(R.id.deadline);
         averageRate = getView().findViewById(R.id.averageRate);
 
+        placeImage = getView().findViewById(R.id.placeImage);
         name.setText(accommodation.getName());
         description.setText(accommodation.getDescription());
         location.setText(accommodation.getLocation());
@@ -148,7 +163,24 @@ public class HostAccommodationFragment extends Fragment {
         maxGuest.setText(String.valueOf(accommodation.getMaxGuest()));
         deadline.setText(String.valueOf(accommodation.getCancellationDeadline()));
         priceIncrease.setText(String.valueOf(accommodation.getPercentage_of_price_increase())+"%");
+        int drawableResourceId = requireContext().getResources().getIdentifier(accommodation.getPhotos(), "drawable", requireContext().getPackageName());
 
+        if (drawableResourceId != 0) {
+            Glide.with(getView())
+                    .load(drawableResourceId)
+                    .placeholder(R.drawable.ic_email)
+                    .error(R.drawable.image3)
+                    .centerCrop()
+                    .into(placeImage);
+        } else {
+            // Postavite podrazumevanu sliku ili preduzmite odgovarajuće akcije
+            Glide.with(getView())
+                    .load(R.drawable.aparment_placeholder)
+                    .placeholder(R.drawable.ic_email)
+                    .error(R.drawable.image3)
+                    .centerCrop()
+                    .into(placeImage);
+        }
         Call<List<Rating>> call = ServiceUtils.ratingService.getAllRatings();
         call.enqueue(new Callback<List<Rating>>() {
             @Override

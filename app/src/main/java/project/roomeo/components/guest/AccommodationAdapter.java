@@ -1,5 +1,6 @@
 package project.roomeo.components.guest;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,18 +17,20 @@ public class AccommodationAdapter  extends RecyclerView.Adapter<AccommodationVie
     private List<Accommodation> accommodationList;
     private boolean pending;
     private Long myId;
+    private Context context;
 
-    public AccommodationAdapter(List<Accommodation> accommodationList, boolean pending, Long myId) {
+    public AccommodationAdapter(List<Accommodation> accommodationList, boolean pending, Long myId, Context context) {
         this.accommodationList = accommodationList;
         this.pending = pending;
         this.myId = myId;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public AccommodationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.accommodation_item, parent, false);
-        return new AccommodationViewHolder(view);
+        return new AccommodationViewHolder(view, context);
     }
 
     @Override

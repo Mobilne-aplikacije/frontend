@@ -7,5 +7,9 @@
         android:title="My Accommodations"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/Reports"
+        android:title="Reports"
+        app:showAsAction="never"/>
 
 </menu>

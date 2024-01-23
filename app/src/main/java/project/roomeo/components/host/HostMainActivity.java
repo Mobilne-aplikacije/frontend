@@ -28,6 +28,7 @@ public class HostMainActivity extends AppCompatActivity implements BottomNavigat
     HostNotificationsFragment notificationsFragment;
     HostReservationsFragment reservationsFragment;
     HostAccommodationsFragment accommodationsFragment;
+    HostReportsFragment hostReportsFragment;
     StepperFragment stepperFragment;
     Fragment currentFragment;
 
@@ -54,6 +55,7 @@ public class HostMainActivity extends AppCompatActivity implements BottomNavigat
         notificationsFragment = new HostNotificationsFragment();
         reservationsFragment = new HostReservationsFragment();
         accommodationsFragment = new HostAccommodationsFragment();
+        hostReportsFragment = new HostReportsFragment();
         stepperFragment = new StepperFragment();
         currentFragment = homeFragment;
         loadFragment(currentFragment);
@@ -115,6 +117,9 @@ public class HostMainActivity extends AppCompatActivity implements BottomNavigat
 
         if (itemId == R.id.myAccommodations) {
             getSupportFragmentManager().beginTransaction().replace(R.id.guest_content, accommodationsFragment).commit();
+
+        }if (itemId == R.id.Reports) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.guest_content, hostReportsFragment).commit();
 
         }
         return super.onOptionsItemSelected(item);
