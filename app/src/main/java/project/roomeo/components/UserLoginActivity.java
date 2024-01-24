@@ -77,27 +77,19 @@ public class UserLoginActivity extends AppCompatActivity {
         // Enable the TextView to handle link clicks
         signupBtn.setMovementMethod(LinkMovementMethod.getInstance());
 
-//
-//        forgotBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                createNewPopUpDialog();
-//            }
-//        });
-//
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                String getEmail= email.getText().toString();
-//                String getPassword = password.getText().toString();
+                String getEmail= email.getText().toString();
+                String getPassword = password.getText().toString();
 //                String getEmail = "petar.petrovic@gmail.com";
 //                String getPassword = "petar123";
 //                String getEmail = "marko.markovic@gmail.com";
 //                String getPassword = "marko123";
 //                String getEmail = "andrea.katzenberger@gmail.com";
 //                String getPassword = "andrea123";
-                String getEmail = "admin@gmail.com";
-                String getPassword = "admin123";
+//                String getEmail = "admin@gmail.com";
+//                String getPassword = "admin123";
                 login(getEmail, getPassword);
             }
         });
