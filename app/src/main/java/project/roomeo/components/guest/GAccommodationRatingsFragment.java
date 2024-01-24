@@ -1,12 +1,17 @@
 package project.roomeo.components.guest;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,6 +53,7 @@ public class GAccommodationRatingsFragment extends Fragment {
     private Button addRating;
     public TextView averageRate;
     public boolean hadRes;
+    private static final String CHANNEL_ID = "MyChannelId";
 
 
     @Override
@@ -140,7 +146,7 @@ public class GAccommodationRatingsFragment extends Fragment {
                                         Log.i("host id acc id", hostId.toString() + " m " + accommodationId.toString());
                                         GHostRatingsFragment fragment = new GHostRatingsFragment(hostId, accommodationId);
                                         ((GuestMainActivity) view.getContext()).loadFragment(fragment);
-
+                                        showNotification();
                                         Toast.makeText(view.getContext(), "Rating added.", Toast.LENGTH_SHORT).show();
                                     } else {
                                         onFailure(call, new Throwable("API call failed with status code: " + response.code()));
@@ -214,5 +220,31 @@ public class GAccommodationRatingsFragment extends Fragment {
         this.accommodationId = accommodationId;
         this.hostId = hostId;
     }
+    private void showNotification() {
+        createNotificationChannel();
 
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(requireContext(), CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_notifications)
+                .setContentTitle("New comment")
+                .setContentText("You have received new rating from your guest.")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManager notificationManager = (NotificationManager) requireContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(1, builder.build());
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Your Channel";
+            String description = "Channel for your notifications";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            channel.enableLights(true);
+            channel.setLightColor(Color.RED);
+
+            NotificationManager notificationManager = requireContext().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
 }

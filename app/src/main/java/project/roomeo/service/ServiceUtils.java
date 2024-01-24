@@ -11,7 +11,7 @@ public class ServiceUtils {
 
 
     //Andrea  192.168.0.29
-    public static final String SERVICE_API_PATH = "http://192.168.0.29:8084/api/";
+    public static final String SERVICE_API_PATH = "http://172.20.10.9:8084/api/";
 
 
     public static final String host = "host";

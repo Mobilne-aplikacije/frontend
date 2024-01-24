@@ -96,7 +96,7 @@ public class HostPendingAccommodationsFragment extends Fragment {
 //                        Bundle args = new Bundle();
 //                        args.putBoolean("showAlternateLayout", true);
                         boolean pending = true;
-                        accommodationAdapter = new AccommodationAdapter(listAccepted, pending);
+                        accommodationAdapter = new AccommodationAdapter(listAccepted, pending,requireContext());
                         recyclerView.setAdapter(accommodationAdapter);
 //                        accommodationAdapter.setArguments(args);
                     }

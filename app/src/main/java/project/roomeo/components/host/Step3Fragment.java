@@ -51,8 +51,6 @@ public class Step3Fragment extends Fragment {
 
         Button buttonAddPhoto = view.findViewById(R.id.buttonAddPhoto);
         imageViewPhoto1 = view.findViewById(R.id.imageViewPhoto1);
-        imageViewPhoto2 = view.findViewById(R.id.imageViewPhoto2);
-        imageViewPhoto3 = view.findViewById(R.id.imageViewPhoto3);
 
         buttonAddPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +63,10 @@ public class Step3Fragment extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String image1 = imageViewPhoto1.toString();
+                Log.i("photos", image1);
+                accommodation.setPhotos("image1");
+                Log.i("addaccommodation",accommodation.toString());
                 Call<Accommodation> call = ServiceUtils.hostService.addAccommodation(accommodation);
 
                 call.enqueue(new Callback<Accommodation>() {
@@ -90,15 +92,9 @@ public class Step3Fragment extends Fragment {
     public Accommodation getData() {
 
         String image1 = imageViewPhoto1.toString();
-        String image2 = imageViewPhoto2.toString();
-        String image3 = imageViewPhoto3.toString();
-
-        List<String> photos = new ArrayList<String>();
-        photos.add(image1);
-        photos.add(image2);
-        photos.add(image3);
-        accommodation.setPhotos(photos);
-
+        Log.i("photos", image1);
+        accommodation.setPhotos("image1");
+        Log.i("addaccommodation",accommodation.toString());
         return accommodation;
     }
 
@@ -130,12 +126,12 @@ public class Step3Fragment extends Fragment {
         if (counter == 1){
             imageViewPhoto1.setImageBitmap(bitmap);
         }
-        if (counter == 2){
-            imageViewPhoto2.setImageBitmap(bitmap);
-        }
-        if (counter >= 3){
-            imageViewPhoto3.setImageBitmap(bitmap);
-        }
+//        if (counter == 2){
+//            imageViewPhoto2.setImageBitmap(bitmap);
+//        }
+//        if (counter >= 3){
+//            imageViewPhoto3.setImageBitmap(bitmap);
+//        }
     }
 
 }

@@ -7,7 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import project.roomeo.R;
 import project.roomeo.models.Accommodation;
@@ -37,6 +40,7 @@ public class HostPendingAccommodationFragment extends Fragment {
     public TextView hostLastname;
     public TextView deadline;
     public TextView priceIncrease;
+    public ImageView placeImage;
 
     public HostPendingAccommodationFragment() {
         // Required empty public constructor
@@ -78,6 +82,7 @@ public class HostPendingAccommodationFragment extends Fragment {
         priceIncrease = getView().findViewById(R.id.priceIncrease);
         deadline = getView().findViewById(R.id.deadline);
 
+        placeImage = getView().findViewById(R.id.placeImage);
         name.setText(accommodation.getName());
         description.setText(accommodation.getDescription());
         location.setText(accommodation.getLocation());
@@ -109,5 +114,24 @@ public class HostPendingAccommodationFragment extends Fragment {
         maxGuest.setText(String.valueOf(accommodation.getMaxGuest()));
         deadline.setText(String.valueOf(accommodation.getCancellationDeadline()));
         priceIncrease.setText(accommodation.getPercentage_of_price_increase());
+
+        int drawableResourceId = requireContext().getResources().getIdentifier(accommodation.getPhotos(), "drawable", requireContext().getPackageName());
+
+        if (drawableResourceId != 0) {
+            Glide.with(getView())
+                    .load(drawableResourceId)
+                    .placeholder(R.drawable.ic_email)
+                    .error(R.drawable.image3)
+                    .centerCrop()
+                    .into(placeImage);
+        } else {
+            // Postavite podrazumevanu sliku ili preduzmite odgovarajuće akcije
+            Glide.with(getView())
+                    .load(R.drawable.aparment_placeholder)
+                    .placeholder(R.drawable.ic_email)
+                    .error(R.drawable.image3)
+                    .centerCrop()
+                    .into(placeImage);
+        }
     }
 }

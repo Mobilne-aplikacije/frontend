@@ -117,7 +117,7 @@ public class GuestHomeFragment extends Fragment {
                                 listAccepted.add(list.get(i));
                             }
                         }
-                        accommodationAdapter = new AccommodationAdapter(listAccepted,false, Long.valueOf(myId));
+                        accommodationAdapter = new AccommodationAdapter(listAccepted,false, Long.valueOf(myId), requireContext());
                         recyclerView.setAdapter(accommodationAdapter);
                     }
                 } else {

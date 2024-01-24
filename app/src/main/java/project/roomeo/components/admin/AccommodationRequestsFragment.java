@@ -53,7 +53,7 @@ public class AccommodationRequestsFragment extends Fragment {
                     List<Accommodation> list = response.body();
                     if (list != null) {
 //                        Log.i("ADS", list.get(0).getType().toString());
-                        accommodationAdapter = new AccommodationAdapter(list);
+                        accommodationAdapter = new AccommodationAdapter(list, requireContext());
 //                        accommodationAdapter = new AccommodationAdapter(list, activity.getSupportFragmentManager());
                         recyclerView.setAdapter(accommodationAdapter);
 

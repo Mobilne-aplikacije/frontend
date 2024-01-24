@@ -1,5 +1,6 @@
 package project.roomeo.components.admin;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,20 +24,23 @@ import retrofit2.Response;
 public class AccommodationAdapter extends RecyclerView.Adapter<AccommodationViewHolder> {
     private List<Accommodation> accommodationList;
     private FragmentManager fragmentManager;
+    private Context context;
 
-    public AccommodationAdapter(List<Accommodation> accommodationList, FragmentManager fragmentManager) {
+    public AccommodationAdapter(List<Accommodation> accommodationList, FragmentManager fragmentManager, Context context) {
         this.accommodationList = accommodationList;
         this.fragmentManager = fragmentManager;
+        this.context = context;
     }
-    public AccommodationAdapter(List<Accommodation> accommodationList) {
+    public AccommodationAdapter(List<Accommodation> accommodationList, Context context) {
         this.accommodationList = accommodationList;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public AccommodationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.accommodation_requests_item, parent, false);
-        return new AccommodationViewHolder(view);
+        return new AccommodationViewHolder(view,context);
     }
 
     @Override

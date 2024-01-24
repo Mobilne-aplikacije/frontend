@@ -24,7 +24,7 @@ public class Accommodation {
     private int price;
     private BookingMethod bookingMethod;
     private List<Rating> ratings;
-    private List<String> photos;
+    private String photos;
     private int minGuest;
     private int maxGuest;
     private AccommodationRequestStatus status;
@@ -33,7 +33,7 @@ public class Accommodation {
     private int cancellationDeadline;
 
 
-    public Accommodation(Long id, String name, String description, String location, AccommodationType type, boolean wifi, boolean kitchen, boolean airConditioner, boolean parking, List<String> availability, Payment payment, int price, BookingMethod bookingMethod, List<Rating> ratings, List<String> photos, int minGuest, int maxGuest, AccommodationRequestStatus status, int hostId, int percentage_of_price_increase, int cancellationDeadline) {
+    public Accommodation(Long id, String name, String description, String location, AccommodationType type, boolean wifi, boolean kitchen, boolean airConditioner, boolean parking, List<String> availability, Payment payment, int price, BookingMethod bookingMethod, List<Rating> ratings, String photos, int minGuest, int maxGuest, AccommodationRequestStatus status, int hostId, int percentage_of_price_increase, int cancellationDeadline) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -172,11 +172,11 @@ public class Accommodation {
         this.ratings = ratings;
     }
 
-    public List<String> getPhotos() {
+    public String getPhotos() {
         return photos;
     }
 
-    public void setPhotos(List<String> photos) {
+    public void setPhotos(String photos) {
         this.photos = photos;
     }
 

@@ -10,8 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -58,11 +61,13 @@ public class GuestAccommodationFragment extends Fragment {
     public double accommodationRates;
     public boolean alreadyInFav;
     public Long myId;
+    public ImageView placeImage;
 
     public GuestAccommodationFragment() {
         this.pending = false;
     }
-    public GuestAccommodationFragment(boolean pending,Long myId) {
+
+    public GuestAccommodationFragment(boolean pending, Long myId) {
         this.pending = pending;
         this.myId = myId;
     }
@@ -75,9 +80,9 @@ public class GuestAccommodationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (pending){
+        if (pending) {
             return inflater.inflate(R.layout.fragment_host_pending_accommodation, container, false);
-        }else{
+        } else {
             View view = inflater.inflate(R.layout.fragment_guest_accommodation, container, false);
             Button hostRatings = view.findViewById(R.id.hostRatings);
             hostRatings.setOnClickListener(new View.OnClickListener() {
@@ -109,14 +114,14 @@ public class GuestAccommodationFragment extends Fragment {
             addToFav.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Call<Void> call = ServiceUtils.guestService.addFavorite(myId,(long) accommodation.getId());
+                    Call<Void> call = ServiceUtils.guestService.addFavorite(myId, (long) accommodation.getId());
                     call.enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
 
                             if (response.isSuccessful()) {
 
-                                GuestAccommodationFragment fragment = new GuestAccommodationFragment(pending,myId);
+                                GuestAccommodationFragment fragment = new GuestAccommodationFragment(pending, myId);
                                 fragment.setAccommodationRequest(accommodation);
                                 ((GuestMainActivity) v.getContext()).loadFragment(fragment);
                                 Toast.makeText(view.getContext(), "Added to favorites.", Toast.LENGTH_SHORT).show();
@@ -162,6 +167,7 @@ public class GuestAccommodationFragment extends Fragment {
         priceIncrease = getView().findViewById(R.id.priceIncrease);
         deadline = getView().findViewById(R.id.deadline);
         averageRate = getView().findViewById(R.id.averageRate);
+        placeImage = getView().findViewById(R.id.placeImage);
 
         name.setText(accommodation.getName());
         description.setText(accommodation.getDescription());
@@ -193,7 +199,27 @@ public class GuestAccommodationFragment extends Fragment {
         minGuest.setText(String.valueOf(accommodation.getMinGuest()));
         maxGuest.setText(String.valueOf(accommodation.getMaxGuest()));
         deadline.setText(String.valueOf(accommodation.getCancellationDeadline()));
-        priceIncrease.setText(String.valueOf(accommodation.getPercentage_of_price_increase())+"%");
+        priceIncrease.setText(String.valueOf(accommodation.getPercentage_of_price_increase()) + "%");
+
+        int drawableResourceId = requireContext().getResources().getIdentifier(accommodation.getPhotos(), "drawable", requireContext().getPackageName());
+
+        if (drawableResourceId != 0) {
+            Glide.with(getView())
+                    .load(drawableResourceId)
+                    .placeholder(R.drawable.ic_email)
+                    .error(R.drawable.image3)
+                    .centerCrop()
+                    .into(placeImage);
+        } else {
+            // Postavite podrazumevanu sliku ili preduzmite odgovarajuće akcije
+            Glide.with(getView())
+                    .load(R.drawable.aparment_placeholder)
+                    .placeholder(R.drawable.ic_email)
+                    .error(R.drawable.image3)
+                    .centerCrop()
+                    .into(placeImage);
+        }
+
 
         Call<List<Rating>> call = ServiceUtils.ratingService.getAllRatings();
         call.enqueue(new Callback<List<Rating>>() {
@@ -203,16 +229,16 @@ public class GuestAccommodationFragment extends Fragment {
                     List<Rating> list = response.body();
                     if (list != null) {
                         for (int i = 0; i < list.size(); i++) {
-                            if (list.get(i).getType() == RatingType.ACCOMMODATION && list.get(i).getAccommodationId()==accommodation.getId()){
-                                average+=list.get(i).getRating();
+                            if (list.get(i).getType() == RatingType.ACCOMMODATION && list.get(i).getAccommodationId() == accommodation.getId()) {
+                                average += list.get(i).getRating();
                                 accommodationRates++;
-                                Log.i("PROSEK", String.valueOf(average)+"..."+String.valueOf(accommodationRates));
+                                Log.i("PROSEK", String.valueOf(average) + "..." + String.valueOf(accommodationRates));
                             }
                         }
                         Log.i("prosekk", averageRate.toString());
 
                         DecimalFormat decimalFormat = new DecimalFormat("#.##");
-                        String formattedAverage = decimalFormat.format(average/accommodationRates);
+                        String formattedAverage = decimalFormat.format(average / accommodationRates);
                         double formattedDouble = Double.parseDouble(formattedAverage);
                         averageRate.setText(String.valueOf(formattedDouble));
 
@@ -228,4 +254,6 @@ public class GuestAccommodationFragment extends Fragment {
             }
         });
     }
+
 }
+

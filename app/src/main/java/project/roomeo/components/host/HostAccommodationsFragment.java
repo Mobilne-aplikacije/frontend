@@ -99,7 +99,7 @@ public class HostAccommodationsFragment extends Fragment {
                                 listAccepted.add(list.get(i));
                             }
                         }
-                        accommodationAdapter = new AccommodationAdapter(listAccepted);
+                        accommodationAdapter = new AccommodationAdapter(listAccepted,requireContext());
                         recyclerView.setAdapter(accommodationAdapter);
                     }
                 } else {

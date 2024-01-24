@@ -1,11 +1,15 @@
 package project.roomeo.components.host;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +47,10 @@ public class AccommodationViewHolder extends RecyclerView.ViewHolder {
     public Button details;
     public TextView deadline;
     public TextView priceIncrease;
+    public ImageView placeImage;
+    private Context context;
 
-    public AccommodationViewHolder(View itemView) {
+    public AccommodationViewHolder(View itemView, Context context) {
         super(itemView);
         // Inicijalizujte vaše komponente ovde
         name = itemView.findViewById(R.id.name);
@@ -59,7 +65,9 @@ public class AccommodationViewHolder extends RecyclerView.ViewHolder {
         details = itemView.findViewById(R.id.details);
         priceIncrease = itemView.findViewById(R.id.priceIncrease);
         deadline = itemView.findViewById(R.id.deadline);
-    }
+
+        placeImage = itemView.findViewById(R.id.placeImage);
+        this.context = context; }
 
     public void bindData(Accommodation item) {
         name.setText(item.getName());
@@ -77,8 +85,23 @@ public class AccommodationViewHolder extends RecyclerView.ViewHolder {
         }
 
 
+        int drawableResourceId = context.getResources().getIdentifier(item.getPhotos(), "drawable", context.getPackageName());
 
-        //deadline.setText(item.getCancellationDeadline());
-        //priceIncrease.setText(item.getPercentage_of_price_increase()+"%");
+        if (drawableResourceId != 0) {
+            Glide.with(itemView)
+                    .load(drawableResourceId)
+                    .placeholder(R.drawable.ic_email)
+                    .error(R.drawable.image3)
+                    .centerCrop()
+                    .into(placeImage);
+        } else {
+            // Postavite podrazumevanu sliku ili preduzmite odgovarajuće akcije
+            Glide.with(itemView)
+                    .load(R.drawable.aparment_placeholder)
+                    .placeholder(R.drawable.ic_email)
+                    .error(R.drawable.image3)
+                    .centerCrop()
+                    .into(placeImage);
+        }
     }
-}
+    }
