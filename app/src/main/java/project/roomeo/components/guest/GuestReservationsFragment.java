@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,10 +66,17 @@ public class GuestReservationsFragment extends Fragment {
                 if (response.isSuccessful()) {
                     List<Reservation> list = response.body();
                     if (list != null) {
+                        LocalDate today = LocalDate.now();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+
                         List<Reservation> listAccepted = new ArrayList<Reservation>();
                         for (int i = 0; i < list.size(); i++) {
                             if (list.get(i).getStatus()== ReservationRequestStatus.ACCEPTED){
-                                listAccepted.add(list.get(i));
+                                LocalDate endDate = LocalDate.parse(list.get(i).getEndDate(), formatter);
+
+                                if (endDate.isAfter(today)) {
+                                    listAccepted.add(list.get(i));
+                                }
                             }
                         }
                         reservationAdapter = new ReservationAdapter(listAccepted);

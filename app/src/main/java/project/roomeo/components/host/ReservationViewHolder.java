@@ -1,4 +1,4 @@
-package project.roomeo.components.guest;
+package project.roomeo.components.host;
 
 import android.util.Log;
 import android.view.View;
@@ -10,20 +10,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import project.roomeo.R;
 import project.roomeo.models.Accommodation;
-import project.roomeo.models.Report;
 import project.roomeo.models.Reservation;
 import project.roomeo.service.ServiceUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ReservationViewHolder  extends RecyclerView.ViewHolder {
+public class ReservationViewHolder extends RecyclerView.ViewHolder {
     public TextView accommodationName;
     public TextView accommodationAddress;
     public TextView startDate;
     public TextView endDate;
     private Accommodation accommodation;
-    public Button button;
+    public Button buttonAccept;
+    public Button buttonDecline;
 
     public ReservationViewHolder(View itemView) {
         super(itemView);
@@ -32,7 +32,8 @@ public class ReservationViewHolder  extends RecyclerView.ViewHolder {
         accommodationAddress = itemView.findViewById(R.id.accommodationAddress);
         startDate = itemView.findViewById(R.id.startDate);
         endDate = itemView.findViewById(R.id.endDate);
-        button = itemView.findViewById(R.id.button);
+        buttonAccept = itemView.findViewById(R.id.buttonAccept);
+        buttonDecline = itemView.findViewById(R.id.buttonDecline);
     }
 
     public void bindData(Reservation item) {

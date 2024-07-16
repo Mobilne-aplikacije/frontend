@@ -6,7 +6,7 @@ import project.roomeo.models.enums.RatingType;
 
 public class Rating {
     private Long id;
-    private int rating;
+    private double rating;
     private String comment;
     private RatingStatus status;
     private RatingType type;
@@ -14,7 +14,7 @@ public class Rating {
     private int guestId;
     private String ratingDate;
 
-    public Rating(int rating, String comment, RatingStatus status, RatingType type, int accommodationId, int guestId,String ratingDate) {
+    public Rating(double rating, String comment, RatingStatus status, RatingType type, int accommodationId, int guestId,String ratingDate) {
         this.rating = rating;
         this.comment = comment;
         this.status = status;
@@ -22,6 +22,12 @@ public class Rating {
         this.accommodationId = accommodationId;
         this.guestId = guestId;
         this.ratingDate = ratingDate;
+    }
+
+    public Rating(double rating, RatingStatus status, int accommodationId) {
+        this.rating = rating;
+        this.status = status;
+        this.accommodationId = accommodationId;
     }
 
     public Long getId() {
@@ -32,11 +38,11 @@ public class Rating {
         this.id = id;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 

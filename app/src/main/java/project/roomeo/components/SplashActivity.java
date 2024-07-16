@@ -12,6 +12,7 @@ import java.util.TimerTask;
 import project.roomeo.R;
 import project.roomeo.components.admin.AdminMainActivity;
 import project.roomeo.components.guest.GuestMainActivity;
+import project.roomeo.components.guest.GuestProfileFragment;
 import project.roomeo.components.host.HostMainActivity;
 import project.roomeo.components.host.StepperFragment;
 import project.roomeo.tools.ReviewerTools;

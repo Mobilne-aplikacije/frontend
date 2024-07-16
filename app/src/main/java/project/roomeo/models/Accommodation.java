@@ -12,6 +12,7 @@ public class Accommodation {
     private Long id;
 
     private String name;
+    private double rate;
     private String description;
     private String location;
     private AccommodationType type;
@@ -31,6 +32,7 @@ public class Accommodation {
     private int hostId;
     private int percentage_of_price_increase;
     private int cancellationDeadline;
+    private List<EcoFriendlyAmenity> ecoFriendlyAmenities;
 
 
     public Accommodation(Long id, String name, String description, String location, AccommodationType type, boolean wifi, boolean kitchen, boolean airConditioner, boolean parking, List<String> availability, Payment payment, int price, BookingMethod bookingMethod, List<Rating> ratings, String photos, int minGuest, int maxGuest, AccommodationRequestStatus status, int hostId, int percentage_of_price_increase, int cancellationDeadline) {
@@ -60,6 +62,14 @@ public class Accommodation {
     public Accommodation() {
     }
 
+    public List<EcoFriendlyAmenity> getEcoFriendlyAmenities() {
+        return ecoFriendlyAmenities;
+    }
+
+    public void setEcoFriendlyAmenities(List<EcoFriendlyAmenity> ecoFriendlyAmenities) {
+        this.ecoFriendlyAmenities = ecoFriendlyAmenities;
+    }
+
     public Long getId() {
         return id;
     }
@@ -74,6 +84,13 @@ public class Accommodation {
 
     public void setName(String name) {
         this.name = name;
+    }
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 
     public String getDescription() {

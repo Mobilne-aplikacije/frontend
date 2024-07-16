@@ -10,22 +10,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import project.roomeo.R;
 import project.roomeo.models.Accommodation;
-import project.roomeo.models.Report;
 import project.roomeo.models.Reservation;
 import project.roomeo.service.ServiceUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ReservationViewHolder  extends RecyclerView.ViewHolder {
+public class PastReservationViewHolder extends RecyclerView.ViewHolder {
     public TextView accommodationName;
     public TextView accommodationAddress;
     public TextView startDate;
     public TextView endDate;
-    private Accommodation accommodation;
     public Button button;
+    private Accommodation accommodation;
 
-    public ReservationViewHolder(View itemView) {
+    public PastReservationViewHolder(View itemView) {
         super(itemView);
         // Inicijalizujte vaše komponente ovde
         accommodationName = itemView.findViewById(R.id.accommodationName);

@@ -35,9 +35,9 @@ public class AccommodationReportFragment extends Fragment {
 
 
     private Long accommodationId;
-    private TextView janRes, febRes, marRes, aprRes, mayRes, junRes, julRes, augRes, sepRes, octRes, novRes, decRes;
-    private TextView janProfit, febProfit, marProfit, aprProfit, mayProfit, junProfit, julProfit, augProfit, sepProfit, octProfit, novProfit, decProfit;
-    private int janr, janp, febr, febp, marr, marp, aprr, aprp, mayr, mayp, junr, junp, julr, julp, augr, augp, sepr, sepp, octr, octp, novr, novp, decr, decp;
+    private TextView janRes, febRes, marRes, aprRes, mayRes, junRes, julRes, augRes, sepRes, octRes, novRes, decRes, allRes;
+    private TextView janProfit, febProfit, marProfit, aprProfit, mayProfit, junProfit, julProfit, augProfit, sepProfit, octProfit, novProfit, decProfit, allProfit;
+    private int janr, janp, febr, febp, marr, marp, aprr, aprp, mayr, mayp, junr, junp, julr, julp, augr, augp, sepr, sepp, octr, octp, novr, novp, decr, decp, allr, allp;
 
     public AccommodationReportFragment(Long accommodationId) {
         this.accommodationId = accommodationId;
@@ -112,6 +112,11 @@ public class AccommodationReportFragment extends Fragment {
         decProfit = view.findViewById(R.id.decProfit);
         decr = 0;
         decp = 0;
+
+        allRes = view.findViewById(R.id.allRes);
+        allProfit = view.findViewById(R.id.allProfit);
+        allr = 0;
+        allp = 0;
 
         getReport();
 
@@ -216,6 +221,9 @@ public class AccommodationReportFragment extends Fragment {
 
                         decRes.setText(String.valueOf(decr));
                         decProfit.setText(String.valueOf(decp));
+
+                        allRes.setText(String.valueOf(janr+febr+marr+aprr+mayr+junr+julr+augr+sepr+octr+novr+decr));
+                        allProfit.setText(String.valueOf(janp+febp+marp+aprp+mayp+junp+julp+augp+sepp+octp+novp+decp));
                     }
                 } else {
                     onFailure(call, new Throwable("API call failed with status code: " + response.code()));

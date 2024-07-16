@@ -69,9 +69,6 @@ public class Step2Fragment extends Fragment {
         checkBoxAirConditioner = view.findViewById(R.id.checkBoxAirConditioner);
         checkBoxParking = view.findViewById(R.id.checkBoxParking);
         editTextPrice = view.findViewById(R.id.editTextPrice);
-        checkBoxAutomaticReservation = view.findViewById(R.id.checkBoxAutomaticReservation);
-        dropdownButton = view.findViewById(R.id.dropdownButton);
-        dropdownButton2 = view.findViewById(R.id.dropdownButton2);
 
         // Prvi Spinner (dropdownButton)
         List<String> options = new ArrayList<>();
@@ -79,7 +76,7 @@ public class Step2Fragment extends Fragment {
         options.add("Room");
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, options);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dropdownButton.setAdapter(adapter);
+//        dropdownButton.setAdapter(adapter);
 
         // Drugi Spinner (dropdownButton2)
         List<String> options2 = new ArrayList<>();
@@ -87,7 +84,7 @@ public class Step2Fragment extends Fragment {
         options2.add("Price per room");
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, options2);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dropdownButton2.setAdapter(adapter2);
+//        dropdownButton2.setAdapter(adapter2);
 
 
         TextView dateRangeTextView = view.findViewById(R.id.datePickerEditText);
@@ -137,7 +134,7 @@ public class Step2Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (validateData()) {
-                    Step3Fragment fragment = new Step3Fragment();
+                    Step25Fragment fragment = new Step25Fragment();
                     fragment.setAccommodation(getData());
                     ((HostMainActivity) v.getContext()).loadFragment(fragment);
 
@@ -165,12 +162,12 @@ public class Step2Fragment extends Fragment {
         boolean airConditionerChecked = checkBoxAirConditioner.isChecked();
         boolean parkingChecked = checkBoxParking.isChecked();
         String price = editTextPrice.getText().toString();
-        boolean automaticReservationChecked = checkBoxAutomaticReservation.isChecked();
-        String dropdownValue1 = dropdownButton.getSelectedItem().toString();
-        String dropdownValue2 = dropdownButton2.getSelectedItem().toString();
+//        boolean automaticReservationChecked = checkBoxAutomaticReservation.isChecked();
+//        String dropdownValue1 = dropdownButton.getSelectedItem().toString();
+//        String dropdownValue2 = dropdownButton2.getSelectedItem().toString();
 
         accommodation.setHostId(myId.intValue());
-        accommodation.setStatus(AccommodationRequestStatus.PENDING);
+        accommodation.setStatus(AccommodationRequestStatus.ACCEPTED);
 
         accommodation.setWifi(wifiChecked);
         accommodation.setKitchen(kitchenChecked);
@@ -179,23 +176,23 @@ public class Step2Fragment extends Fragment {
         accommodation.setPrice(Integer.parseInt(price));
 
 
-        if (dropdownValue2.equals("Price per person")) {
-            accommodation.setPayment(Payment.PerPerson);
-        } else {
-            accommodation.setPayment(Payment.PerAccommodation);
-        }
+//        if (dropdownValue2.equals("Price per person")) {
+//            accommodation.setPayment(Payment.PerPerson);
+//        } else {
+//            accommodation.setPayment(Payment.PerAccommodation);
+//        }
+//
+//        if(automaticReservationChecked){
+//            accommodation.setBookingMethod(BookingMethod.AUTOMATIC);}
+//        else{
+//            accommodation.setBookingMethod(BookingMethod.NON_AUTOMATIC);
+//        }
 
-        if(automaticReservationChecked){
-            accommodation.setBookingMethod(BookingMethod.AUTOMATIC);}
-        else{
-            accommodation.setBookingMethod(BookingMethod.NON_AUTOMATIC);
-        }
-
-        if (dropdownValue1.equals("ROOM")) {
-            accommodation.setType(AccommodationType.ROOM);
-        } else {
-            accommodation.setType(AccommodationType.STUDIO);
-        }
+//        if (dropdownValue1.equals("ROOM")) {
+//            accommodation.setType(AccommodationType.ROOM);
+//        } else {
+//            accommodation.setType(AccommodationType.STUDIO);
+//        }
 
         accommodation.setAvailability(dateStrings);
         return accommodation;

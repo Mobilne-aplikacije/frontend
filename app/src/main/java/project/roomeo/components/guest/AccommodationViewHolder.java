@@ -36,6 +36,7 @@ public class AccommodationViewHolder  extends RecyclerView.ViewHolder {
     //    private AccommodationRequestStatus status;
     public TextView hostId;
     public Button details;
+    public TextView averageRate;
     public TextView deadline;
     public TextView priceIncrease;
     public ImageView placeImage;
@@ -45,10 +46,11 @@ public class AccommodationViewHolder  extends RecyclerView.ViewHolder {
         super(itemView);
         // Inicijalizujte vaše komponente ovde
         name = itemView.findViewById(R.id.name);
-        description = itemView.findViewById(R.id.description);
+        averageRate = itemView.findViewById(R.id.rate);
+//        description = itemView.findViewById(R.id.description);
         location = itemView.findViewById(R.id.location);
-        type = itemView.findViewById(R.id.type);
-        payment = itemView.findViewById(R.id.payment);
+//        type = itemView.findViewById(R.id.type);
+//        payment = itemView.findViewById(R.id.payment);
         price = itemView.findViewById(R.id.price);
         bookingMethod = itemView.findViewById(R.id.bookingMethod);
         minGuest = itemView.findViewById(R.id.minGuest);
@@ -62,13 +64,14 @@ public class AccommodationViewHolder  extends RecyclerView.ViewHolder {
 
     public void bindData(Accommodation item) {
         name.setText(item.getName());
-        description.setText(item.getDescription());
+//        description.setText(item.getDescription());
         location.setText(item.getLocation());
-        type.setText(item.getType().getDisplayName());
-        payment.setText(item.getPayment().getDisplayName());
+        averageRate.setText(String.valueOf(item.getRate()));
+//        type.setText(item.getType().getDisplayName());
+//        payment.setText(item.getPayment().getDisplayName());
         price.setText(item.getPrice()+"$");
-        minGuest.setText("Min guests: "+ item.getMinGuest());
-        maxGuest.setText("Max guests: "+ item.getMaxGuest());
+        minGuest.setText("Number of guests:  "+ item.getMinGuest() +"-"+item.getMaxGuest());
+//        maxGuest.setText("Max guests: "+ item.getMaxGuest());
         Log.i("DEADLINE:", String.valueOf(item.getCancellationDeadline()));
 
         if (deadline != null) {

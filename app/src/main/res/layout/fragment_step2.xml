@@ -51,36 +51,12 @@
         android:layout_marginTop="1dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="1dp"
-        android:hint="Enter price" />
-
-    <Spinner
-        android:id="@+id/dropdownButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextPrice"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="1dp" />
-
+        android:hint="Price per night" />
 
     <!-- Checkbox za Automatic Reservation -->
 
     <!-- Dropdown button za izbor -->
-    <CheckBox
-        android:id="@+id/checkBoxAutomaticReservation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/dropdownButton2"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Automatic Reservation" />
 
-    <Spinner
-        android:id="@+id/dropdownButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/checkBoxAutomaticReservation"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp" />
 
     <EditText
         android:id="@+id/datePickerEditText"
@@ -88,7 +64,7 @@
         android:layout_height="wrap_content"
         android:hint="Select available dates"
         style="@style/SearchBarText"
-        android:layout_below="@id/dropdownButton"
+        android:layout_below="@id/editTextPrice"
         android:background="@android:color/transparent"
         android:focusable="false"
         android:clickable="true"
@@ -105,5 +81,6 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="16dp"
         android:layout_marginStart="16dp"/>
+
 
 </RelativeLayout>

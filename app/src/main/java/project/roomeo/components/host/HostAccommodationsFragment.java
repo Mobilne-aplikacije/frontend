@@ -62,25 +62,6 @@ public class HostAccommodationsFragment extends Fragment {
         });
 
 
-        Button pendingAccommodations = view.findViewById(R.id.pending_accommodations);
-        pendingAccommodations.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HostPendingAccommodationsFragment fragment = new HostPendingAccommodationsFragment();
-                ((HostMainActivity) v.getContext()).loadFragment(fragment);
-                Toast.makeText(view.getContext(), "Pending accommodations", Toast.LENGTH_SHORT).show();
-            }
-        });
-        Button acceptedAccommodations = view.findViewById(R.id.accepted_accommodations);
-        acceptedAccommodations.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HostAccommodationsFragment fragment = new HostAccommodationsFragment();
-                ((HostMainActivity) v.getContext()).loadFragment(fragment);
-                Toast.makeText(view.getContext(), "Accepted accommodations", Toast.LENGTH_SHORT).show();
-            }
-        });
-
         return view;
     }
 
@@ -95,11 +76,11 @@ public class HostAccommodationsFragment extends Fragment {
                     if (list != null) {
                         List<Accommodation> listAccepted = new ArrayList<Accommodation>();
                         for (int i = 0; i < list.size(); i++) {
-                            if (list.get(i).getStatus()== AccommodationRequestStatus.ACCEPTED){
+                            if (list.get(i).getStatus() == AccommodationRequestStatus.ACCEPTED) {
                                 listAccepted.add(list.get(i));
                             }
                         }
-                        accommodationAdapter = new AccommodationAdapter(listAccepted,requireContext());
+                        accommodationAdapter = new AccommodationAdapter(listAccepted, requireContext());
                         recyclerView.setAdapter(accommodationAdapter);
                     }
                 } else {

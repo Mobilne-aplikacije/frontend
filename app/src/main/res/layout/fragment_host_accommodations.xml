@@ -11,44 +11,39 @@
         android:layout_marginRight="30dp">
 
 
-        <Button
-            android:id="@+id/accepted_accommodations"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_weight="1"
-            android:paddingStart="8dp"
-            android:text="Accepted"
-            android:textSize="10sp"/>
 
-        <Button
-            android:id="@+id/pending_accommodations"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_weight="1"
-            android:paddingStart="8dp"
-            android:text="Pending"
-            android:textSize="10sp" />
         <Button
             android:id="@+id/add_accommodation"
             android:layout_width="match_parent"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="120dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
             android:paddingStart="8dp"
-            android:text="Add"
+            android:text="Add Accommodation"
             android:textSize="10sp" />
 
 
+
     </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="19dp"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="150px"
+        android:text="My Accommodations" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:layout_marginTop="270px"
+        android:layout_marginTop="400px"
         android:padding="8dp"
         android:scrollbars="vertical" />
 

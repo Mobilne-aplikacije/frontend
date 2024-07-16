@@ -72,6 +72,6 @@
         app:itemPaddingBottom="1dp"
         android:paddingBottom="2dp"
         app:labelVisibilityMode="labeled"
-        app:menu="@drawable/bottom_navbar"/>
+        app:menu="@drawable/bottom_navbar_host"/>
 
 </RelativeLayout>

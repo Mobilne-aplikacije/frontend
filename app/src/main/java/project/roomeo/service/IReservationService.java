@@ -3,6 +3,7 @@ package project.roomeo.service;
 import java.util.List;
 
 import project.roomeo.models.Accommodation;
+import project.roomeo.models.Rating;
 import project.roomeo.models.ReportItem;
 import project.roomeo.models.Reservation;
 import retrofit2.Call;
@@ -31,7 +32,10 @@ public interface IReservationService {
 
     @GET(ServiceUtils.reservation + "/{id}")
     Call<Reservation> getReservation(@Path("id") String id);
-
+    @PUT(ServiceUtils.reservation + "/accept/{id}")
+    Call<Reservation> acceptReservationRequest(@Path("id") String id);
+    @PUT(ServiceUtils.reservation + "/decline/{id}")
+    Call<Reservation> declineReservationRequest(@Path("id") String id);
     @GET(ServiceUtils.reservation + "/guestReservations/{guestId}")
     Call<List<Reservation>> getGuestReservations(@Path("guestId") String guestId);
     @GET(ServiceUtils.reservation + "/hostReservations/{hostId}")

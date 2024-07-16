@@ -7,4 +7,5 @@
     <dimen name="registration_input">20dp</dimen>
     <dimen name="input_width">300dp</dimen>
     <dimen name="profile_icon">35dp</dimen>
+    <dimen name="padding_8dp">8dp</dimen>
 </resources>

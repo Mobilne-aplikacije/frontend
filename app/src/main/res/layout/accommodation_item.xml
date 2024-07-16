@@ -1,20 +1,20 @@
-<!-- your_accommodation_item_layout.xml -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
 
-
-    <!-- Naslov -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/green_border"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- Slika smještaja -->
         <ImageView
             android:id="@+id/placeImage"
             android:layout_width="match_parent"
@@ -22,100 +22,84 @@
             android:scaleType="centerCrop"
             android:src="@drawable/aparment_placeholder" />
 
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <!-- Naziv smještaja -->
         <TextView
             android:id="@+id/name"
-            android:layout_width="match_parent"
+            android:layout_width="800px"
             android:layout_height="wrap_content"
-            android:alpha="0.7"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center"
-            android:paddingTop="8dp"
-            android:textColor="#000000"
             android:textSize="22sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:paddingTop="8dp"
+            android:textColor="#2D8831"
+            android:fontFamily="@font/poppins_regular" />
 
         <TextView
-            android:id="@+id/description"
-            android:layout_width="match_parent"
+            android:id="@+id/rate"
+            android:layout_width="10dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingStart="8dp"
-            android:textSize="16sp"
-            tools:ignore="RtlSymmetry" />
-
+            android:textSize="26sp"
+            android:paddingTop="8dp" />
+    </LinearLayout>
+        <!-- Lokacija smještaja -->
         <TextView
             android:id="@+id/location"
-            android:textColor="#024702"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="8dp"
-            android:textSize="20sp" />
+            android:textSize="16sp"
+            android:paddingTop="4dp" />
 
-        <TextView
-            android:id="@+id/type"
+        <!-- Broj minimalnih i maksimalnih gostiju -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="8dp"
-            android:textSize="13sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/price"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:paddingStart="8dp"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/payment"
-                android:layout_width="195dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingStart="8dp"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/minGuest"
-                android:layout_width="109dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingStart="8dp"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:paddingTop="8dp" />
 
-
-            <TextView
-                android:id="@+id/maxGuest"
-                android:layout_width="109dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingStart="8dp"
-                android:textSize="16sp" />
         </LinearLayout>
 
+
+        <!-- Cijena i plaćanje -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="97dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:textSize="26sp" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/details"
+                style="@style/Button2"
+                android:layout_width="104dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="140dp"
+                android:text="Details"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                app:backgroundTint="#303633" />
+        </LinearLayout>
+
+
     </LinearLayout>
-
-    <Button
-        android:id="@+id/details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Details" />
-
-</LinearLayout>
-
+</com.google.android.material.card.MaterialCardView>

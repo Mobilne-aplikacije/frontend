@@ -1,24 +1,29 @@
 package project.roomeo.components.host;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.text.DecimalFormat;
 import java.util.List;
 
 import project.roomeo.R;
 import project.roomeo.models.Accommodation;
+import project.roomeo.models.EcoFriendlyAmenity;
 import project.roomeo.models.Rating;
 import project.roomeo.models.enums.RatingType;
 import project.roomeo.service.ServiceUtils;
@@ -37,20 +42,10 @@ public class HostAccommodationFragment extends Fragment {
     public TextView kitchen;
     public TextView airConditioner;
     public TextView parking;
-    //    public List<Date> availability;
     public TextView payment;
     public TextView pricee;
-    public TextView bookingMethod;
-    //    private List<Rating> ratings;
-//    private List<String> photos;
     public TextView minGuest;
-    public TextView maxGuest;
-    //    private AccommodationRequestStatus status;
-    public TextView hostName;
-    public TextView hostLastname;
     private boolean pending;
-    public TextView deadline;
-    public TextView priceIncrease;
     public TextView averageRate;
     public double average;
     public double accommodationRates;
@@ -59,6 +54,7 @@ public class HostAccommodationFragment extends Fragment {
     public HostAccommodationFragment() {
         this.pending = false;
     }
+
     public HostAccommodationFragment(boolean pending) {
         this.pending = pending;
     }
@@ -71,27 +67,10 @@ public class HostAccommodationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (pending){
+        if (pending) {
             return inflater.inflate(R.layout.fragment_host_pending_accommodation, container, false);
-        }else{
+        } else {
             View view = inflater.inflate(R.layout.fragment_host_accommodation, container, false);
-            Button hostRatings = view.findViewById(R.id.hostRatings);
-            hostRatings.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    HostRatingsFragment fragment = new HostRatingsFragment();
-                    ((HostMainActivity) v.getContext()).loadFragment(fragment);
-                }
-            });
-            Button accommodationRatings = view.findViewById(R.id.accommodationRatings);
-            accommodationRatings.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Long accommodationId = accommodation.getId();
-                    AccommodationRatingsFragment fragment = new AccommodationRatingsFragment(accommodationId);
-                    ((HostMainActivity) v.getContext()).loadFragment(fragment);
-                }
-            });
 
             Button report = view.findViewById(R.id.edit);
             report.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +89,7 @@ public class HostAccommodationFragment extends Fragment {
         this.accommodation = request;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -118,21 +98,16 @@ public class HostAccommodationFragment extends Fragment {
         description = getView().findViewById(R.id.description);
         location = getView().findViewById(R.id.location);
         wifi = getView().findViewById(R.id.wifi);
-        type = getView().findViewById(R.id.type);
         kitchen = getView().findViewById(R.id.kitchen);
         airConditioner = getView().findViewById(R.id.airConditioner);
-        bookingMethod = getView().findViewById(R.id.bookingMethod);
         parking = getView().findViewById(R.id.parking);
-        payment = getView().findViewById(R.id.payment);
         pricee = getView().findViewById(R.id.price);
         minGuest = getView().findViewById(R.id.minGuest);
-        maxGuest = getView().findViewById(R.id.maxGuest);
-        priceIncrease = getView().findViewById(R.id.priceIncrease);
-        deadline = getView().findViewById(R.id.deadline);
         averageRate = getView().findViewById(R.id.averageRate);
 
         placeImage = getView().findViewById(R.id.placeImage);
         name.setText(accommodation.getName());
+        averageRate.setText(String.valueOf(accommodation.getRate()));
         description.setText(accommodation.getDescription());
         location.setText(accommodation.getLocation());
         if (accommodation.isWifi()) {
@@ -140,7 +115,6 @@ public class HostAccommodationFragment extends Fragment {
         } else {
             wifi.setText("No");
         }
-        type.setText("Type: " + accommodation.getType());
         if (accommodation.isKitchen()) {
             kitchen.setText("Yes");
         } else {
@@ -156,13 +130,8 @@ public class HostAccommodationFragment extends Fragment {
         } else {
             parking.setText("No");
         }
-        payment.setText(accommodation.getPayment().getDisplayName());
-        pricee.setText(String.valueOf(accommodation.getPrice()));
-        bookingMethod.setText(accommodation.getBookingMethod().toString());
-        minGuest.setText(String.valueOf(accommodation.getMinGuest()));
-        maxGuest.setText(String.valueOf(accommodation.getMaxGuest()));
-        deadline.setText(String.valueOf(accommodation.getCancellationDeadline()));
-        priceIncrease.setText(String.valueOf(accommodation.getPercentage_of_price_increase())+"%");
+        pricee.setText(accommodation.getPrice() + "$");
+        minGuest.setText("Number of guests: " + accommodation.getMinGuest() + "-" + accommodation.getMaxGuest());
         int drawableResourceId = requireContext().getResources().getIdentifier(accommodation.getPhotos(), "drawable", requireContext().getPackageName());
 
         if (drawableResourceId != 0) {
@@ -181,38 +150,34 @@ public class HostAccommodationFragment extends Fragment {
                     .centerCrop()
                     .into(placeImage);
         }
-        Call<List<Rating>> call = ServiceUtils.ratingService.getAllRatings();
-        call.enqueue(new Callback<List<Rating>>() {
-            @Override
-            public void onResponse(Call<List<Rating>> call, Response<List<Rating>> response) {
-                if (response.isSuccessful()) {
-                    List<Rating> list = response.body();
-                    if (list != null) {
-                        for (int i = 0; i < list.size(); i++) {
-                            if (list.get(i).getType() == RatingType.ACCOMMODATION && list.get(i).getAccommodationId()==accommodation.getId()){
-                                average+=list.get(i).getRating();
-                                accommodationRates++;
-                                Log.i("PROSEK", String.valueOf(average)+"..."+String.valueOf(accommodationRates));
-                            }
-                        }
-                        Log.i("prosekk", averageRate.toString());
 
-                        DecimalFormat decimalFormat = new DecimalFormat("#.##");
-                        String formattedAverage = decimalFormat.format(average/accommodationRates);
-                        double formattedDouble = Double.parseDouble(formattedAverage);
-                        averageRate.setText(String.valueOf(formattedDouble));
+        LinearLayout ecoLayout = getView().findViewById(R.id.ecoLayout);
+        ecoLayout.removeAllViews();
+        for (EcoFriendlyAmenity ecoAmenity : accommodation.getEcoFriendlyAmenities()) {
+            MaterialTextView textView = new MaterialTextView(requireContext());
+            textView.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            ));
+            textView.setText(addSpacesToCamelCase(ecoAmenity.getName().toString()));
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            textView.setPadding((int) getResources().getDimension(R.dimen.padding_8dp), 0, 0, 0);
 
-                    }
-                } else {
-                    onFailure(call, new Throwable("API call failed with status code: " + response.code()));
-                }
+            ecoLayout.addView(textView);
+        }
+
+
+    }
+
+    private String addSpacesToCamelCase(String text) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            if (Character.isUpperCase(c) && i > 0) {
+                builder.append(" ");
             }
-
-            @Override
-            public void onFailure(Call<List<Rating>> call, Throwable t) {
-                Log.e("Rating", "API call failed: " + t.getMessage());
-            }
-        });
-
+            builder.append(c);
+        }
+        return builder.toString();
     }
 }

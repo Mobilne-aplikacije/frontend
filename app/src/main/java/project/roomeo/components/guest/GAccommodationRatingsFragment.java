@@ -176,6 +176,7 @@ public class GAccommodationRatingsFragment extends Fragment {
                 alertDialog.show();
             }
         });
+
         return view;
     }
 

@@ -6,7 +6,7 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="All reservations"
+        android:text="My Reservations"
         android:gravity="center"
         android:layout_marginBottom="30px"
         android:fontFamily="@font/poppins_regular"
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:layout_marginTop="270px"
+        android:layout_marginTop="170px"
         android:padding="8dp"
         android:scrollbars="vertical" />
 

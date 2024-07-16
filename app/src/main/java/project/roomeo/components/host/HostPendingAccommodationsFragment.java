@@ -55,26 +55,6 @@ public class HostPendingAccommodationsFragment extends Fragment {
                 ((HostMainActivity) v.getContext()).loadFragment(fragment);
             }
         });
-        Button pendingAccommodations = view.findViewById(R.id.pending_accommodations);
-        pendingAccommodations.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HostPendingAccommodationsFragment fragment = new HostPendingAccommodationsFragment();
-                ((HostMainActivity) v.getContext()).loadFragment(fragment);
-                Toast.makeText(view.getContext(), "Pending accommodations", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        Button acceptedAccommodations = view.findViewById(R.id.accepted_accommodations);
-        acceptedAccommodations.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HostAccommodationsFragment fragment = new HostAccommodationsFragment();
-                ((HostMainActivity) v.getContext()).loadFragment(fragment);
-                Toast.makeText(view.getContext(), "Accepted accommodations", Toast.LENGTH_SHORT).show();
-            }
-        });
-
         return view;
     }
 

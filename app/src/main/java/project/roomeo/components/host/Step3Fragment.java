@@ -65,7 +65,7 @@ public class Step3Fragment extends Fragment {
             public void onClick(View v) {
                 String image1 = imageViewPhoto1.toString();
                 Log.i("photos", image1);
-                accommodation.setPhotos("image1");
+                accommodation.setPhotos("apartmentnew");
                 Log.i("addaccommodation",accommodation.toString());
                 Call<Accommodation> call = ServiceUtils.hostService.addAccommodation(accommodation);
 
@@ -93,7 +93,7 @@ public class Step3Fragment extends Fragment {
 
         String image1 = imageViewPhoto1.toString();
         Log.i("photos", image1);
-        accommodation.setPhotos("image1");
+        accommodation.setPhotos("apartmentnew.jpg");
         Log.i("addaccommodation",accommodation.toString());
         return accommodation;
     }

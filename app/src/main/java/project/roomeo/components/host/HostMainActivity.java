@@ -23,7 +23,7 @@ import project.roomeo.components.Login;
 
 public class HostMainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    HostHomeFragment homeFragment;
+    HostAccommodationsFragment homeFragment;
     HostProfileFragment profileFragment;
     HostNotificationsFragment notificationsFragment;
     HostReservationsFragment reservationsFragment;
@@ -45,12 +45,12 @@ public class HostMainActivity extends AppCompatActivity implements BottomNavigat
         bottomNavigationView.setSelectedItemId(R.id.bottom_navbar_home);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);  // Sakrij prikazivanje naslova
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);  // Sakrij prikazivanje naslova
 
         invalidateOptionsMenu();
 
-        homeFragment = new HostHomeFragment();
+        homeFragment = new HostAccommodationsFragment();
         profileFragment = new HostProfileFragment();
         notificationsFragment = new HostNotificationsFragment();
         reservationsFragment = new HostReservationsFragment();
@@ -81,9 +81,6 @@ public class HostMainActivity extends AppCompatActivity implements BottomNavigat
                 break;
             case R.id.bottom_navbar_home:
                 currentFragment = homeFragment;
-                break;
-            case R.id.bottom_navbar_inbox:
-                currentFragment = notificationsFragment;
                 break;
             case R.id.bottom_navbar_history:
                 currentFragment = reservationsFragment;

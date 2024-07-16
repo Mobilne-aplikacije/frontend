@@ -11,21 +11,14 @@
         android:layout_height="wrap_content"
         android:text="Add Photo"
         android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"/>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/buttonAddPhoto"
-        android:text="You can add max 3 photoes" />
+        android:layout_marginStart="150dp"/>
 
     <!-- ImageView-ovi za prikaz fotografija -->
     <ImageView
         android:id="@+id/imageViewPhoto1"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_below="@id/textView"
+        android:layout_width="370dp"
+        android:layout_height="250dp"
+        android:layout_below="@id/buttonAddPhoto"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"/>
 
