@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/host_past_reservations_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Past Reservations"
+        android:gravity="center"
+        android:layout_marginBottom="30px"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="22sp"
+        android:textColor="#000000"
+        android:paddingTop="8dp"
+        android:alpha="0.7"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="170px"
+        android:padding="8dp"
+        android:scrollbars="vertical" />
+
+
+</RelativeLayout>

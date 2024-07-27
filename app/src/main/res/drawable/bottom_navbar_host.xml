@@ -10,6 +10,10 @@
         android:id="@+id/bottom_navbar_home"
         android:icon="@drawable/ic_home"/>
     <item
+        android:title="@string/notifications"
+        android:id="@+id/bottom_navbar_inbox"
+        android:icon="@drawable/ic_notifications"/>
+    <item
         android:title="@string/reservations"
         android:id="@+id/bottom_navbar_history"
         android:icon="@drawable/ic_calendar"/>

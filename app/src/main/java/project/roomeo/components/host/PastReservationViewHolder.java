@@ -16,7 +16,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ReservationViewHolder extends RecyclerView.ViewHolder {
+public class PastReservationViewHolder  extends RecyclerView.ViewHolder {
     public TextView accommodationName;
     public TextView accommodationAddress;
     public TextView startDate;
@@ -27,7 +27,7 @@ public class ReservationViewHolder extends RecyclerView.ViewHolder {
     public TextView price;
 
 
-    public ReservationViewHolder(View itemView) {
+    public PastReservationViewHolder(View itemView) {
         super(itemView);
         // Inicijalizujte vaše komponente ovde
         accommodationName = itemView.findViewById(R.id.accommodationName);
@@ -40,9 +40,9 @@ public class ReservationViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindData(Reservation item) {
-        endDate.setText("To:       "+ item.getEndDate());
-        startDate.setText("From:  "+ item.getStartDate());
-        price.setText(item.getPrice()+"$");
+        endDate.setText("To:       " + item.getEndDate());
+        startDate.setText("From:  " + item.getStartDate());
+        price.setText(item.getPrice() + "$");
 
         Call<Accommodation> call = ServiceUtils.adminService.getAccommodation(String.valueOf(item.getAccommodationId()));
         call.enqueue(new Callback<Accommodation>() {

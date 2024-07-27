@@ -57,7 +57,6 @@ public class UserLoginActivity extends AppCompatActivity {
         password = findViewById(R.id.passwordLogIn);
         loginBtn = findViewById(R.id.login_button);
         signupBtn = findViewById(R.id.signup_btn);
-        forgotBtn = findViewById(R.id.forgot_button);
 
         SpannableString spannableString = new SpannableString("Don't have an account? Register now");
 
@@ -84,9 +83,9 @@ public class UserLoginActivity extends AppCompatActivity {
 //                String getPassword = password.getText().toString();
 //                String getEmail = "petar.petrovic@gmail.com";
 //                String getPassword = "petar123";
-                String getEmail = "marko.markovic@gmail.com";
+                String getEmail = "marko.markovic@gmail.com"; //guest
                 String getPassword = "marko123";
-//                String getEmail = "andrea.katzenberger@gmail.com";
+//                String getEmail = "petar.petrovic@gmail.com"; //host
 //                String getPassword = "andrea123";
 //                String getEmail = "admin@gmail.com";
 //                String getPassword = "admin123";
@@ -96,12 +95,9 @@ public class UserLoginActivity extends AppCompatActivity {
 
 
 
-        signupBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(UserLoginActivity.this, UserRegisterActivity.class);
-                startActivity(intent);
-            }
+        signupBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(UserLoginActivity.this, UserRegisterActivity.class);
+            startActivity(intent);
         });
 
     }

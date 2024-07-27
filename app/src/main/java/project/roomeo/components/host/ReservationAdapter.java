@@ -60,7 +60,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationViewHold
                     if (response.isSuccessful()) {
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                        builder.setMessage("uspesno ste prihv")
+                        builder.setMessage("Reservation accepted successfully.")
                                 .setCancelable(false)
                                 .setPositiveButton("OK", (dialog, id) -> {
                                     HostReservationsFragment fragment = new HostReservationsFragment();
@@ -93,7 +93,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationViewHold
                     if (response.isSuccessful()) {
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                        builder.setMessage("uspesno ste odbili")
+                        builder.setMessage("Reservation declined successfully.")
                                 .setCancelable(false)
                                 .setPositiveButton("OK", (dialog, id) -> {
                                     HostReservationsFragment fragment = new HostReservationsFragment();

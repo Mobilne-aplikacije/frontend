@@ -18,6 +18,7 @@
     <string name="email_placeholder">email@examle.com</string>
     <string name="phone_placeholder">0600538922</string>
     <string name="address_placeholder">Jevrejska 8, Novi Sad</string>
+    <string name="address_placeholder2">Kosovska 12, Novi Sad</string>
     <string name="guest">Guest</string>
     <string name="delete_account">Permanently delete your account</string>
 </resources>

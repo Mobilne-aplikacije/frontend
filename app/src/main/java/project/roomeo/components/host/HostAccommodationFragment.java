@@ -4,6 +4,9 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.activity.OnBackPressedCallback;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
 import android.util.TypedValue;
@@ -19,9 +22,12 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import project.roomeo.R;
+import project.roomeo.components.ImageSliderAdapter;
 import project.roomeo.models.Accommodation;
 import project.roomeo.models.EcoFriendlyAmenity;
 import project.roomeo.models.Rating;
@@ -47,9 +53,8 @@ public class HostAccommodationFragment extends Fragment {
     public TextView minGuest;
     private boolean pending;
     public TextView averageRate;
-    public double average;
-    public double accommodationRates;
     public ImageView placeImage;
+    private ViewPager2 viewPager;
 
     public HostAccommodationFragment() {
         this.pending = false;
@@ -81,6 +86,16 @@ public class HostAccommodationFragment extends Fragment {
                     ((HostMainActivity) v.getContext()).loadFragment(fragment);
                 }
             });
+
+            Button updateButton = view.findViewById(R.id.updateAccommodationButton);
+            updateButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    UpdateAccommodationDialogFragment dialog = new UpdateAccommodationDialogFragment(accommodation, HostAccommodationFragment.this);
+                    dialog.show(getParentFragmentManager(), "UpdateAccommodationDialog");
+                }
+            });
+
             return view;
         }
     }
@@ -104,6 +119,13 @@ public class HostAccommodationFragment extends Fragment {
         pricee = getView().findViewById(R.id.price);
         minGuest = getView().findViewById(R.id.minGuest);
         averageRate = getView().findViewById(R.id.averageRate);
+        viewPager = view.findViewById(R.id.viewPager);
+
+        String photosString = accommodation.getPhotos();
+        List<String> imageUrls = new ArrayList<>(Arrays.asList(photosString.split(";")));
+
+        ImageSliderAdapter adapter = new ImageSliderAdapter(getContext(), imageUrls);
+        viewPager.setAdapter(adapter);
 
         placeImage = getView().findViewById(R.id.placeImage);
         name.setText(accommodation.getName());
@@ -132,24 +154,7 @@ public class HostAccommodationFragment extends Fragment {
         }
         pricee.setText(accommodation.getPrice() + "$");
         minGuest.setText("Number of guests: " + accommodation.getMinGuest() + "-" + accommodation.getMaxGuest());
-        int drawableResourceId = requireContext().getResources().getIdentifier(accommodation.getPhotos(), "drawable", requireContext().getPackageName());
 
-        if (drawableResourceId != 0) {
-            Glide.with(getView())
-                    .load(drawableResourceId)
-                    .placeholder(R.drawable.ic_email)
-                    .error(R.drawable.image3)
-                    .centerCrop()
-                    .into(placeImage);
-        } else {
-            // Postavite podrazumevanu sliku ili preduzmite odgovarajuće akcije
-            Glide.with(getView())
-                    .load(R.drawable.aparment_placeholder)
-                    .placeholder(R.drawable.ic_email)
-                    .error(R.drawable.image3)
-                    .centerCrop()
-                    .into(placeImage);
-        }
 
         LinearLayout ecoLayout = getView().findViewById(R.id.ecoLayout);
         ecoLayout.removeAllViews();
@@ -167,6 +172,20 @@ public class HostAccommodationFragment extends Fragment {
         }
 
 
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // Zamenite `DefinedFragment` sa fragmentom na koji želite da se vratite
+                Fragment fragment = new HostAccommodationsFragment();
+                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.guest_content, fragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+
     }
 
     private String addSpacesToCamelCase(String text) {
@@ -180,4 +199,5 @@ public class HostAccommodationFragment extends Fragment {
         }
         return builder.toString();
     }
+
 }

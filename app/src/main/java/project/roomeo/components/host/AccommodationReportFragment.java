@@ -3,8 +3,11 @@ package project.roomeo.components.host;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import androidx.activity.OnBackPressedCallback;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.text.TextUtils;
@@ -120,6 +123,7 @@ public class AccommodationReportFragment extends Fragment {
 
         getReport();
 
+
         return view;
     }
 
@@ -142,7 +146,6 @@ public class AccommodationReportFragment extends Fragment {
                                 calendar.setTime(myDate);
 
                                 if (myDate.before(today)) {
-                                    if (list.get(i).getStatus() == ReservationRequestStatus.ACCEPTED) {
                                         if (calendar.get(Calendar.MONTH) == Calendar.JANUARY) {
                                             janr++;
                                             janp = janp + list.get(i).getPrice();
@@ -180,7 +183,6 @@ public class AccommodationReportFragment extends Fragment {
                                             decr++;
                                             decp += list.get(i).getPrice();
                                         }
-                                    }
                                 }
                             } catch (ParseException e) {
                                 e.printStackTrace();
@@ -223,7 +225,7 @@ public class AccommodationReportFragment extends Fragment {
                         decProfit.setText(String.valueOf(decp));
 
                         allRes.setText(String.valueOf(janr+febr+marr+aprr+mayr+junr+julr+augr+sepr+octr+novr+decr));
-                        allProfit.setText(String.valueOf(janp+febp+marp+aprp+mayp+junp+julp+augp+sepp+octp+novp+decp));
+                        allProfit.setText(String.valueOf(janp+febp+marp+aprp+mayp+junp+julp+augp+sepp+octp+novp+decp+"$"));
                     }
                 } else {
                     onFailure(call, new Throwable("API call failed with status code: " + response.code()));

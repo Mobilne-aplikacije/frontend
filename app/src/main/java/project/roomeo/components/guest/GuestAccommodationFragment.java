@@ -1,12 +1,16 @@
 package project.roomeo.components.guest;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
+import androidx.core.util.Pair;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +22,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import project.roomeo.R;
+import project.roomeo.components.ImageSliderAdapter;
 import project.roomeo.components.host.AccommodationRatingsFragment;
+import project.roomeo.components.host.HostAccommodationFragment;
 import project.roomeo.components.host.HostAccommodationsFragment;
 import project.roomeo.components.host.HostMainActivity;
 import project.roomeo.components.host.HostRatingsFragment;
@@ -50,26 +64,15 @@ public class GuestAccommodationFragment extends Fragment {
     public TextView kitchen;
     public TextView airConditioner;
     public TextView parking;
-    //    public List<Date> availability;
     public TextView payment;
     public TextView pricee;
-    public TextView bookingMethod;
-    //    private List<Rating> ratings;
-//    private List<String> photos;
     public TextView minGuest;
     public TextView maxGuest;
-    //    private AccommodationRequestStatus status;
-    public TextView hostName;
-    public TextView hostLastname;
     private boolean pending;
-    public TextView priceIncrease;
     public TextView averageRate;
-    public double average;
-    public double accommodationRates;
-    public boolean alreadyInFav;
     public Long myId;
     public ImageView placeImage;
-
+    private ViewPager2 viewPager;
 
     public GuestAccommodationFragment() {
         this.pending = false;
@@ -109,18 +112,20 @@ public class GuestAccommodationFragment extends Fragment {
         description = getView().findViewById(R.id.description);
         location = getView().findViewById(R.id.location);
         wifi = getView().findViewById(R.id.wifi);
-//        type = getView().findViewById(R.id.type);
         kitchen = getView().findViewById(R.id.kitchen);
         airConditioner = getView().findViewById(R.id.airConditioner);
-//        bookingMethod = getView().findViewById(R.id.bookingMethod);
         parking = getView().findViewById(R.id.parking);
-//        payment = getView().findViewById(R.id.payment);
         pricee = getView().findViewById(R.id.price);
         minGuest = getView().findViewById(R.id.minGuest);
-//        maxGuest = getView().findViewById(R.id.maxGuest);
-//        priceIncrease = getView().findViewById(R.id.priceIncrease);
         averageRate = getView().findViewById(R.id.averageRate);
         placeImage = getView().findViewById(R.id.placeImage);
+        viewPager = view.findViewById(R.id.viewPager);
+
+        String photosString = accommodation.getPhotos();
+        List<String> imageUrls = new ArrayList<>(Arrays.asList(photosString.split(";")));
+
+        ImageSliderAdapter adapter = new ImageSliderAdapter(getContext(), imageUrls);
+        viewPager.setAdapter(adapter);
 
         name.setText(accommodation.getName());
         averageRate.setText(String.valueOf(accommodation.getRate()));
@@ -131,7 +136,6 @@ public class GuestAccommodationFragment extends Fragment {
         } else {
             wifi.setText("No");
         }
-//        type.setText("Type: " + accommodation.getType());
         if (accommodation.isKitchen()) {
             kitchen.setText("Yes");
         } else {
@@ -147,31 +151,8 @@ public class GuestAccommodationFragment extends Fragment {
         } else {
             parking.setText("No");
         }
-//        payment.setText(accommodation.getPayment().getDisplayName());
-        pricee.setText(String.valueOf(accommodation.getPrice())+"$");
-//        bookingMethod.setText(accommodation.getBookingMethod().toString());
-        minGuest.setText("Number of guests: " +String.valueOf(accommodation.getMinGuest())+"-"+accommodation.getMaxGuest());
-//        maxGuest.setText(String.valueOf(accommodation.getMaxGuest()));
-//        priceIncrease.setText(String.valueOf(accommodation.getPercentage_of_price_increase()) + "%");
-
-        int drawableResourceId = requireContext().getResources().getIdentifier(accommodation.getPhotos(), "drawable", requireContext().getPackageName());
-
-        if (drawableResourceId != 0) {
-            Glide.with(getView())
-                    .load(drawableResourceId)
-                    .placeholder(R.drawable.ic_email)
-                    .error(R.drawable.image3)
-                    .centerCrop()
-                    .into(placeImage);
-        } else {
-            // Postavite podrazumevanu sliku ili preduzmite odgovarajuće akcije
-            Glide.with(getView())
-                    .load(R.drawable.aparment_placeholder)
-                    .placeholder(R.drawable.ic_email)
-                    .error(R.drawable.image3)
-                    .centerCrop()
-                    .into(placeImage);
-        }
+        pricee.setText(String.valueOf(accommodation.getPrice()*8) + "$");
+        minGuest.setText("Number of guests: " + String.valueOf(accommodation.getMinGuest()) + "-" + accommodation.getMaxGuest());
 
         LinearLayout ecoLayout = getView().findViewById(R.id.ecoLayout);
         ecoLayout.removeAllViews();
@@ -188,18 +169,20 @@ public class GuestAccommodationFragment extends Fragment {
             ecoLayout.addView(textView);
         }
 
+        Button changeDatesButton = getView().findViewById(R.id.change);
+        changeDatesButton.setOnClickListener(v -> openDatePicker());
 
         Button reserve = getView().findViewById(R.id.reserve);
         reserve.setOnClickListener(v -> {
-            Reservation reservation = new Reservation(accommodation.getId().intValue(),"07/20/2024","07/22/2024",ReservationRequestStatus.PENDING,this.myId.intValue(),accommodation.getPrice());
+            Reservation reservation = new Reservation(accommodation.getId().intValue(), "07/25/2024", "07/27/2024", ReservationRequestStatus.PENDING, this.myId.intValue(), accommodation.getPrice());
 
             Call<Reservation> call2 = ServiceUtils.reservationService.addReservation(reservation);
 
             call2.enqueue(new Callback<Reservation>() {
                 @Override
                 public void onResponse(Call<Reservation> call, Response<Reservation> response) {
-                    if(!response.isSuccessful()) return;
-                    Log.d("Success" ,"Successfully added reservation");
+                    if (!response.isSuccessful()) return;
+                    Log.d("Success", "Successfully added reservation");
                 }
 
                 @Override
@@ -209,20 +192,118 @@ public class GuestAccommodationFragment extends Fragment {
             });
 
             AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-            builder.setMessage("poslali ste zahtev za rezervaciju, datumi:")
+            builder.setMessage("Are you sure you want to book the " + accommodation.getName() + " from 26.11. to 30.11?")
                     .setCancelable(false)
-                    .setPositiveButton("OK", (dialog, id) -> {
+                    .setPositiveButton("Yes", (dialog, id) -> {
                         GuestHomeFragment fragment = new GuestHomeFragment();
                         ((GuestMainActivity) v.getContext()).loadFragment(fragment);
+                    }).setNegativeButton("No", (dialog, id) -> {
+                        dialog.dismiss();
                     });
+            ;
 
             AlertDialog alert = builder.create();
             alert.show();
         });
 
-
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Fragment fragment = new GuestHomeFragment();
+                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.guest_content, fragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
     }
+
+
+    private void openDatePicker() {
+        // Konvertujte dostupne datume u listu Long za upotrebu sa MaterialDatePicker
+        List<Long> availableDatesMillis = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        Calendar calendar = Calendar.getInstance();
+
+        for (String dateString : accommodation.getAvailability()) {
+            try {
+                Date date = sdf.parse(dateString);
+                if (date != null) {
+                    availableDatesMillis.add(date.getTime());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Kreirajte interval za dostupne datume
+        long minDate = Collections.min(availableDatesMillis);
+        long maxDate = Collections.max(availableDatesMillis);
+
+        // Kreirajte MaterialDatePicker za opseg datuma
+        MaterialDatePicker.Builder<androidx.core.util.Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
+        builder.setSelection(new Pair<>(minDate, maxDate));
+        builder.setCalendarConstraints(new CalendarConstraints.Builder()
+                .setStart(minDate)
+                .setEnd(maxDate)
+                .build());
+
+        MaterialDatePicker<androidx.core.util.Pair<Long, Long>> datePicker = builder.build();
+
+        datePicker.addOnPositiveButtonClickListener(selection -> {
+            long startDateMillis = selection.first;
+            long endDateMillis = selection.second;
+
+            Date startDate = new Date(startDateMillis);
+            Date endDate = new Date(endDateMillis);
+
+            SimpleDateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy");
+            String startDateString = outputFormat.format(startDate);
+            String endDateString = outputFormat.format(endDate);
+
+            if (isDateRangeAvailable(startDateString, endDateString)) {
+                // Handle the selected date range
+                Toast.makeText(getContext(), "Selected Date Range: " + startDateString + " to " + endDateString, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Selected date range is not available", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        datePicker.show(getParentFragmentManager(), "DATE_PICKER");
+    }
+
+
+    private boolean isDateRangeAvailable(String startDate, String endDate) {
+        List<String> availability = accommodation.getAvailability();
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+
+        try {
+            Date start = sdf.parse(startDate);
+            Date end = sdf.parse(endDate);
+
+            if (start == null || end == null) {
+                return false;
+            }
+
+            calendar.setTime(start);
+            while (calendar.getTime().before(end) || calendar.getTime().equals(end)) {
+                String dateToCheck = sdf.format(calendar.getTime());
+                if (!availability.contains(dateToCheck)) {
+                    return false;
+                }
+                calendar.add(Calendar.DAY_OF_MONTH, 1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
 
     private String addSpacesToCamelCase(String text) {
         StringBuilder builder = new StringBuilder();

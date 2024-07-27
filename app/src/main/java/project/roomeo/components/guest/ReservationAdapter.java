@@ -86,18 +86,20 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationViewHold
                         }
                     });
 
-                    builder.setMessage("uspesno ste otkazali")
+                    builder.setMessage("Are you sure you want to cancel the reservation?")
                             .setCancelable(false)
-                            .setPositiveButton("OK", (dialog, id) -> {
+                            .setPositiveButton("Yes", (dialog, id) -> {
                                 GuestReservationsFragment fragment = new GuestReservationsFragment();
                                 ((GuestMainActivity) v.getContext()).loadFragment(fragment);
+                            }).setNegativeButton("No", (dialog, id) -> {
+                                dialog.dismiss();
                             });
 
 
                     AlertDialog alert = builder.create();
                     alert.show();
                 } else {
-                    builder.setMessage("Reservations can be canceled at least 3 days before the start date.")
+                    builder.setMessage("Reservation can be canceled at least 3 days before the start date.")
                             .setCancelable(false)
                             .setPositiveButton("OK", (dialog, id) -> {
                                 dialog.dismiss();

@@ -6,12 +6,14 @@ import java.util.List;
 import project.roomeo.DTO.HostDTO;
 import project.roomeo.DTO.RequestHostDTO;
 import project.roomeo.models.Accommodation;
+import project.roomeo.models.Guest;
 import project.roomeo.models.Host;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface IHostService {
@@ -31,4 +33,7 @@ public interface IHostService {
     Call<Host> getHost(@Path("id") String id);
     @GET(ServiceUtils.host + "/averageRate/{id}")
     Call<Double> getHostAverageRate(@Path("id") String id);
+    @PUT(ServiceUtils.host +"/{id}")
+    Call<Host> updateHost(@Path("id") String id, @Body Host host);
+
 }

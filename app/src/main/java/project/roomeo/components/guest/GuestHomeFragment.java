@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -42,7 +44,7 @@ public class GuestHomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private AccommodationAdapter accommodationAdapter;
     private Long myId;
-    private EditText searchLocationEditText;
+    private AutoCompleteTextView searchLocationEditText;
     private EditText numberOfGuestsEditText;
     private EditText datePickerEditText;
     private TextView searchButton;
@@ -100,12 +102,20 @@ public class GuestHomeFragment extends Fragment {
         datePickerEditText = view.findViewById(R.id.datePickerEditText);
         sortButton = view.findViewById(R.id.sort);
 
+        setupAutoCompleteTextView();
+
         searchButton.setOnClickListener(v -> {
             String location = searchLocationEditText.getText().toString();
             String numberOfGuestsString = numberOfGuestsEditText.getText().toString();
-            int numberOfGuests = numberOfGuestsString.isEmpty() ? 0 : Integer.parseInt(numberOfGuestsString);
             String dateRange = datePickerEditText.getText().toString();
-            getFilteredAccommodationList(location, numberOfGuests, dateRange);
+
+
+            int numberOfGuests = 0;
+            if (!numberOfGuestsString.isEmpty()) {
+                numberOfGuests = Integer.parseInt(numberOfGuestsString);
+            }
+                getFilteredAccommodationList(location, numberOfGuests, dateRange);
+
         });
 
         sortButton.setOnClickListener(v -> showSortOptions());
@@ -113,6 +123,14 @@ public class GuestHomeFragment extends Fragment {
         getAccommodationList();
 
         return view;
+    }
+
+
+    private void setupAutoCompleteTextView() {
+        String[] locations = {"Novi Sad", "Beograd", "Nis"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, locations);
+        searchLocationEditText.setAdapter(adapter);
+        searchLocationEditText.setThreshold(1);
     }
 
     private void getAccommodationList() {
@@ -184,6 +202,7 @@ public class GuestHomeFragment extends Fragment {
             }
         });
     }
+
 
     private void showSortOptions() {
         String[] sortOptions = {"Price", "Rating"};

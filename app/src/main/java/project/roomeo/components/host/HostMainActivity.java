@@ -27,6 +27,7 @@ public class HostMainActivity extends AppCompatActivity implements BottomNavigat
     HostProfileFragment profileFragment;
     HostNotificationsFragment notificationsFragment;
     HostReservationsFragment reservationsFragment;
+    HostPastReservationsFragment pastReservationsFragment;
     HostAccommodationsFragment accommodationsFragment;
     HostReportsFragment hostReportsFragment;
     StepperFragment stepperFragment;
@@ -54,6 +55,7 @@ public class HostMainActivity extends AppCompatActivity implements BottomNavigat
         profileFragment = new HostProfileFragment();
         notificationsFragment = new HostNotificationsFragment();
         reservationsFragment = new HostReservationsFragment();
+        pastReservationsFragment = new HostPastReservationsFragment();
         accommodationsFragment = new HostAccommodationsFragment();
         hostReportsFragment = new HostReportsFragment();
         stepperFragment = new StepperFragment();
@@ -81,6 +83,9 @@ public class HostMainActivity extends AppCompatActivity implements BottomNavigat
                 break;
             case R.id.bottom_navbar_home:
                 currentFragment = homeFragment;
+                break;
+            case R.id.bottom_navbar_inbox:
+                currentFragment = pastReservationsFragment;
                 break;
             case R.id.bottom_navbar_history:
                 currentFragment = reservationsFragment;

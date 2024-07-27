@@ -15,8 +15,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import project.roomeo.R;
 import project.roomeo.components.host.HostAccommodationsFragment;
@@ -38,6 +41,7 @@ public class RateAccommodationFragment extends Fragment {
     public int accommodationId;
     public Long reservationId;
     private LinearLayout checkboxContainer;
+    private Map<EcoAmenity, Double> ecoAmenityWeights;
 
     public RateAccommodationFragment(int accommodationId, Long reservationId) {
         this.accommodationId = accommodationId;
@@ -47,6 +51,19 @@ public class RateAccommodationFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ecoAmenityWeights = new HashMap<>();
+        ecoAmenityWeights.put(EcoAmenity.SolarPanels, 1.0);
+        ecoAmenityWeights.put(EcoAmenity.SmartThermostats, 1.5);
+        ecoAmenityWeights.put(EcoAmenity.EnergyEfficientDevices, 1.2);
+        ecoAmenityWeights.put(EcoAmenity.ZeroWastePolicy, 2.0);
+        ecoAmenityWeights.put(EcoAmenity.RecyclingBins, 1.0);
+        ecoAmenityWeights.put(EcoAmenity.LimitedUseOfSingleUsePlastics, 1.3);
+        ecoAmenityWeights.put(EcoAmenity.WaterSavingFaucetsShowersToilets, 1.4);
+        ecoAmenityWeights.put(EcoAmenity.NaturalNonToxicMaterials, 1.5);
+        ecoAmenityWeights.put(EcoAmenity.GreenSpacesAndGardens, 1.6);
+        ecoAmenityWeights.put(EcoAmenity.FreeBicyclesForGuests, 1.3);
+        ecoAmenityWeights.put(EcoAmenity.ElectricVehicleChargers, 1.4);
 
     }
 
@@ -73,18 +90,7 @@ public class RateAccommodationFragment extends Fragment {
         Button rate = view.findViewById(R.id.rate);
         rate.setOnClickListener(v -> {
 
-            int checkedCount = 0;
-            for (int i = 0; i < checkboxContainer.getChildCount(); i++) {
-                View view2 = checkboxContainer.getChildAt(i);
-                if (view2 instanceof CheckBox) {
-                    CheckBox checkBox = (CheckBox) view2;
-                    if (checkBox.isChecked()) {
-                        checkedCount++;
-                    }
-                }
-            }
-
-            double ratingValue = checkedCount;
+            double ratingValue = calculateRating();
 
             Rating rating = new Rating(ratingValue, RatingStatus.ACCEPTED,this.accommodationId);
             System.out.println("rating "+ rating);
@@ -98,7 +104,7 @@ public class RateAccommodationFragment extends Fragment {
                     Log.d("Success" ,rating.toString());
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                    builder.setMessage("na osnovu vaseg iskustva hotel je dobio ocenu 3.5")
+                    builder.setMessage("Based on your experience, the hotel received a rating of " +ratingValue+ ". Thank you!")
                             .setCancelable(false)
                             .setPositiveButton("OK", (dialog, id) -> {
 
@@ -142,6 +148,32 @@ public class RateAccommodationFragment extends Fragment {
         return view;
     }
 
+    private double calculateRating() {
+        double totalWeight = 0.0;
+        double selectedWeight = 0.0;
+
+        for (int i = 0; i < checkboxContainer.getChildCount(); i++) {
+            View view2 = checkboxContainer.getChildAt(i);
+            if (view2 instanceof CheckBox) {
+                CheckBox checkBox = (CheckBox) view2;
+                EcoAmenity amenity = EcoAmenity.valueOf(removeSpacesFromCamelCase(checkBox.getText().toString()));
+                if (checkBox.isChecked() && ecoAmenityWeights.containsKey(amenity)) {
+                    selectedWeight += ecoAmenityWeights.get(amenity);
+                }
+                totalWeight += ecoAmenityWeights.getOrDefault(amenity, 0.0);
+            }
+        }
+
+        double ratingValue = (totalWeight > 0) ? (selectedWeight / totalWeight) * 4 + 1 : 1.0; // Scale to 1.0 to 5.0
+
+        ratingValue = Math.min(Math.max(ratingValue, 1.0), 5.0);
+
+        DecimalFormat df = new DecimalFormat("#.#");
+        String roundedRating = df.format(ratingValue);
+
+        return Double.parseDouble(roundedRating);
+    }
+
     private String addSpacesToCamelCase(String text) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < text.length(); i++) {
@@ -152,6 +184,10 @@ public class RateAccommodationFragment extends Fragment {
             builder.append(c);
         }
         return builder.toString();
+    }
+
+    private String removeSpacesFromCamelCase(String text) {
+        return text.replace(" ", "");
     }
 
 }

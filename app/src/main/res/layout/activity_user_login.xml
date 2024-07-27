@@ -107,15 +107,6 @@
                     android:hint="min. 8 characters"
                     android:inputType="textPassword" />
 
-                <Button
-                    android:id="@+id/forgot_button"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_gravity="center"
-                    android:background="#FFFFFF"
-                    android:text="Forgot?"
-                    android:textAllCaps="false" />
 
             </LinearLayout>
 

@@ -78,7 +78,7 @@ public class AccommodationViewHolder extends RecyclerView.ViewHolder {
 //        type.setText(item.getType().getDisplayName());
 //        payment.setText(item.getPayment().getDisplayName());
         price.setText(item.getPrice()+"$");
-        minGuest.setText("Min guests: "+ item.getMinGuest());
+        minGuest.setText("Number of guests: " + item.getMinGuest() + "-" + item.getMaxGuest());
 //        maxGuest.setText("Max guests: "+ item.getMaxGuest());
         Log.i("DEADLINE:", String.valueOf(item.getCancellationDeadline()));
 

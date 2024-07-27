@@ -53,7 +53,7 @@ public class UserRegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_register);
 
         TextView logInText = findViewById(R.id.logInText);
-        SpannableString spannableString = new SpannableString("Already have an account? Log in now");
+        SpannableString spannableString = new SpannableString("Already have an account? Log in");
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {

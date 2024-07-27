@@ -45,4 +45,6 @@ public interface IGuestService {
     @PUT(ServiceUtils.accommodation + "/addFavorite/{guestId}/{accommodationId}")
     Call<Void> addFavorite(@Path("guestId") Long guestId, @Path("accommodationId") Long accommodationId);
 
+    @PUT(ServiceUtils.guest +"/{id}")
+    Call<Guest> updateGuest(@Path("id") String id, @Body Guest guest);
 }

@@ -31,7 +31,7 @@
                     android:contentDescription="Search Location Icon"
                     android:src="@drawable/ic_search" />
 
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/searchLocationEditText"
                     style="@style/SearchBarText"
                     android:layout_width="0dp"

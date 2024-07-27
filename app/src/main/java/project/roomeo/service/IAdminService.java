@@ -5,6 +5,7 @@ import java.util.List;
 import project.roomeo.models.Accommodation;
 import project.roomeo.models.Rating;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.PUT;
@@ -24,5 +25,7 @@ public interface IAdminService {
     Call<Accommodation> rejectAccommodationRequest(@Path("accommodation-id") String id);
     @GET(ServiceUtils.accommodation + "/accommodation/{id}")
     Call<Accommodation> getAccommodation(@Path("id") String id);
+    @PUT(ServiceUtils.accommodation + "/{id}")
+    Call<Accommodation> updateAccommodation(@Path("id") String id, @Body Accommodation accommodation);
 
 }

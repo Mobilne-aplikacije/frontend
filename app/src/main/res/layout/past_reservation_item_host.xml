@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_gravity="right"
-                    android:paddingStart="2dp"
+                    android:paddingStart="8dp"
                     android:textSize="20sp" />
 
             </LinearLayout>
@@ -78,20 +78,8 @@
                     android:layout_weight="1"
                     android:paddingStart="8dp"
                     android:textSize="16sp" />
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:text="Cancel reservation"
-                    android:textAllCaps="false"
-                    android:textColor="#686767"
-                    android:textSize="17sp"
-                    android:minHeight="0dp"
-                    android:padding="1dp" />
 
             </LinearLayout>
-
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

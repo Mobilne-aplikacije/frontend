@@ -24,6 +24,7 @@ public class ReservationViewHolder  extends RecyclerView.ViewHolder {
     public TextView endDate;
     private Accommodation accommodation;
     public Button button;
+    public TextView price;
 
     public ReservationViewHolder(View itemView) {
         super(itemView);
@@ -33,11 +34,13 @@ public class ReservationViewHolder  extends RecyclerView.ViewHolder {
         startDate = itemView.findViewById(R.id.startDate);
         endDate = itemView.findViewById(R.id.endDate);
         button = itemView.findViewById(R.id.button);
+        price = itemView.findViewById(R.id.price);
     }
 
     public void bindData(Reservation item) {
         endDate.setText("To:       "+ item.getEndDate());
         startDate.setText("From:  "+ item.getStartDate());
+        price.setText(item.getPrice()+"$");
 
         Call<Accommodation> call = ServiceUtils.adminService.getAccommodation(String.valueOf(item.getAccommodationId()));
         call.enqueue(new Callback<Accommodation>() {
