@@ -18,13 +18,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import project.roomeo.DTO.RequestResetPasswordDTO;
 import project.roomeo.R;
 import project.roomeo.components.UserLoginActivity;
 import project.roomeo.models.Guest;
@@ -163,7 +166,6 @@ public class GuestProfileFragment extends Fragment {
         updatedGuest.setAddress(newAddress);
         updatedGuest.setFirstName(newFirstname);
         updatedGuest.setLastName(newLastname);
-        showUpdateConfirmationDialog();
 
         Call<Guest> call = ServiceUtils.guestService.updateGuest(myId.toString(), updatedGuest);
 
@@ -214,6 +216,13 @@ public class GuestProfileFragment extends Fragment {
                 showDeleteConfirmationDialog(v);
             }
         });
+        LinearLayout resetPasswordButton = view.findViewById(R.id.resetPasswordButton);
+        resetPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showResetPasswordConfirmationDialog();
+            }
+        });
     }
 
     private void showDeleteConfirmationDialog(View v) {
@@ -221,9 +230,7 @@ public class GuestProfileFragment extends Fragment {
         builder.setMessage("Are you sure you want to delete your account?")
                 .setCancelable(false)
                 .setPositiveButton("Yes", (dialog, id) -> {
-                    Intent intent = new Intent(v.getContext(), UserLoginActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+                    deleteAccount();
                 })
                 .setNegativeButton("No", (dialog, id) -> dialog.cancel());
 
@@ -232,4 +239,91 @@ public class GuestProfileFragment extends Fragment {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+    private void deleteAccount() {
+        Call<Void> call = ServiceUtils.userService.deleteAccount(myId);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getContext(), "Account successfully deleted!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getContext(), UserLoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getContext(), "Failed to delete account. Please try again.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getContext(), "An error occurred. Please try again.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void showResetPasswordConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage("Are you sure you want to reset your password?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", (dialog, id) -> {
+                    showResetPasswordDialog();
+                })
+                .setNegativeButton("No", (dialog, id) -> dialog.cancel());
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void showResetPasswordDialog() {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View dialogView = inflater.inflate(R.layout.dialog_reset_password, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setView(dialogView);
+
+        EditText oldPassword = dialogView.findViewById(R.id.oldPassword);
+        EditText newPassword = dialogView.findViewById(R.id.newPassword);
+        EditText confirmPassword = dialogView.findViewById(R.id.confirmPassword);
+
+        builder.setPositiveButton("Reset", (dialog, which) -> {
+            String oldPass = oldPassword.getText().toString();
+            String newPass = newPassword.getText().toString();
+            String confirmPass = confirmPassword.getText().toString();
+
+            if (newPass.equals(confirmPass)) {
+                resetPassword(oldPass, newPass);
+            } else {
+                Toast.makeText(getContext(), "New passwords do not match!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void resetPassword(String oldPassword, String newPassword) {
+        RequestResetPasswordDTO resetPasswordDTO = new RequestResetPasswordDTO(oldPassword, newPassword);
+        Call<Void> call = ServiceUtils.userService.resetPassword(myId, resetPasswordDTO);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getContext(), "Password successfully reset!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "Password reset failed. Please try again.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getContext(), "An error occurred. Please try again.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }

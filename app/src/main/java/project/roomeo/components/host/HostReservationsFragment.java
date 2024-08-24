@@ -4,14 +4,19 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -26,62 +31,31 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 public class HostReservationsFragment extends Fragment {
-    private RecyclerView recyclerView;
-    private ReservationAdapter reservationAdapter;
-    private Long myId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_host_reservations, container, false);
 
-        recyclerView = view.findViewById(R.id.recyclerView);
+        ViewPager2 viewPager = view.findViewById(R.id.viewPager);
+        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        HostReservationsPagerAdapter adapter = new HostReservationsPagerAdapter(getActivity());
+        viewPager.setAdapter(adapter);
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
-        String myEmail = sharedPreferences.getString("pref_email", "");
-        myId = sharedPreferences.getLong("pref_id", 0L);
-        Log.e("PROVERA ID", "provera id: " + myId);
-
-        getReservationList();
-
-        return view;
-    }
-
-    private void getReservationList() {
-        Call<List<Reservation>> call = ServiceUtils.reservationService.getHostReservations(this.myId.toString());
-
-        call.enqueue(new Callback<List<Reservation>>() {
+        new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
-            public void onResponse(Call<List<Reservation>> call, Response<List<Reservation>> response) {
-                if (response.isSuccessful()) {
-                    List<Reservation> list = response.body();
-                    if (list != null) {
-                        LocalDate today = LocalDate.now();
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-
-                        List<Reservation> listAccepted = new ArrayList<Reservation>();
-                        for (int i = 0; i < list.size(); i++) {
-                            if (list.get(i).getStatus()== ReservationRequestStatus.PENDING){
-                                LocalDate endDate = LocalDate.parse(list.get(i).getEndDate(), formatter);
-
-                                if (endDate.isAfter(today)) {
-                                    listAccepted.add(list.get(i));
-                                }
-                            }
-                        }
-                        reservationAdapter = new ReservationAdapter(listAccepted);
-                        recyclerView.setAdapter(reservationAdapter);
-                    }
-                } else {
-                    onFailure(call, new Throwable("API call failed with status code: " + response.code()));
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                switch (position) {
+                    case 0:
+                        tab.setText("Requests");
+                        break;
+                    case 1:
+                        tab.setText("Reservations");
+                        break;
                 }
             }
+        }).attach();
 
-            @Override
-            public void onFailure(Call<List<Reservation>> call, Throwable t) {
-                Log.e("AccommodationRequestsFragment", "API call failed: " + t.getMessage());
-            }
-        });
+        return view;
     }
 }

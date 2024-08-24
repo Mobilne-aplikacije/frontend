@@ -1,6 +1,7 @@
 package project.roomeo.components.guest;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import project.roomeo.R;
+import project.roomeo.components.host.HostAccomodationDetailsFragment;
+import project.roomeo.components.host.HostMainActivity;
 import project.roomeo.models.Accommodation;
 
 public class AccommodationAdapter  extends RecyclerView.Adapter<AccommodationViewHolder> {
@@ -42,9 +45,20 @@ public class AccommodationAdapter  extends RecyclerView.Adapter<AccommodationVie
         holder.details.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GuestAccommodationFragment fragment = new GuestAccommodationFragment(pending,myId);
-                fragment.setAccommodationRequest(request);
-                ((GuestMainActivity) v.getContext()).loadFragment(fragment);
+                SharedPreferences sharedPreferences = v.getContext().getSharedPreferences("preferences", Context.MODE_PRIVATE);
+                String userType = sharedPreferences.getString("pref_role", "HOST");
+
+                if ("ADMIN".equals(userType) || "HOST".equals(userType)) {
+                    // Load Host Accommodation Details
+                    HostAccomodationDetailsFragment fragment = new HostAccomodationDetailsFragment(pending, myId);
+                    fragment.setAccommodationRequest(request);
+                    ((HostMainActivity) v.getContext()).loadFragment(fragment);
+                } else if ("GUEST".equals(userType)) {
+                    // Load Guest Accommodation Details
+                    GuestAccommodationFragment fragment = new GuestAccommodationFragment(pending, myId);
+                    fragment.setAccommodationRequest(request);
+                    ((GuestMainActivity) v.getContext()).loadFragment(fragment);
+                }
             }
         });
     }

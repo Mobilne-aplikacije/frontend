@@ -6,131 +6,194 @@
     android:layout_height="match_parent"
     tools:context=".components.guest.GuestHomeFragment">
 
-        <!-- Search Filter Bar -->
+    <!-- Search Filter Bar -->
+    <LinearLayout
+        android:id="@+id/searchFilterBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Search Location -->
         <LinearLayout
-            android:id="@+id/searchFilterBar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@color/white"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:id="@+id/searchLocationLayout"
+            style="@style/SearchBarInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <!-- Search Location -->
-            <LinearLayout
-                android:id="@+id/searchLocationLayout"
-                style="@style/SearchBarInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <ImageView
+                style="@style/SearchBarIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:contentDescription="Search Location Icon"
+                android:src="@drawable/ic_search" />
 
-                <ImageView
-                    style="@style/SearchBarIcon"
-                    android:contentDescription="Search Location Icon"
-                    android:src="@drawable/ic_search" />
+            <AutoCompleteTextView
+                android:id="@+id/searchLocationEditText"
+                style="@style/SearchBarText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:alpha="0.8"
+                android:background="@android:color/transparent"
+                android:hint="Search locations..." />
+        </LinearLayout>
 
-                <AutoCompleteTextView
-                    android:id="@+id/searchLocationEditText"
-                    style="@style/SearchBarText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:alpha="0.8"
-                    android:background="@android:color/transparent"
-                    android:hint="Search locations..." />
-            </LinearLayout>
+        <!-- Date Picker -->
+        <LinearLayout
+            android:id="@+id/datePickerLayout"
+            style="@style/SearchBarInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                style="@style/SearchBarIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:contentDescription="Date Picker Icon"
+                android:src="@drawable/ic_calendar_black" />
 
             <!-- Date Picker -->
-            <LinearLayout
-                android:id="@+id/datePickerLayout"
-                style="@style/SearchBarInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    style="@style/SearchBarIcon"
-                    android:contentDescription="Date Picker Icon"
-                    android:src="@drawable/ic_calendar_black" />
-
-                <!-- Date Picker -->
-                <EditText
-                    android:id="@+id/datePickerEditText"
-                    style="@style/SearchBarText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:alpha="0.8"
-                    android:background="@android:color/transparent"
-                    android:clickable="true"
-                    android:focusable="false"
-                    android:hint="Select Dates" />
-
-            </LinearLayout>
-
-            <!-- Number of Rooms and Guests -->
-            <LinearLayout
-                android:id="@+id/roomsGuestsLayout"
-                style="@style/SearchBarInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    style="@style/SearchBarIcon"
-                    android:contentDescription="Rooms and Guests Icon"
-                    android:src="@drawable/ic_person_black" />
-
-                <EditText
-                    android:id="@+id/numberOfGuestsEditText"
-                    style="@style/SearchBarText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:alpha="0.8"
-                    android:background="@android:color/transparent"
-                    android:hint="Number of guests"
-                    android:inputType="number" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/searchButton"
-                android:layout_width="match_parent"
+            <EditText
+                android:id="@+id/datePickerEditText"
+                style="@style/SearchBarText"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/bottom_rounded_corners"
-                android:backgroundTint="@color/colorSecondary"
-                android:fontFamily="@font/poppins_regular"
-                android:gravity="center"
-                android:paddingTop="2dp"
-                android:text="Search"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="25dp"></TextView>
-
-            <TextView
-                android:id="@+id/sort"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="5dp"
-                android:background="?attr/selectableItemBackground"
-                android:padding="10dp"
-                android:text="Sort By"
-                android:textAppearance="?attr/textAppearanceBody1"
-                android:textColor="#303633" />
-
+                android:layout_weight="1"
+                android:alpha="0.8"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="Select Dates" />
 
         </LinearLayout>
 
-        <!-- RecyclerView -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <!-- Number of Rooms and Guests -->
+        <LinearLayout
+            android:id="@+id/roomsGuestsLayout"
+            style="@style/SearchBarInput"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:padding="8dp"
-            android:scrollbars="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/searchFilterBar" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                style="@style/SearchBarIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:contentDescription="Rooms and Guests Icon"
+                android:src="@drawable/ic_person_black" />
+
+            <EditText
+                android:id="@+id/numberOfGuestsEditText"
+                style="@style/SearchBarText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:alpha="0.8"
+                android:background="@android:color/transparent"
+                android:hint="Number of guests"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/searchButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bottom_rounded_corners"
+            android:backgroundTint="@color/colorSecondary"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:paddingTop="2dp"
+            android:text="Search"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="25dp"></TextView>
+
+
+        <!-- Sort and Filter -->
+        <LinearLayout
+            android:id="@+id/sortAndFilterLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="5dp">
+
+            <!-- Sort Layout with Icon and Text -->
+            <LinearLayout
+                android:id="@+id/sortLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    style="@style/SearchBarIcon"
+                    android:id="@+id/sortIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_sort"
+                    android:contentDescription="@string/sort_icon" />
+
+                <TextView
+                    android:id="@+id/sortText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Sort"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    android:textColor="#303633" />
+            </LinearLayout>
+
+            <!-- Filter Layout with Icon and Text -->
+            <LinearLayout
+                android:id="@+id/filterLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    style="@style/SearchBarIcon"
+                    android:id="@+id/filterIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_filter"
+                    android:contentDescription="@string/filter_icon" />
+
+                <TextView
+                    android:id="@+id/filterText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Filter"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    android:textColor="#303633" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <!-- RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="8dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchFilterBar"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="-16dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

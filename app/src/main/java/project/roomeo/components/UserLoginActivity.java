@@ -79,16 +79,17 @@ public class UserLoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                String getEmail= email.getText().toString();
-//                String getPassword = password.getText().toString();
+                //String getEmail= email.getText().toString();
+                //String getPassword = password.getText().toString();
 //                String getEmail = "petar.petrovic@gmail.com";
 //                String getPassword = "petar123";
-                String getEmail = "marko.markovic@gmail.com"; //guest
-                String getPassword = "marko123";
+//                String getEmail = "marko.markovic@gmail.com"; //guest
+//                String getPassword = "marko123";
 //                String getEmail = "petar.petrovic@gmail.com"; //host
+//                String getEmail = "andrea.katzenberger@gmail.com";
 //                String getPassword = "andrea123";
-//                String getEmail = "admin@gmail.com";
-//                String getPassword = "admin123";
+                String getEmail = "admin@gmail.com";
+                String getPassword = "admin123";
                 login(getEmail, getPassword);
             }
         });

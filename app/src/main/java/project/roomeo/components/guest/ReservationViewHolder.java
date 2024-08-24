@@ -28,7 +28,6 @@ public class ReservationViewHolder  extends RecyclerView.ViewHolder {
 
     public ReservationViewHolder(View itemView) {
         super(itemView);
-        // Inicijalizujte vaše komponente ovde
         accommodationName = itemView.findViewById(R.id.accommodationName);
         accommodationAddress = itemView.findViewById(R.id.accommodationAddress);
         startDate = itemView.findViewById(R.id.startDate);

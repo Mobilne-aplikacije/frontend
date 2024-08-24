@@ -158,24 +158,11 @@ public class HostAccommodationFragment extends Fragment {
 
         LinearLayout ecoLayout = getView().findViewById(R.id.ecoLayout);
         ecoLayout.removeAllViews();
-        for (EcoFriendlyAmenity ecoAmenity : accommodation.getEcoFriendlyAmenities()) {
-            MaterialTextView textView = new MaterialTextView(requireContext());
-            textView.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            ));
-            textView.setText(addSpacesToCamelCase(ecoAmenity.getName().toString()));
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-            textView.setPadding((int) getResources().getDimension(R.dimen.padding_8dp), 0, 0, 0);
-
-            ecoLayout.addView(textView);
-        }
 
 
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                // Zamenite `DefinedFragment` sa fragmentom na koji želite da se vratite
                 Fragment fragment = new HostAccommodationsFragment();
                 FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction()

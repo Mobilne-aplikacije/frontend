@@ -3,6 +3,7 @@ package project.roomeo.service;
 import java.util.List;
 
 import project.roomeo.models.Accommodation;
+import project.roomeo.models.Admin;
 import project.roomeo.models.Rating;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -27,5 +28,9 @@ public interface IAdminService {
     Call<Accommodation> getAccommodation(@Path("id") String id);
     @PUT(ServiceUtils.accommodation + "/{id}")
     Call<Accommodation> updateAccommodation(@Path("id") String id, @Body Accommodation accommodation);
+    @GET(ServiceUtils.admin + "/{id}")
+    Call<Admin> getAdmin(@Path("id") String id);
+    @PUT(ServiceUtils.admin + "/{id}")
+    Call<Admin> updateAdmin(@Path("id") String id, @Body Admin updatedAdmin);
 
 }

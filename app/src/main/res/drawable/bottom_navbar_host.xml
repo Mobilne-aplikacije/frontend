@@ -17,4 +17,8 @@
         android:title="@string/reservations"
         android:id="@+id/bottom_navbar_history"
         android:icon="@drawable/ic_calendar"/>
+    <item
+        android:title="Accommodations"
+        android:id="@+id/bottom_navbar_accomodations"
+        android:icon="@drawable/ic_accomodations"/>
 </menu>

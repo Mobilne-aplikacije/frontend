@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".components.guest.GuestProfileFragment">
+    tools:context=".components.host.HostProfileFragment">
 
     <!-- Wavy Mask -->
     <ImageView
@@ -19,9 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <!-- Application Name -->
-    <!-- Adjust the margin as needed -->
-
+    <!-- Host Name -->
     <EditText
         android:id="@+id/nameText"
         android:layout_width="223dp"
@@ -36,6 +34,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Email -->
     <LinearLayout
         android:id="@+id/email"
         android:layout_width="300dp"
@@ -61,15 +60,10 @@
             android:background="@null"
             android:inputType="textEmailAddress"
             android:layout_marginStart="20dp"
-            style="@style/ProfileText"
-            />
-
-
-
-
+            style="@style/ProfileText" />
     </LinearLayout>
 
-
+    <!-- Phone Number -->
     <LinearLayout
         android:id="@+id/phone"
         android:layout_width="300dp"
@@ -97,6 +91,7 @@
             style="@style/ProfileText" />
     </LinearLayout>
 
+    <!-- Address -->
     <LinearLayout
         android:id="@+id/address"
         android:layout_width="300dp"
@@ -124,23 +119,22 @@
             style="@style/ProfileText"/>
     </LinearLayout>
 
+    <!-- Role -->
     <LinearLayout
         android:id="@+id/role"
-        android:layout_height="wrap_content"
         android:layout_width="300dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@id/address"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        >
+        app:layout_constraintHorizontal_bias="0.5">
 
         <ImageView
             android:id="@+id/roleImg"
             style="@style/ProfileIcon"
-
             android:src="@drawable/ic_role" />
 
         <TextView
@@ -153,6 +147,7 @@
             style="@style/ProfileText" />
     </LinearLayout>
 
+    <!-- Update Button -->
     <Button
         android:id="@+id/updateButton"
         android:layout_width="wrap_content"
@@ -164,6 +159,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:visibility="gone"/> <!-- Initially hidden -->
 
+    <!-- Reset Password Button -->
+    <LinearLayout
+        android:id="@+id/resetPasswordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="36dp"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/deleteButton"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/resetIcon"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:src="@drawable/ic_key"
+            style="@style/ProfileIcon"
+            android:contentDescription="Reset Password Icon"/>
+
+        <TextView
+            android:id="@+id/resetText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Reset your password"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:alpha="0.7"/>
+    </LinearLayout>
 
     <!-- Delete Button -->
     <LinearLayout

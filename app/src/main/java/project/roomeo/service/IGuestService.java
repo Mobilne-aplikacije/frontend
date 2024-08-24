@@ -31,8 +31,8 @@ public interface IGuestService {
     @GET(ServiceUtils.accommodation)
     Call<List<Accommodation>> getAllAccommodations();
 
-    @GET(ServiceUtils.accommodation + "/filter")
-    Call<List<Accommodation>> getFilteredAccommodations(@Query("location") String location, @Query("numberOfGuests") int numberOfGuests,
+    @GET(ServiceUtils.accommodation + "/search")
+    Call<List<Accommodation>> getSearchedAccommodations(@Query("location") String location, @Query("numberOfGuests") int numberOfGuests,
                                                         @Query("startDate") String startDate,
                                                         @Query("endDate") String endDate);
 
@@ -47,4 +47,8 @@ public interface IGuestService {
 
     @PUT(ServiceUtils.guest +"/{id}")
     Call<Guest> updateGuest(@Path("id") String id, @Body Guest guest);
+
+    @GET(ServiceUtils.guest + "/{id}/cancelledReservations")
+    Call<Integer> getCancelledReservationsCount(@Path("id") Long guestId);
+
 }

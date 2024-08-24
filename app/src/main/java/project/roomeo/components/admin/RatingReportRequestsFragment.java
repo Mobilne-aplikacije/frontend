@@ -32,11 +32,9 @@ public class RatingReportRequestsFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerView);
 
-        // Postavljanje layout manager-a (npr. LinearLayoutManager)
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        // Kreiranje adapter-a i povezivanje sa RecyclerView-om
-        getRatingReportRequestsList(); // Inicijalizacija liste
+        getRatingReportRequestsList();
 
         return view;
     }

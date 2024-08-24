@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <CheckBox
+        android:id="@+id/checkbox_wifi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wi-Fi" />
+
+    <CheckBox
+        android:id="@+id/checkbox_kitchen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kitchen" />
+
+    <CheckBox
+        android:id="@+id/checkbox_ac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Air Conditioner" />
+
+    <CheckBox
+        android:id="@+id/checkbox_parking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Parking" />
+
+    <!-- Horizontal LinearLayout za tipove smeštaja -->
+    <LinearLayout
+        android:id="@+id/typesLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Price Range:" />
+
+    <com.google.android.material.slider.RangeSlider
+        android:id="@+id/price_range_seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:valueFrom="0"
+        android:valueTo="1000"
+        android:stepSize="1"
+        tools:values="500" />
+
+</LinearLayout>

@@ -66,31 +66,31 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationViewHold
 
                 if (startDate.after(currentDatePlus3Days)) {
 
-                    Call<Reservation> call = ServiceUtils.reservationService.declineReservationRequest(request.getId().toString());
-                    call.enqueue(new Callback<Reservation>() {
-                        @Override
-                        public void onResponse(@NonNull Call<Reservation> call, @NonNull Response<Reservation> response) {
-
-                            if (response.isSuccessful()) {
-                                Log.e("Top", "top");
-
-                            } else {
-                                onFailure(call, new Throwable("API call failed with status code: " + response.code()));
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(@NonNull Call<Reservation> call, @NonNull Throwable t) {
-                            Log.e("ReservationAdapter", "API call failed: " + t.getMessage());
-
-                        }
-                    });
-
                     builder.setMessage("Are you sure you want to cancel the reservation?")
                             .setCancelable(false)
                             .setPositiveButton("Yes", (dialog, id) -> {
-                                GuestReservationsFragment fragment = new GuestReservationsFragment();
-                                ((GuestMainActivity) v.getContext()).loadFragment(fragment);
+                                Call<Reservation> call = ServiceUtils.reservationService.cancelReservationRequest(request.getId().toString());
+                                call.enqueue(new Callback<Reservation>() {
+                                    @Override
+                                    public void onResponse(@NonNull Call<Reservation> call, @NonNull Response<Reservation> response) {
+
+                                        if (response.isSuccessful()) {
+                                            Log.e("Top", "top");
+                                            GuestReservationsFragment fragment = new GuestReservationsFragment();
+                                            ((GuestMainActivity) v.getContext()).loadFragment(fragment);
+
+                                        } else {
+                                            onFailure(call, new Throwable("API call failed with status code: " + response.code()));
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(@NonNull Call<Reservation> call, @NonNull Throwable t) {
+                                        Log.e("ReservationAdapter", "API call failed: " + t.getMessage());
+
+                                    }
+                                });
+
                             }).setNegativeButton("No", (dialog, id) -> {
                                 dialog.dismiss();
                             });
@@ -116,6 +116,10 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationViewHold
             }
 
         });
+    }
+    public void updateList(List<Reservation> newList) {
+        reservationList = newList;
+        notifyDataSetChanged();
     }
 
     @Override

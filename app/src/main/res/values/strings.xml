@@ -21,4 +21,10 @@
     <string name="address_placeholder2">Kosovska 12, Novi Sad</string>
     <string name="guest">Guest</string>
     <string name="delete_account">Permanently delete your account</string>
+    <string name="filter_icon">Filter Icon</string>
+    <string name="sort_icon">Sort Icon</string>
+    <string-array name="accommodation_types">
+        <item>STUDIO</item>
+        <item>ROOM</item>
+    </string-array>
 </resources>

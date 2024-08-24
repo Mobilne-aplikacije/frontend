@@ -61,14 +61,9 @@
             android:background="@null"
             android:inputType="textEmailAddress"
             android:layout_marginStart="20dp"
-            style="@style/ProfileText"
-            />
-
-
-
+            style="@style/ProfileText" />
 
     </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/phone"
@@ -134,13 +129,11 @@
         app:layout_constraintTop_toBottomOf="@id/address"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
->
+        app:layout_constraintHorizontal_bias="0.5">
 
         <ImageView
             android:id="@+id/roleImg"
             style="@style/ProfileIcon"
-
             android:src="@drawable/ic_role" />
 
         <TextView
@@ -164,6 +157,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:visibility="gone"/> <!-- Initially hidden -->
 
+    <!-- Reset Password Button -->
+    <LinearLayout
+        android:id="@+id/resetPasswordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="36dp"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/deleteButton"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/resetIcon"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:src="@drawable/ic_key"
+            style="@style/ProfileIcon"
+            android:contentDescription="Reset Password Icon"/>
+
+        <TextView
+            android:id="@+id/resetText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Reset your password"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:alpha="0.7"/>
+    </LinearLayout>
 
     <!-- Delete Button -->
     <LinearLayout
@@ -182,6 +206,7 @@
             android:id="@+id/deleteIcon"
             android:layout_width="34dp"
             android:layout_height="34dp"
+            style="@style/ProfileIcon"
             android:src="@drawable/ic_trash"
             android:contentDescription="Delete Icon"/>
 

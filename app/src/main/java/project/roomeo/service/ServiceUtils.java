@@ -8,7 +8,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceUtils {
-    public static final String SERVICE_API_PATH = "http://192.168.0.29:8084/api/";
+    public static final String SERVICE_API_PATH = "http://10.0.2.2:10085/api/";
 
 
     public static final String host = "host";
@@ -18,6 +18,7 @@ public class ServiceUtils {
     public static final String rating = "rating";
     public static final String report = "report";
     public static final String reservation = "reservation";
+    public static final String admin = "admin";
 
 
     public static OkHttpClient test(){
@@ -46,7 +47,6 @@ public class ServiceUtils {
     public static IRatingService ratingService = retrofit.create(IRatingService.class);
     public static IReportService reportService = retrofit.create(IReportService.class);
     public static IReservationService reservationService = retrofit.create(IReservationService.class);
-
-
+    public static IAccomodationService accommodationService = retrofit.create(IAccomodationService.class);
 
 }

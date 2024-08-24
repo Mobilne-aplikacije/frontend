@@ -2,7 +2,6 @@ package project.roomeo.components.host;
 
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,33 +16,34 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ReservationViewHolder extends RecyclerView.ViewHolder {
-    public TextView accommodationName;
-    public TextView accommodationAddress;
-    public TextView startDate;
-    public TextView endDate;
+
+    TextView accommodationName;
+    TextView accommodationAddress;
+    TextView startDate;
+    TextView endDate;
+    TextView price;
     private Accommodation accommodation;
-    public Button buttonAccept;
-    public Button buttonDecline;
-    public TextView price;
 
+    TextView numberOfPeople;
+    TextView requestedBy;
 
-    public ReservationViewHolder(View itemView) {
+    public ReservationViewHolder(@NonNull View itemView) {
         super(itemView);
-        // Inicijalizujte vaše komponente ovde
+
         accommodationName = itemView.findViewById(R.id.accommodationName);
         accommodationAddress = itemView.findViewById(R.id.accommodationAddress);
         startDate = itemView.findViewById(R.id.startDate);
         endDate = itemView.findViewById(R.id.endDate);
-        buttonAccept = itemView.findViewById(R.id.buttonAccept);
-        buttonDecline = itemView.findViewById(R.id.buttonDecline);
         price = itemView.findViewById(R.id.price);
+        numberOfPeople = itemView.findViewById(R.id.numberOfPeople);
+        requestedBy = itemView.findViewById(R.id.requestedBy);
     }
 
     public void bindData(Reservation item) {
         endDate.setText("To:       "+ item.getEndDate());
         startDate.setText("From:  "+ item.getStartDate());
         price.setText(item.getPrice()+"$");
-
+        numberOfPeople.setText("People: " + item.getNumberOfPeople());
         Call<Accommodation> call = ServiceUtils.adminService.getAccommodation(String.valueOf(item.getAccommodationId()));
         call.enqueue(new Callback<Accommodation>() {
             @Override
@@ -64,6 +64,5 @@ public class ReservationViewHolder extends RecyclerView.ViewHolder {
 
             }
         });
-
     }
 }

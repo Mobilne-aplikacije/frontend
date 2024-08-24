@@ -4,20 +4,35 @@ import project.roomeo.models.enums.ReservationRequestStatus;
 
 public class Reservation {
     private Long id;
-    private int accommodationId;
+
+    private Long accommodationId;
     private String startDate;
     private String endDate;
     private ReservationRequestStatus status;
     private int guestId;
     private int price;
+    private  int numberOfPeople;
+    private String accommodationName;
 
-    public Reservation(int accommodationId, String start, String end, ReservationRequestStatus status, int guestId, int price) {
+
+    public Reservation(long accommodationId, String start, String end, ReservationRequestStatus status, int guestId, int price, int numberOfPeople) {
         this.accommodationId = accommodationId;
         this.startDate = start;
         this.endDate = end;
         this.status = status;
         this.guestId = guestId;
         this.price = price;
+        this.numberOfPeople = numberOfPeople;
+    }
+
+
+    // Getters and setters
+    public String getAccommodationName() {
+        return accommodationName;
+    }
+
+    public void setAccommodationName(String accommodationName) {
+        this.accommodationName = accommodationName;
     }
 
     public Long getId() {
@@ -28,11 +43,11 @@ public class Reservation {
         this.id = id;
     }
 
-    public int getAccommodationId() {
+    public long getAccommodationId() {
         return accommodationId;
     }
 
-    public void setAccommodationId(int accommodationId) {
+    public void setAccommodationId(long accommodationId) {
         this.accommodationId = accommodationId;
     }
 
@@ -74,5 +89,13 @@ public class Reservation {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getNumberOfPeople() {
+        return numberOfPeople;
+    }
+
+    public void setNumberOfPeople(int numberOfPeople) {
+        this.numberOfPeople = numberOfPeople;
     }
 }

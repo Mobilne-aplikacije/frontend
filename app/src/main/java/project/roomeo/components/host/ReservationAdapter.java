@@ -1,11 +1,9 @@
 package project.roomeo.components.host;
 
-import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -14,11 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import project.roomeo.R;
-import project.roomeo.components.admin.AdminMainActivity;
-import project.roomeo.components.admin.RatingRequestsFragment;
-import project.roomeo.components.guest.GuestMainActivity;
-import project.roomeo.components.guest.GuestNotificationsFragment;
-import project.roomeo.models.Rating;
+import project.roomeo.models.Guest;
 import project.roomeo.models.Reservation;
 import project.roomeo.service.ServiceUtils;
 import retrofit2.Call;
@@ -47,76 +41,69 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ReservationViewHolder holder, int position) {
-        Reservation request = reservationList.get(position);
+        Reservation reservation = reservationList.get(position);
 
-        holder.bindData(request);
-        holder.buttonAccept.setOnClickListener(v -> {
+        holder.accommodationName.setText(reservation.getAccommodationName());
+        holder.startDate.setText(reservation.getStartDate());
+        holder.endDate.setText(reservation.getEndDate());
+        holder.price.setText(String.valueOf(reservation.getPrice()));
+        holder.numberOfPeople.setText(String.valueOf(reservation.getNumberOfPeople()));
 
-            Call<Reservation> call = ServiceUtils.reservationService.acceptReservationRequest(request.getId().toString());
-            call.enqueue(new Callback<Reservation>() {
-                @Override
-                public void onResponse(@NonNull Call<Reservation> call, @NonNull Response<Reservation> response) {
+        holder.bindData(reservation);
+        getGuestDetails((long) reservation.getGuestId(), guestDetails -> {
+            String fullName = guestDetails.getFirstName() + " " + guestDetails.getLastName();
 
-                    if (response.isSuccessful()) {
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                        builder.setMessage("Reservation accepted successfully.")
-                                .setCancelable(false)
-                                .setPositiveButton("OK", (dialog, id) -> {
-                                    HostReservationsFragment fragment = new HostReservationsFragment();
-                                    ((HostMainActivity) v.getContext()).loadFragment(fragment);
-                                });
-
-                        AlertDialog alert = builder.create();
-                        alert.show();
-
-                    } else {
-                        onFailure(call, new Throwable("API call failed with status code: " + response.code()));
-                    }
-                }
-
-                @Override
-                public void onFailure(@NonNull Call<Reservation> call, @NonNull Throwable t) {
-                    Log.e("ReservationAdapter", "API call failed: " + t.getMessage());
-
-                }
+            getCancelledReservationsCount(reservation.getGuestId(), cancelledCount -> {
+                String requestedByText = "Requested by: " + fullName + " (Number of Cancelations: " + cancelledCount + ")";
+                holder.requestedBy.setText(requestedByText);
             });
         });
 
-        holder.buttonDecline.setOnClickListener(v -> {
+    }
 
-            Call<Reservation> call = ServiceUtils.reservationService.declineReservationRequest(request.getId().toString());
-            call.enqueue(new Callback<Reservation>() {
-                @Override
-                public void onResponse(@NonNull Call<Reservation> call, @NonNull Response<Reservation> response) {
-
-                    if (response.isSuccessful()) {
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                        builder.setMessage("Reservation declined successfully.")
-                                .setCancelable(false)
-                                .setPositiveButton("OK", (dialog, id) -> {
-                                    HostReservationsFragment fragment = new HostReservationsFragment();
-                                    ((HostMainActivity) v.getContext()).loadFragment(fragment);
-                                });
-
-
-                        AlertDialog alert = builder.create();
-                        alert.show();
-
-                    } else {
-                        onFailure(call, new Throwable("API call failed with status code: " + response.code()));
-                    }
+    private void getGuestDetails(Long guestId, RequestAdapter.OnGuestDetailsReceivedListener listener) {
+        Call<Guest> call = ServiceUtils.guestService.getGuest(String.valueOf(guestId));
+        call.enqueue(new Callback<Guest>() {
+            @Override
+            public void onResponse(Call<Guest> call, Response<Guest> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    listener.onReceived(response.body());
+                } else {
+                    Log.e("ReservationAdapter", "Failed to get guest details.");
                 }
+            }
 
-                @Override
-                public void onFailure(@NonNull Call<Reservation> call, @NonNull Throwable t) {
-                    Log.e("ReservationAdapter", "API call failed: " + t.getMessage());
-
-                }
-            });
+            @Override
+            public void onFailure(Call<Guest> call, Throwable t) {
+                Log.e("ReservationAdapter", "API call failed: " + t.getMessage());
+            }
         });
     }
+
+    private void getCancelledReservationsCount(int guestId, RequestAdapter.OnCancelledCountReceivedListener listener) {
+        Call<Integer> call = ServiceUtils.guestService.getCancelledReservationsCount((long) guestId);
+        call.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    listener.onReceived(response.body());
+                } else {
+                    Log.e("ReservationAdapter", "Failed to get cancelled reservations count.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                Log.e("ReservationAdapter", "API call failed: " + t.getMessage());
+            }
+        });
+    }
+
+    public void updateList(List<Reservation> newList) {
+        reservationList = newList;
+        notifyDataSetChanged();
+    }
+
 
 
     @Override

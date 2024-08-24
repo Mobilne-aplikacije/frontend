@@ -2,10 +2,12 @@ package project.roomeo.service;
 
 
 import project.roomeo.DTO.RequestLoginDTO;
+import project.roomeo.DTO.RequestResetPasswordDTO;
 import project.roomeo.DTO.ResponseLoginDTO;
 import project.roomeo.DTO.UserDTO;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -28,6 +30,11 @@ public interface IUserService {
     @GET(ServiceUtils.user + "/{email}/resetPasswordByEmail")
     Call<UserDTO> findByEmail(@Path("email") String email);
 
+    @POST(ServiceUtils.user + "/{id}/resetPassword")
+    Call<Void> resetPassword(@Path("id") Long id, @Body RequestResetPasswordDTO resetPasswordDTO);
+
+    @DELETE(ServiceUtils.user + "/{id}")
+    Call<Void> deleteAccount(@Path("id") Long id);
 
 
 }

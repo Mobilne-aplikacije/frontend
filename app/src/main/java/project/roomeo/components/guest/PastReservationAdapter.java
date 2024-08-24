@@ -47,7 +47,7 @@ public class PastReservationAdapter extends RecyclerView.Adapter<PastReservation
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int accommodationId = request.getAccommodationId();
+                int accommodationId = (int) request.getAccommodationId();
                 RateAccommodationFragment fragment = new RateAccommodationFragment(accommodationId, request.getId());
                 ((GuestMainActivity) v.getContext()).loadFragment(fragment);
             }

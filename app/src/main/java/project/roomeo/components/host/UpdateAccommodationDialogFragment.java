@@ -110,19 +110,6 @@ public class UpdateAccommodationDialogFragment extends DialogFragment {
         checkBoxParking.setChecked(accommodation.isParking());
         checkBoxAC.setChecked(accommodation.isAirConditioner());
 
-        // Create and add checkboxes for eco-friendly amenities
-        Set<String> currentAmenities = new HashSet<>();
-        for (EcoFriendlyAmenity amenity : accommodation.getEcoFriendlyAmenities()) {
-            currentAmenities.add(amenity.getName().toString());
-        }
-
-        for (EcoAmenity amenity : EcoAmenity.values()) {
-            CheckBox checkBox = new CheckBox(requireContext());
-            checkBox.setText(amenity.name().replaceAll("([a-z])([A-Z])", "$1 $2")); // Adding space before capital letters
-            checkBox.setChecked(currentAmenities.contains(amenity.name()));
-            ecoLayout.addView(checkBox);
-        }
-
 
         photoAdapter = new PhotoAdapterUpd(requireContext(), photoList, position -> {
             // Handle removal of photo
@@ -165,25 +152,6 @@ public class UpdateAccommodationDialogFragment extends DialogFragment {
                 Log.e("UpdateAccommodation", "Invalid maximum guests format", e);
             }
 
-            // Handle eco-friendly amenities updates
-            List<EcoFriendlyAmenity> updatedAmenities = new ArrayList<>();
-            for (int i = 0; i < ecoLayout.getChildCount(); i++) {
-                CheckBox checkBox = (CheckBox) ecoLayout.getChildAt(i);
-                if (checkBox.isChecked()) {
-                    try {
-                        EcoFriendlyAmenity ecoAmenity = new EcoFriendlyAmenity();
-                        ecoAmenity.setName(EcoAmenity.valueOf(checkBox.getText().toString().replace(" ", "")));
-                        updatedAmenities.add(ecoAmenity);
-                    } catch (IllegalArgumentException e) {
-                        // Handle unknown eco-friendly amenities
-                    }
-                }
-            }
-            accommodation.setEcoFriendlyAmenities(updatedAmenities);
-            List<String> photoUrls = new ArrayList<>();
-            for (Bitmap bitmap : photoList) {
-                photoUrls.add(convertBitmapToString(bitmap));
-            }
 //            accommodation.setPhotos(photoUrls);
             Call<Accommodation> call = ServiceUtils.adminService.updateAccommodation(accommodation.getId().toString(), accommodation);
 

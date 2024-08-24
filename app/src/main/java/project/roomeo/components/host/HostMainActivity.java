@@ -18,12 +18,16 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import project.roomeo.DTO.TokenDTO;
 import project.roomeo.R;
 import project.roomeo.components.Login;
+import project.roomeo.components.UserLoginActivity;
+import project.roomeo.components.guest.GuestHomeFragment;
+import project.roomeo.models.Guest;
 
 public class HostMainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    HostAccommodationsFragment homeFragment;
+    GuestHomeFragment homeFragment;
     HostProfileFragment profileFragment;
     HostNotificationsFragment notificationsFragment;
     HostReservationsFragment reservationsFragment;
@@ -51,7 +55,7 @@ public class HostMainActivity extends AppCompatActivity implements BottomNavigat
 
         invalidateOptionsMenu();
 
-        homeFragment = new HostAccommodationsFragment();
+        homeFragment = new GuestHomeFragment();
         profileFragment = new HostProfileFragment();
         notificationsFragment = new HostNotificationsFragment();
         reservationsFragment = new HostReservationsFragment();
@@ -66,10 +70,7 @@ public class HostMainActivity extends AppCompatActivity implements BottomNavigat
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deletePreferences();
-                Intent intent = new Intent(HostMainActivity.this, Login.class);
-                startActivity(intent);
-                finish();
+                logout();
             }
         });
     }
@@ -90,6 +91,9 @@ public class HostMainActivity extends AppCompatActivity implements BottomNavigat
             case R.id.bottom_navbar_history:
                 currentFragment = reservationsFragment;
                 break;
+            case R.id.bottom_navbar_accomodations:
+                currentFragment = accommodationsFragment;
+                break;
         }
         if (currentFragment != null) {
             loadFragment(currentFragment);
@@ -97,7 +101,7 @@ public class HostMainActivity extends AppCompatActivity implements BottomNavigat
         return true;
     }
 
-    void loadFragment(Fragment fragment) {
+    public void loadFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.guest_content, fragment).commit();
     }
     private void deletePreferences(){
@@ -125,5 +129,20 @@ public class HostMainActivity extends AppCompatActivity implements BottomNavigat
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void logout() {
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor spEditor = sharedPreferences.edit();
+        spEditor.clear();
+        spEditor.apply();
+
+        TokenDTO tokenDTO = TokenDTO.getInstance();
+        tokenDTO.setAccessToken(null);
+        tokenDTO.setRefreshToken(null);
+
+        Intent intent = new Intent(this, UserLoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,25 +17,18 @@ import android.widget.ImageButton;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import project.roomeo.DTO.TokenDTO;
 import project.roomeo.R;
-import project.roomeo.components.Login;
-import project.roomeo.components.guest.GuestReservationsFragment;
+import project.roomeo.components.UserLoginActivity;
 
-public class AdminMainActivity extends AppCompatActivity  implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class AdminMainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    AdminHomeFragment homeFragment;
     AdminProfileFragment profileFragment;
-    UpdateRequestsFragment requestsFragment;
-    GuestReservationsFragment reservationsFragment;
-    AccommodationRequestsFragment accommodationRequestsFragment;
-    AccommodationEditFragment accommodationEditFragment;
-    RatingRequestsFragment ratingRequestsFragment;
-    UserReportRequestsFragment userReportRequestsFragment;
-    RatingReportRequestsFragment ratingReportRequestsFragment;
-    AdminRequestsFragment adminRequestsFragment;
+    UserReportRequestsFragment reportedUsersFragment;
+    AdminRatingsFragment adminRatingsFragment;
+    AccommodationRequestsFragment accommodationsApprovalFragment;
     Fragment currentFragment;
 
-    Integer id = 1;
     private Long myId;
     BottomNavigationView bottomNavigationView;
 
@@ -46,7 +38,6 @@ public class AdminMainActivity extends AppCompatActivity  implements BottomNavig
         setContentView(R.layout.activity_admin_main);
 
         SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
-        String myEmail = sharedPreferences.getString("pref_email", "");
         myId = sharedPreferences.getLong("pref_id", 0L);
 
         bottomNavigationView = findViewById(R.id.bottom_nav_admin);
@@ -57,50 +48,37 @@ public class AdminMainActivity extends AppCompatActivity  implements BottomNavig
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-
-        homeFragment = new AdminHomeFragment();
+        // Initialize fragments
         profileFragment = new AdminProfileFragment();
-        adminRequestsFragment = new AdminRequestsFragment();
-        reservationsFragment = new GuestReservationsFragment();
-        accommodationRequestsFragment = new AccommodationRequestsFragment();
-        accommodationEditFragment = new AccommodationEditFragment();
-        ratingRequestsFragment = new RatingRequestsFragment();
-        userReportRequestsFragment = new UserReportRequestsFragment();
-        ratingReportRequestsFragment = new RatingReportRequestsFragment();
-        currentFragment = homeFragment;
+        reportedUsersFragment = new UserReportRequestsFragment();
+        adminRatingsFragment = new AdminRatingsFragment();
+        accommodationsApprovalFragment = new AccommodationRequestsFragment();
+        currentFragment = profileFragment;
         loadFragment(currentFragment);
 
         ImageButton logoutButton = findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle logout click here
-                // For example, navigate to the login activity
-                deletePreferences();
-                Intent intent = new Intent(AdminMainActivity.this, Login.class);
-                startActivity(intent);
-                finish(); // This finishes the current activity, preventing the user from coming back to it using the back button
+                logout();
             }
         });
-
-
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment fragment = null;
         switch (item.getItemId()) {
             case R.id.bottom_navbar_profile:
                 currentFragment = profileFragment;
                 break;
-            case R.id.bottom_navbar_home:
-                currentFragment = homeFragment;
+            case R.id.bottom_navbar_reported_users:
+                currentFragment = reportedUsersFragment;
                 break;
-            case R.id.bottom_navbar_requests:
-                currentFragment = adminRequestsFragment;
+            case R.id.bottom_navbar_reported_comments:
+                currentFragment = adminRatingsFragment;
                 break;
-            case R.id.bottom_navbar_history:
-                currentFragment = reservationsFragment;
+            case R.id.bottom_navbar_accommodations_approval:
+                currentFragment = accommodationsApprovalFragment;
                 break;
         }
         if (currentFragment != null) {
@@ -113,13 +91,6 @@ public class AdminMainActivity extends AppCompatActivity  implements BottomNavig
         getSupportFragmentManager().beginTransaction().replace(R.id.guest_content, fragment).commit();
     }
 
-    private void deletePreferences(){
-        SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
-        SharedPreferences.Editor spEditor = sharedPreferences.edit();
-        spEditor.clear().commit();
-    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -130,22 +101,22 @@ public class AdminMainActivity extends AppCompatActivity  implements BottomNavig
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-
-        if (itemId == R.id.acc_requests) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.guest_content, accommodationRequestsFragment).commit();
-        }
-        if (itemId == R.id.acc_edit) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.guest_content, accommodationEditFragment).commit();
-        }
-        if (itemId == R.id.rating_requests) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.guest_content, ratingRequestsFragment).commit();
-        }
-        if (itemId == R.id.user_report_requests) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.guest_content, userReportRequestsFragment).commit();
-        }
-        if (itemId == R.id.rating_report_requests) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.guest_content, ratingReportRequestsFragment).commit();
-        }
+        // Handle menu item clicks here
         return super.onOptionsItemSelected(item);
+    }
+
+    private void logout() {
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor spEditor = sharedPreferences.edit();
+        spEditor.clear();
+        spEditor.apply();
+
+        TokenDTO tokenDTO = TokenDTO.getInstance();
+        tokenDTO.setAccessToken(null);
+        tokenDTO.setRefreshToken(null);
+
+        Intent intent = new Intent(this, UserLoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

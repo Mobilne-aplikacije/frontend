@@ -1,20 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:title="@string/profile"
         android:id="@+id/bottom_navbar_profile"
-        android:icon="@drawable/ic_person"/>
+        android:icon="@drawable/ic_person"
+        android:title="Profile" />
     <item
-        android:title="@string/home"
-        android:checked="true"
-        android:id="@+id/bottom_navbar_home"
-        android:icon="@drawable/ic_home"/>
+        android:id="@+id/bottom_navbar_reported_users"
+        android:icon="@drawable/ic_report"
+        android:title="Reported Users" />
     <item
-        android:title="Requests"
-        android:id="@+id/bottom_navbar_requests"
-        android:icon="@drawable/ic_notifications"/>
+        android:id="@+id/bottom_navbar_reported_comments"
+        android:icon="@drawable/ic_comment"
+        android:title="Reported Comments" />
     <item
-        android:title="@string/reservations"
-        android:id="@+id/bottom_navbar_history"
-        android:icon="@drawable/ic_calendar"/>
+        android:id="@+id/bottom_navbar_accommodations_approval"
+        android:icon="@drawable/ic_approval"
+        android:title="Accommodations Approval" />
 </menu>

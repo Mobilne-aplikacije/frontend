@@ -224,17 +224,6 @@
 
             </LinearLayout>
 
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/eko"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25px"
-                android:paddingStart="8dp"
-                android:text="Eco-friendly anemities"
-                android:textColor="#0EAF0E"
-                android:textSize="18sp" />
-
             <LinearLayout
                 android:id="@+id/ecoLayout"
                 android:layout_width="match_parent"

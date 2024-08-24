@@ -15,8 +15,10 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import project.roomeo.DTO.TokenDTO;
 import project.roomeo.R;
 import project.roomeo.components.Login;
+import project.roomeo.components.UserLoginActivity;
 
 public class GuestMainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -55,14 +57,10 @@ public class GuestMainActivity extends AppCompatActivity implements BottomNaviga
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle logout click here
-                // For example, navigate to the login activity
-                deletePreferences();
-                Intent intent = new Intent(GuestMainActivity.this, Login.class);
-                startActivity(intent);
-                finish(); // This finishes the current activity, preventing the user from coming back to it using the back button
+                logout();
             }
         });
+
     }
 
     @Override
@@ -97,4 +95,20 @@ public class GuestMainActivity extends AppCompatActivity implements BottomNaviga
         SharedPreferences.Editor spEditor = sharedPreferences.edit();
         spEditor.clear().commit();
     }
+
+    private void logout() {
+        SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor spEditor = sharedPreferences.edit();
+        spEditor.clear();
+        spEditor.apply();
+
+        TokenDTO tokenDTO = TokenDTO.getInstance();
+        tokenDTO.setAccessToken(null);
+        tokenDTO.setRefreshToken(null);
+
+        Intent intent = new Intent(this, UserLoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 }
